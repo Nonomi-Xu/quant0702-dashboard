@@ -134,14 +134,20 @@ button {
 
 .factor-info {
   display: grid;
-  grid-template-columns: 220px 180px minmax(0, 1fr);
+  grid-template-columns: minmax(360px, 1.4fr) minmax(220px, 0.9fr) minmax(160px, 0.45fr);
   gap: 16px;
+  margin-bottom: 16px;
+}
+
+.factor-formula-row {
+  display: grid;
   margin-bottom: 20px;
 }
 
 .info-card {
   display: grid;
   gap: 10px;
+  min-width: 0;
   padding: 18px;
   border-radius: 24px;
 }
@@ -153,14 +159,26 @@ button {
 }
 
 .info-card strong {
+  min-width: 0;
   font-size: 18px;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.field-card strong {
+  overflow-x: auto;
+  padding-bottom: 2px;
+  font-family: "Menlo", "Consolas", monospace;
+  font-size: 16px;
+  white-space: normal;
 }
 
 .formula-card strong {
   overflow-wrap: anywhere;
+  white-space: pre-wrap;
   font-family: "Menlo", "Consolas", monospace;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -275,6 +293,7 @@ dd {
   .panel-grid,
   .panel-grid + .panel-grid,
   .factor-info,
+  .factor-formula-row,
   .kpis {
     grid-template-columns: 1fr;
   }
