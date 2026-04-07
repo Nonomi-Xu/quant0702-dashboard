@@ -1,0 +1,62 @@
+{
+  "factor": "relative_strength_index_6",
+  "horizon": 5,
+  "updated_at": "2026-04-07",
+  "metadata": {
+    "field_name": "relative_strength_index_6",
+    "display_name": "RSI 6日相对强弱指标",
+    "formula": "RSI_6(t) = SMA(MAX(C(t)-C(t-1), 0), 6, 1) / SMA(ABS(C(t)-C(t-1)), 6, 1) * 100",
+    "source": "quant/factor/analysis/relative_strength_index_6/horizon_5"
+  },
+  "summary": {
+    "factor": "relative_strength_index_6",
+    "horizon": 5,
+    "ic_mean": 0.0187,
+    "ic_ir": 0.2415,
+    "ic_abs_gt_002_ratio": 0.5842,
+    "long_short_mean": 0.0048,
+    "long_short_sharpe": 1.02,
+    "long_short_max_drawdown": 0.0864,
+    "win_rate": 0.571,
+    "long_group_turnover": 0.386,
+    "short_group_turnover": 0.412,
+    "long_short_turnover": 0.399,
+    "ic_observations": 416
+  },
+  "monitor_latest": {
+    "trade_date": "2026-04-03",
+    "sample_count": 1842,
+    "null_count": 3,
+    "factor_mean": 0.0001,
+    "factor_std": 0.9998,
+    "coverage_ratio": 0.9984
+  },
+  "raw_monitor_latest": {
+    "trade_date": "2026-04-03",
+    "sample_count": 1842,
+    "null_count": 3,
+    "factor_mean": 48.7214,
+    "factor_std": 16.3821,
+    "coverage_ratio": 0.9984
+  },
+  "ic_timeseries": [
+    { "trade_date": "2026-03-02", "ic": 0.0458 },
+    { "trade_date": "2026-03-03", "ic": -0.0061 },
+    { "trade_date": "2026-03-04", "ic": 0.0224 },
+    { "trade_date": "2026-03-05", "ic": 0.0367 },
+    { "trade_date": "2026-03-06", "ic": -0.0142 },
+    { "trade_date": "2026-03-09", "ic": 0.0521 },
+    { "trade_date": "2026-03-10", "ic": 0.0189 },
+    { "trade_date": "2026-03-11", "ic": 0.0273 },
+    { "trade_date": "2026-03-12", "ic": -0.0095 },
+    { "trade_date": "2026-03-13", "ic": 0.0412 }
+  ],
+  "group_returns": {
+    "group_1": -0.0031,
+    "group_2": 0.0012,
+    "group_3": 0.0048,
+    "group_4": 0.0065,
+    "group_5": 0.0097,
+    "long_short": 0.0128
+  }
+}

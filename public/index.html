@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A股因子评测看板</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">A-Stock Factor Lab</p>
+          <h1>因子评测结果看板</h1>
+          <p class="subtitle">展示单因子在不同调仓周期下的字段定义、计算公式、IC、分组收益、换手率、最大回撤和数据健康度。</p>
+        </div>
+        <form class="control-card" id="query-form">
+          <label>
+            因子名
+            <input id="factor-input" name="factor" value="relative_strength_index_6" autocomplete="off" list="factor-options" />
+            <datalist id="factor-options"></datalist>
+          </label>
+          <label>
+            调仓周期
+            <select id="horizon-input" name="horizon">
+              <option value="1">1</option>
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+          </label>
+          <button type="submit">刷新看板</button>
+        </form>
+      </section>
+
+      <section class="status-bar">
+        <span id="dataset-label">等待加载</span>
+        <span id="updated-label">更新时间: -</span>
+      </section>
+
+      <section class="factor-info">
+        <article class="info-card">
+          <span>字段名</span>
+          <strong id="factor-field">-</strong>
+        </article>
+        <article class="info-card">
+          <span>调仓周期</span>
+          <strong id="rebalance-period">-</strong>
+        </article>
+        <article class="info-card formula-card">
+          <span>计算公式</span>
+          <strong id="factor-formula">-</strong>
+        </article>
+      </section>
+
+      <section class="panel summary-panel">
+        <div class="panel-heading">
+          <h2>Summary 指标</h2>
+          <span>自动展示后端 summary.parquet 中的所有字段</span>
+        </div>
+        <section class="grid kpis" id="kpi-grid"></section>
+      </section>
+
+      <section class="panel-grid">
+        <article class="panel wide">
+          <div class="panel-heading">
+            <h2>IC 时间序列</h2>
+            <span>|IC| > 0.02 的比例用于观察信号强度出现频率</span>
+          </div>
+          <canvas id="ic-chart" height="260"></canvas>
+        </article>
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>分组收益</h2>
+            <span>最高组减最低组即多空收益</span>
+          </div>
+          <canvas id="group-chart" height="260"></canvas>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>处理后监控</h2>
+            <span>中性化与 z-score 后</span>
+          </div>
+          <dl class="metrics-list" id="monitor-list"></dl>
+        </article>
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>原始监控</h2>
+            <span>股票池过滤后、预处理前</span>
+          </div>
+          <dl class="metrics-list" id="raw-monitor-list"></dl>
+        </article>
+      </section>
+    </main>
+    <script type="module" src="/assets/app.js"></script>
+  </body>
+</html>
