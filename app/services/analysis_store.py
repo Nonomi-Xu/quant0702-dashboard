@@ -17,35 +17,76 @@ class AnalysisStore:
             return {}
         return json.loads(self.metadata_file.read_text(encoding="utf-8"))
 
-    def list_factors(self) -> list[str]:
-        metadata = self.read_factor_metadata()
-        if metadata:
-            return sorted(metadata)
+    def _has_analysis_result(self, factor_dir: Path) -> bool:
+        return any(
+            path.is_dir()
+            and path.name.startswith("horizon_")
+            and (path / "analysis.json").exists()
+            for path in factor_dir.iterdir()
+        )
 
+    def list_factors(self) -> list[str]:
         factors_dir = self.data_dir / "factors"
         if not factors_dir.exists():
-            sample = self.read_analysis("relative_strength_index_6", "5")
-            return [sample.get("factor", "relative_strength_index_6")]
-        factors = [path.name for path in factors_dir.iterdir() if path.is_dir()]
-        return sorted(factors) or ["relative_strength_index_6"]
+            return []
+        factors = [
+            path.name
+            for path in factors_dir.iterdir()
+            if path.is_dir() and self._has_analysis_result(path)
+        ]
+        return sorted(factors)
 
     def list_horizons(self, factor: str) -> list[int]:
         factor_dir = self.data_dir / "factors" / factor
         if not factor_dir.exists():
-            return [1, 5, 10, 20]
+            return []
 
         horizons: list[int] = []
         for path in factor_dir.iterdir():
-            if path.is_dir() and path.name.startswith("horizon_"):
+            if path.is_dir() and path.name.startswith("horizon_") and (path / "analysis.json").exists():
                 try:
                     horizons.append(int(path.name.removeprefix("horizon_")))
                 except ValueError:
                     continue
-        return sorted(horizons) or [1, 5, 10, 20]
+        return sorted(horizons)
+
+    def _analysis_file(self, factor: str, horizon: str | int) -> Path:
+        return self.data_dir / "factors" / factor / f"horizon_{horizon}" / "analysis.json"
+
+    def _read_real_analysis(self, factor: str, horizon: str | int) -> dict[str, Any] | None:
+        target_file = self._analysis_file(factor, horizon)
+        if not target_file.exists():
+            return None
+
+        payload = json.loads(target_file.read_text(encoding="utf-8"))
+        payload.setdefault("factor", factor)
+        payload.setdefault("horizon", int(horizon))
+        payload.setdefault("updated_at", datetime.fromtimestamp(target_file.stat().st_mtime).date().isoformat())
+        return payload
+
+    def compare_factor_horizons(self, factor: str) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        for horizon in self.list_horizons(factor):
+            payload = self._read_real_analysis(factor, horizon)
+            if payload is None:
+                continue
+            rows.append(payload.get("summary", {}))
+
+        return rows
+
+    def compare_horizon_factors(self, horizon: str | int) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        for factor in self.list_factors():
+            payload = self._read_real_analysis(factor, horizon)
+            if payload is None:
+                continue
+            rows.append(payload.get("summary", {}))
+
+        return rows
 
     def read_analysis(self, factor: str, horizon: str | int) -> dict[str, Any]:
         horizon_value = str(horizon)
-        target_file = self.data_dir / "factors" / factor / f"horizon_{horizon_value}" / "analysis.json"
+        target_file = self._analysis_file(factor, horizon_value)
         if not target_file.exists():
             target_file = self.sample_file
         payload = json.loads(target_file.read_text(encoding="utf-8"))

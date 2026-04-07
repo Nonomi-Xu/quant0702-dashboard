@@ -17,8 +17,7 @@
         <form class="control-card" id="query-form">
           <label>
             因子名
-            <input id="factor-input" name="factor" value="relative_strength_index_6" autocomplete="off" list="factor-options" />
-            <datalist id="factor-options"></datalist>
+            <select id="factor-input" name="factor"></select>
           </label>
           <label>
             调仓周期
@@ -66,6 +65,26 @@
           <span>自动展示后端 summary.parquet 中的所有字段</span>
         </div>
         <section class="grid kpis" id="kpi-grid"></section>
+      </section>
+
+      <section class="panel comparison-panel">
+        <div class="panel-heading">
+          <h2>同因子调仓周期对比</h2>
+          <span>同一个因子在已完成 horizon 下的 summary 横向比较</span>
+        </div>
+        <div class="table-scroll">
+          <table class="comparison-table" id="factor-horizon-table"></table>
+        </div>
+      </section>
+
+      <section class="panel comparison-panel">
+        <div class="panel-heading">
+          <h2>同周期全因子对比</h2>
+          <span>当前调仓周期下已完成因子的 summary 横向比较</span>
+        </div>
+        <div class="table-scroll">
+          <table class="comparison-table" id="horizon-factor-table"></table>
+        </div>
       </section>
 
       <section class="panel-grid">

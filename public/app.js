@@ -34,10 +34,55 @@ const percentKeys = new Set([
   "long_short_turnover",
 ]);
 
+const summaryKeyOrder = [
+  "factor",
+  "horizon",
+  "ic_mean",
+  "ic_ir",
+  "ic_abs_gt_002_ratio",
+  "long_short_mean",
+  "long_short_sharpe",
+  "long_short_max_drawdown",
+  "win_rate",
+  "long_group_turnover",
+  "short_group_turnover",
+  "long_short_turnover",
+  "ic_observations",
+];
+
 function formatSummaryValue(key, value) {
   if (percentKeys.has(key)) return formatPercent(value);
   if (typeof value === "number") return formatNumber(value);
   return value ?? "-";
+}
+
+function summaryTableColumns(rows) {
+  const presentKeys = new Set(rows.flatMap((row) => Object.keys(row)));
+  const orderedKeys = summaryKeyOrder.filter((key) => presentKeys.has(key));
+  const extraKeys = [...presentKeys].filter((key) => !summaryKeyOrder.includes(key)).sort();
+  return [...orderedKeys, ...extraKeys];
+}
+
+function renderSummaryTable(target, rows) {
+  const table = document.querySelector(target);
+  if (!rows?.length) {
+    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无已完成的评测结果</td></tr></tbody>`;
+    return;
+  }
+
+  const columns = summaryTableColumns(rows);
+  table.innerHTML = `
+    <thead>
+      <tr>${columns.map((key) => `<th>${summaryLabels[key] ?? key}</th>`).join("")}</tr>
+    </thead>
+    <tbody>
+      ${rows.map((row) => `
+        <tr>
+          ${columns.map((key) => `<td>${formatSummaryValue(key, row[key])}</td>`).join("")}
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
 }
 
 function renderKpis(summary) {
@@ -151,6 +196,11 @@ function renderMetrics(target, payload) {
 }
 
 async function loadDashboard(factor, horizon) {
+  if (!factor || !horizon) {
+    document.querySelector("#dataset-label").textContent = "暂无已完成的因子评测结果";
+    return;
+  }
+
   const response = await fetch(`/api/analysis?factor=${encodeURIComponent(factor)}&horizon=${encodeURIComponent(horizon)}`);
   if (!response.ok) throw new Error(`请求失败: ${response.status}`);
   const data = await response.json();
@@ -164,16 +214,36 @@ async function loadDashboard(factor, horizon) {
   renderMetrics("#raw-monitor-list", data.raw_monitor_latest);
   drawLineChart(document.querySelector("#ic-chart"), data.ic_timeseries);
   drawGroupChart(document.querySelector("#group-chart"), data.group_returns);
+  await loadSummaryComparisons(factor, horizon);
+}
+
+async function loadSummaryComparisons(factor, horizon) {
+  const [factorResponse, horizonResponse] = await Promise.all([
+    fetch(`/api/comparisons/factor/${encodeURIComponent(factor)}/summary`),
+    fetch(`/api/comparisons/horizon/${encodeURIComponent(horizon)}/summary`),
+  ]);
+
+  if (factorResponse.ok) {
+    const payload = await factorResponse.json();
+    renderSummaryTable("#factor-horizon-table", payload.rows ?? []);
+  }
+
+  if (horizonResponse.ok) {
+    const payload = await horizonResponse.json();
+    renderSummaryTable("#horizon-factor-table", payload.rows ?? []);
+  }
 }
 
 async function loadFactorOptions() {
   const response = await fetch("/api/factors");
-  if (!response.ok) return;
+  if (!response.ok) return [];
   const data = await response.json();
-  const datalist = document.querySelector("#factor-options");
-  datalist.innerHTML = (data.factors ?? [])
-    .map((factor) => `<option value="${factor}"></option>`)
+  const factors = data.factors ?? [];
+  const select = document.querySelector("#factor-input");
+  select.innerHTML = factors
+    .map((factor) => `<option value="${factor}">${factor}</option>`)
     .join("");
+  return factors;
 }
 
 async function loadHorizonOptions(factor) {
@@ -182,17 +252,18 @@ async function loadHorizonOptions(factor) {
   const data = await response.json();
   const select = document.querySelector("#horizon-input");
   const currentValue = select.value;
-  select.innerHTML = (data.horizons ?? [1, 5, 10, 20])
+  const horizons = data.horizons ?? [];
+  select.innerHTML = horizons
     .map((horizon) => `<option value="${horizon}">${horizon} 个交易日</option>`)
     .join("");
   select.value = [...select.options].some((option) => option.value === currentValue)
     ? currentValue
-    : select.options[0]?.value ?? "5";
+    : select.options[0]?.value ?? "";
 }
 
 document.querySelector("#query-form").addEventListener("submit", (event) => {
   event.preventDefault();
-  const factor = document.querySelector("#factor-input").value.trim() || "relative_strength_index_6";
+  const factor = document.querySelector("#factor-input").value.trim();
   loadHorizonOptions(factor).then(() => loadDashboard(
     factor,
     document.querySelector("#horizon-input").value
@@ -201,6 +272,36 @@ document.querySelector("#query-form").addEventListener("submit", (event) => {
   });
 });
 
-loadFactorOptions();
-loadHorizonOptions("relative_strength_index_6");
-loadDashboard("relative_strength_index_6", "5");
+async function bootDashboard() {
+  const factors = await loadFactorOptions();
+  const initialFactor = factors[0] ?? "";
+  const factorInput = document.querySelector("#factor-input");
+  factorInput.value = initialFactor;
+  if (!initialFactor) {
+    document.querySelector("#dataset-label").textContent = "暂无已完成的因子评测结果";
+    return;
+  }
+  await loadHorizonOptions(initialFactor);
+  await loadDashboard(initialFactor, document.querySelector("#horizon-input").value);
+}
+
+document.querySelector("#factor-input").addEventListener("change", (event) => {
+  const factor = event.target.value;
+  loadHorizonOptions(factor)
+    .then(() => loadDashboard(factor, document.querySelector("#horizon-input").value))
+    .catch((error) => {
+      document.querySelector("#dataset-label").textContent = error.message;
+    });
+});
+
+document.querySelector("#horizon-input").addEventListener("change", () => {
+  const factor = document.querySelector("#factor-input").value;
+  loadDashboard(factor, document.querySelector("#horizon-input").value)
+    .catch((error) => {
+      document.querySelector("#dataset-label").textContent = error.message;
+    });
+});
+
+bootDashboard().catch((error) => {
+  document.querySelector("#dataset-label").textContent = error.message;
+});

@@ -45,6 +45,22 @@ def get_analysis(factor: str = "relative_strength_index_6", horizon: int = 5) ->
         raise HTTPException(status_code=404, detail=str(error)) from error
 
 
+@app.get("/api/comparisons/factor/{factor}/summary")
+def compare_factor_horizons(factor: str) -> dict[str, object]:
+    return {
+        "factor": factor,
+        "rows": store.compare_factor_horizons(factor),
+    }
+
+
+@app.get("/api/comparisons/horizon/{horizon}/summary")
+def compare_horizon_factors(horizon: int) -> dict[str, object]:
+    return {
+        "horizon": horizon,
+        "rows": store.compare_horizon_factors(horizon),
+    }
+
+
 app.mount("/assets", StaticFiles(directory=PUBLIC_DIR), name="assets")
 
 
