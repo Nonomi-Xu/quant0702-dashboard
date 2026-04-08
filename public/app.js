@@ -41,6 +41,9 @@ const summaryLabels = {
   short_group_turnover: "最低组换手",
   long_short_turnover: "多空换手率",
   ic_observations: "IC观测数",
+  avg_daily_sample_count: "日均有效股票数",
+  min_daily_sample_count: "最小有效股票数",
+  max_daily_sample_count: "最大有效股票数",
   updated_at: "更新时间",
 };
 
@@ -74,11 +77,15 @@ const summaryKeyOrder = [
   "short_group_turnover",
   "long_short_turnover",
   "ic_observations",
+  "avg_daily_sample_count",
+  "min_daily_sample_count",
+  "max_daily_sample_count",
 ];
 
 const hiddenKpiKeys = new Set(["factor", "updated_at"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
+let candidateLibrarySourceRows = [];
 let candidateLibraryRows = [];
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
@@ -98,6 +105,9 @@ const kpiKeyOrder = [
   "long_group_turnover",
   "short_group_turnover",
   "ic_observations",
+  "avg_daily_sample_count",
+  "min_daily_sample_count",
+  "max_daily_sample_count",
   "horizon",
 ];
 
@@ -214,23 +224,44 @@ function renderSummaryCell(target, key, row) {
 }
 
 function candidateSearchKeyword() {
-  return document.querySelector("#candidate-factor-search")?.value.trim().toLowerCase() ?? "";
+  return normalizeSearchText(document.querySelector("#candidate-factor-search")?.value ?? "");
+}
+
+function normalizeSearchText(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replaceAll(/\s+/g, "")
+    .replaceAll(/[_\-./（）()]/g, "");
+}
+
+function rowSearchHaystack(row) {
+  const factorKey = row.factor_key ?? "";
+  const metadataLabel = factorLabelMap.get(factorKey) ?? "";
+  return [
+    factorKey,
+    row.factor,
+    metadataLabel,
+    ...Object.values(row),
+  ].map(normalizeSearchText).join(" ");
 }
 
 function rowMatchesCandidateSearch(row) {
   const keyword = candidateSearchKeyword();
   if (!keyword) return true;
 
-  const factorKey = String(row.factor_key ?? row.factor ?? "").toLowerCase();
-  const factorName = String(row.factor ?? "").toLowerCase();
-  const factorLabel = String(factorLabelMap.get(row.factor_key) ?? "").toLowerCase();
-
-  return [factorKey, factorName, factorLabel].some((text) => text.includes(keyword));
+  return rowSearchHaystack(row).includes(keyword);
 }
 
-function renderCandidateLibraryTable(rows) {
-  candidateLibraryRows = rows;
-  renderSummaryTable("#candidate-factor-table", rows.filter(rowMatchesCandidateSearch));
+function setCandidateLibraryRows(rows) {
+  candidateLibrarySourceRows = rows;
+  renderCandidateLibraryTable();
+}
+
+function renderCandidateLibraryTable() {
+  candidateLibraryRows = candidateLibrarySourceRows.filter(rowMatchesCandidateSearch);
+  document.querySelector("#candidate-search-count").textContent =
+    `显示 ${candidateLibraryRows.length} / ${candidateLibrarySourceRows.length}`;
+  renderSummaryTable("#candidate-factor-table", candidateLibraryRows);
 }
 
 function renderSummaryTable(target, rows) {
@@ -549,7 +580,7 @@ function selectedCandidateHorizons() {
 async function loadCandidateLibrary() {
   const horizons = selectedCandidateHorizons();
   if (!horizons.length) {
-    renderCandidateLibraryTable([]);
+    setCandidateLibraryRows([]);
     return;
   }
 
@@ -562,7 +593,7 @@ async function loadCandidateLibrary() {
       .map((response) => response.json())
   );
   const rows = payloads.flatMap((payload) => payload.rows ?? []);
-  renderCandidateLibraryTable(rows);
+  setCandidateLibraryRows(rows);
 }
 
 function activateFactorFromTable(factor, horizon) {
@@ -596,7 +627,7 @@ document.addEventListener("click", (event) => {
       direction: current?.key === key && current.direction === "desc" ? "asc" : "desc",
     };
     if (target === "#candidate-factor-table") {
-      renderCandidateLibraryTable(candidateLibraryRows);
+      renderCandidateLibraryTable();
       return;
     }
     loadSummaryComparisons(
@@ -632,8 +663,10 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
   });
 });
 
-document.querySelector("#candidate-factor-search").addEventListener("input", () => {
-  renderCandidateLibraryTable(candidateLibraryRows);
+["input", "change", "search", "keyup", "compositionend"].forEach((eventName) => {
+  document.querySelector("#candidate-factor-search").addEventListener(eventName, () => {
+    renderCandidateLibraryTable();
+  });
 });
 
 document.querySelectorAll(".top-nav-item").forEach((item) => {

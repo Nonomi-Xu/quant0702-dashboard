@@ -278,8 +278,8 @@ body[data-view="detail"] #candidate-factor-library {
   font-weight: 900;
 }
 
-.candidate-search-row {
-  margin: 4px 0 16px;
+.candidate-heading {
+  align-items: center;
 }
 
 .candidate-search {
@@ -287,11 +287,15 @@ body[data-view="detail"] #candidate-factor-library {
   grid-template-columns: auto minmax(260px, 1fr);
   gap: 12px;
   align-items: center;
-  width: 100%;
+  width: min(520px, 52vw);
   color: var(--muted);
 }
 
 .candidate-search span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+  text-align: left;
   white-space: nowrap;
 }
 
@@ -330,6 +334,13 @@ body[data-view="detail"] #candidate-factor-library {
 .horizon-chip input {
   width: auto;
   margin: 0;
+}
+
+.candidate-search-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .candidate-table-scroll {

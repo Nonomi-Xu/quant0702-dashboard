@@ -16,12 +16,12 @@
       </nav>
 
       <section class="panel candidate-library-panel top-page" id="candidate-factor-library">
-        <div class="panel-heading">
-          <h2>候选因子库</h2>
-          <span>按调仓周期查看已完成评测的所有因子</span>
-        </div>
-        <div class="candidate-search-row">
-          <label class="candidate-search" for="candidate-factor-search">
+        <div class="panel-heading candidate-heading">
+          <div>
+            <h2>候选因子库</h2>
+            <span>按调仓周期查看已完成评测的所有因子</span>
+          </div>
+          <label class="candidate-search">
             <span>搜索因子</span>
             <input
               type="search"
@@ -53,6 +53,7 @@
             <input type="checkbox" class="candidate-horizon" value="20" checked />
             20天
           </label>
+          <span class="candidate-search-count" id="candidate-search-count">显示 0 / 0</span>
         </div>
         <div class="table-scroll candidate-table-scroll">
           <table class="comparison-table candidate-factor-table" id="candidate-factor-table"></table>
