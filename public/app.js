@@ -3,14 +3,14 @@ const formatNumber = (value, digits = 4) => {
   return Number(value).toFixed(digits);
 };
 
-const formatPercent = (value) => {
+const formatPercent = (value, digits = 2) => {
   if (value === null || value === undefined || Number.isNaN(Number(value))) return "-";
-  return `${(Number(value) * 100).toFixed(2)}%`;
+  return `${(Number(value) * 100).toFixed(digits)}%`;
 };
 
 const summaryLabels = {
   factor: "因子名",
-  horizon: "调仓周期",
+  horizon: "调仓周期（天）",
   ic_mean: "IC均值",
   ic_ir: "ICIR",
   ic_abs_gt_002_ratio: "|IC|>0.02比例",
@@ -62,10 +62,10 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function formatSummaryValue(key, value) {
+function formatSummaryValue(key, value, digits = 4) {
   if (key === "factor") return factorLabelMap.get(value) ?? value ?? "-";
-  if (percentKeys.has(key)) return formatPercent(value);
-  if (typeof value === "number") return formatNumber(value);
+  if (percentKeys.has(key)) return formatPercent(value, digits);
+  if (typeof value === "number") return formatNumber(value, digits);
   return value ?? "-";
 }
 
@@ -83,7 +83,8 @@ function renderSummaryTable(target, rows) {
     return;
   }
 
-  const columns = summaryTableColumns(rows);
+  const hiddenColumns = target === "#factor-horizon-table" ? new Set(["ic_observations"]) : new Set();
+  const columns = summaryTableColumns(rows).filter((key) => !hiddenColumns.has(key));
   table.innerHTML = `
     <thead>
       <tr>${columns.map((key) => `<th>${escapeHtml(summaryLabels[key] ?? key)}</th>`).join("")}</tr>
@@ -91,7 +92,7 @@ function renderSummaryTable(target, rows) {
     <tbody>
       ${rows.map((row) => `
         <tr>
-          ${columns.map((key) => `<td>${escapeHtml(formatSummaryValue(key, row[key]))}</td>`).join("")}
+          ${columns.map((key) => `<td>${escapeHtml(formatSummaryValue(key, row[key], 1))}</td>`).join("")}
         </tr>
       `).join("")}
     </tbody>

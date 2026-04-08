@@ -37,18 +37,22 @@ class AnalysisStore:
         return sorted(factors)
 
     def factor_options(self, factors: list[str]) -> list[dict[str, str]]:
+        return [{"value": factor, "label": self.factor_display_label(factor)} for factor in factors]
+
+    def factor_display_label(self, factor: str) -> str:
         metadata = self.read_factor_metadata()
-        options: list[dict[str, str]] = []
-        for factor in factors:
-            factor_metadata = metadata.get(factor, {})
-            label = (
-                factor_metadata.get("display_label")
-                or factor_metadata.get("display_name")
-                or factor_metadata.get("label")
-                or factor
-            )
-            options.append({"value": factor, "label": label})
-        return options
+        factor_metadata = metadata.get(factor, {})
+        return (
+            factor_metadata.get("display_label")
+            or factor_metadata.get("display_name")
+            or factor_metadata.get("label")
+            or factor
+        )
+
+    def summary_with_display_factor(self, summary: dict[str, Any], factor: str) -> dict[str, Any]:
+        row = dict(summary)
+        row["factor"] = self.factor_display_label(factor)
+        return row
 
     def list_horizons(self, factor: str) -> list[int]:
         factor_dir = self.data_dir / "factors" / factor
@@ -84,7 +88,7 @@ class AnalysisStore:
             payload = self._read_real_analysis(factor, horizon)
             if payload is None:
                 continue
-            rows.append(payload.get("summary", {}))
+            rows.append(self.summary_with_display_factor(payload.get("summary", {}), factor))
 
         return rows
 
@@ -94,7 +98,7 @@ class AnalysisStore:
             payload = self._read_real_analysis(factor, horizon)
             if payload is None:
                 continue
-            rows.append(payload.get("summary", {}))
+            rows.append(self.summary_with_display_factor(payload.get("summary", {}), factor))
 
         return rows
 
