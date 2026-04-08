@@ -278,12 +278,16 @@ body[data-view="detail"] #candidate-factor-library {
   font-weight: 900;
 }
 
+.candidate-search-row {
+  margin: 4px 0 16px;
+}
+
 .candidate-search {
-  display: inline-grid;
-  grid-template-columns: auto minmax(220px, 320px);
-  gap: 10px;
+  display: grid;
+  grid-template-columns: auto minmax(260px, 1fr);
+  gap: 12px;
   align-items: center;
-  width: auto;
+  width: 100%;
   color: var(--muted);
 }
 
@@ -293,10 +297,10 @@ body[data-view="detail"] #candidate-factor-library {
 
 .candidate-search input {
   width: 100%;
-  min-height: 38px;
-  padding: 8px 13px;
+  min-height: 44px;
+  padding: 10px 16px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 18px;
   color: var(--ink);
   background: rgba(255, 255, 255, 0.72);
   font: inherit;

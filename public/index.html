@@ -20,16 +20,18 @@
           <h2>候选因子库</h2>
           <span>按调仓周期查看已完成评测的所有因子</span>
         </div>
-        <div class="candidate-toolbar">
-          <label class="candidate-search">
+        <div class="candidate-search-row">
+          <label class="candidate-search" for="candidate-factor-search">
             <span>搜索因子</span>
             <input
               type="search"
               id="candidate-factor-search"
-              placeholder="输入中文名或英文字段名"
+              placeholder="输入中文名或英文字段名，例如 BIAS / bias_ratio"
               autocomplete="off"
             />
           </label>
+        </div>
+        <div class="candidate-toolbar">
           <span>调仓周期筛选</span>
           <label class="horizon-chip">
             <input type="checkbox" id="candidate-horizon-all" checked />
