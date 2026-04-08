@@ -55,20 +55,6 @@ const factorLabelMap = new Map();
 const tableSortState = {};
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
-const kpiHelpText = {
-  horizon: "当前评测持有周期",
-  ic_mean: "横截面排序能力",
-  ic_ir: "IC稳定性",
-  ic_abs_gt_002_ratio: "有效信号出现频率",
-  long_short_mean: "最高组减最低组",
-  long_short_sharpe: "风险调整后表现",
-  long_short_max_drawdown: "多空组合回撤风险",
-  win_rate: "多空收益为正比例",
-  long_group_turnover: "最高因子组调仓幅度",
-  short_group_turnover: "最低因子组调仓幅度",
-  long_short_turnover: "多空组合综合换手",
-  ic_observations: "参与IC统计的日期数",
-};
 const kpiKeyOrder = [
   "ic_mean",
   "ic_ir",
@@ -203,7 +189,6 @@ function renderKpis(summary) {
       <article class="kpi-card ${primaryKpiKeys.has(key) ? "primary-kpi" : "secondary-kpi"}">
         <span class="kpi-label">${escapeHtml(summaryLabels[key] ?? key)}</span>
         <span class="kpi-value">${escapeHtml(formatSummaryValue(key, value, primaryKpiKeys.has(key) ? 3 : 2))}</span>
-        <span class="kpi-hint">${escapeHtml(kpiHelpText[key] ?? "summary 指标")}</span>
       </article>
     `)
     .join("");
@@ -211,6 +196,15 @@ function renderKpis(summary) {
 
 function renderFactorInfo(data) {
   const metadata = data.metadata ?? {};
+  const fieldName = metadata.field_name ?? data.factor ?? "-";
+  const displayLabel = metadata.display_label
+    ?? factorLabelMap.get(data.factor)
+    ?? metadata.display_name
+    ?? metadata.label
+    ?? data.factor
+    ?? "-";
+  document.querySelector("#hero-title").textContent = displayLabel;
+  document.querySelector("#hero-subtitle").textContent = fieldName;
   document.querySelector("#factor-field").textContent = metadata.field_name ?? data.factor ?? "-";
   document.querySelector("#factor-description").textContent = metadata.display_name ?? metadata.label ?? "-";
   document.querySelector("#factor-parameters").textContent = metadata.parameter_text || "-";
