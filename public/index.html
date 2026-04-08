@@ -8,6 +8,12 @@
   </head>
   <body>
     <main class="shell">
+      <nav class="top-nav" aria-label="因子功能导航">
+        <a class="top-nav-item active" href="#candidate-factor-library">候选因子库</a>
+        <a class="top-nav-item" href="#alpha-factor-library">Alpha因子库</a>
+        <a class="top-nav-item" href="#factor-portfolio-test">因子组合测试</a>
+      </nav>
+
       <section class="hero">
         <div>
           <p class="eyebrow">A-Stock Factor Lab</p>
@@ -67,7 +73,6 @@
         <article class="panel wide ic-panel">
           <div class="panel-heading">
             <h2>IC 时间序列</h2>
-            <span>|IC| > 0.02 的比例用于观察信号强度出现频率</span>
           </div>
           <canvas id="ic-chart" height="420"></canvas>
         </article>
