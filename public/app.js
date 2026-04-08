@@ -115,6 +115,7 @@ function renderFactorInfo(data) {
   const metadata = data.metadata ?? {};
   document.querySelector("#factor-field").textContent = metadata.field_name ?? data.factor ?? "-";
   document.querySelector("#factor-description").textContent = metadata.display_name ?? metadata.label ?? "-";
+  document.querySelector("#factor-parameters").textContent = metadata.parameter_text || "-";
   document.querySelector("#factor-formula").textContent = metadata.formula ?? "-";
   document.querySelector("#rebalance-period").textContent = `${data.horizon ?? "-"} 个交易日`;
 }

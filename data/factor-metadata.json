@@ -2,6 +2,11 @@
   "accumulation_swing_index_26": {
     "field_name": "accumulation_swing_index_26",
     "display_name": "ASI振动升降指标",
+    "display_label": "ASI振动升降指标_26",
+    "parameters": {
+      "N": 26
+    },
+    "parameter_text": "N=26",
     "formula": "ASI(i,t) = sum(SI(i,t-25), ..., SI(i,t))",
     "category": "accumulation_swing_index",
     "required_fields": [
@@ -22,6 +27,12 @@
   "accumulation_swing_index_average_26_10": {
     "field_name": "accumulation_swing_index_average_26_10",
     "display_name": "ASIT平滑振动升降指标",
+    "display_label": "ASIT平滑振动升降指标_26_10",
+    "parameters": {
+      "N": 26,
+      "M": 10
+    },
+    "parameter_text": "N=26, M=10",
     "formula": "ASIT(i,t) = mean(ASI(i,t-9), ..., ASI(i,t))",
     "category": "accumulation_swing_index",
     "required_fields": [
@@ -42,6 +53,11 @@
   "average_true_range_20": {
     "field_name": "average_true_range_20",
     "display_name": "真实波动20日平均值",
+    "display_label": "真实波动20日平均值_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
     "formula": "ATR(i,t) = mean(TR(i,t-19), ..., TR(i,t))",
     "category": "average_true_range",
     "required_fields": [
@@ -61,6 +77,14 @@
   "bull_and_bear_index_3_6_12_21": {
     "field_name": "bull_and_bear_index_3_6_12_21",
     "display_name": "BBI多空指标",
+    "display_label": "BBI多空指标_3_6_12_21",
+    "parameters": {
+      "M1": 3,
+      "M2": 6,
+      "M3": 12,
+      "M4": 21
+    },
+    "parameter_text": "M1=3, M2=6, M3=12, M4=21",
     "formula": "BBI(i,t) = (MA3 + MA6 + MA12 + MA21) / 4",
     "category": "bull_and_bear_index",
     "required_fields": [
@@ -78,6 +102,11 @@
   "popularity_index_ar_26": {
     "field_name": "popularity_index_ar_26",
     "display_name": "BRAR人气指标AR",
+    "display_label": "BRAR人气指标AR_26",
+    "parameters": {
+      "M1": 26
+    },
+    "parameter_text": "M1=26",
     "formula": "AR(i,t) = sum(H(i,t-k)-O(i,t-k), k=0..25) / sum(O(i,t-k)-L(i,t-k), k=0..25) * 100",
     "category": "popularity_willingness_index",
     "required_fields": [
@@ -98,6 +127,11 @@
   "willingness_index_br_26": {
     "field_name": "willingness_index_br_26",
     "display_name": "BRAR意愿指标BR",
+    "display_label": "BRAR意愿指标BR_26",
+    "parameters": {
+      "M1": 26
+    },
+    "parameter_text": "M1=26",
     "formula": "BR(i,t) = sum(max(0,H(i,t-k)-C(i,t-k-1)), k=0..25) / sum(max(0,C(i,t-k-1)-L(i,t-k)), k=0..25) * 100",
     "category": "popularity_willingness_index",
     "required_fields": [
@@ -118,6 +152,12 @@
   "bollinger_lower_band_20_2": {
     "field_name": "bollinger_lower_band_20_2",
     "display_name": "BOLL下轨",
+    "display_label": "BOLL下轨_20_2",
+    "parameters": {
+      "N": 20,
+      "P": 2
+    },
+    "parameter_text": "N=20, P=2",
     "formula": "BOLL_LOWER(i,t) = MA20(i,t) - 2 * STD20(i,t)",
     "category": "bollinger_bands",
     "required_fields": [
@@ -135,6 +175,12 @@
   "bollinger_middle_band_20_2": {
     "field_name": "bollinger_middle_band_20_2",
     "display_name": "BOLL中轨",
+    "display_label": "BOLL中轨_20_2",
+    "parameters": {
+      "N": 20,
+      "P": 2
+    },
+    "parameter_text": "N=20, P=2",
     "formula": "BOLL_MID(i,t) = MA20(i,t)",
     "category": "bollinger_bands",
     "required_fields": [
@@ -152,6 +198,12 @@
   "bollinger_upper_band_20_2": {
     "field_name": "bollinger_upper_band_20_2",
     "display_name": "BOLL上轨",
+    "display_label": "BOLL上轨_20_2",
+    "parameters": {
+      "N": 20,
+      "P": 2
+    },
+    "parameter_text": "N=20, P=2",
     "formula": "BOLL_UPPER(i,t) = MA20(i,t) + 2 * STD20(i,t)",
     "category": "bollinger_bands",
     "required_fields": [
@@ -169,6 +221,11 @@
   "bias_ratio_6": {
     "field_name": "bias_ratio_6",
     "display_name": "BIAS6乖离率",
+    "display_label": "BIAS6乖离率_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
     "formula": "BIAS6(i,t) = ((C(i,t) - MA6(i,t)) / MA6(i,t)) * 100",
     "category": "bias_ratio",
     "required_fields": [
@@ -186,6 +243,11 @@
   "bias_ratio_12": {
     "field_name": "bias_ratio_12",
     "display_name": "BIAS12乖离率",
+    "display_label": "BIAS12乖离率_12",
+    "parameters": {
+      "N": 12
+    },
+    "parameter_text": "N=12",
     "formula": "BIAS12(i,t) = ((C(i,t) - MA12(i,t)) / MA12(i,t)) * 100",
     "category": "bias_ratio",
     "required_fields": [
@@ -203,6 +265,11 @@
   "bias_ratio_24": {
     "field_name": "bias_ratio_24",
     "display_name": "BIAS24乖离率",
+    "display_label": "BIAS24乖离率_24",
+    "parameters": {
+      "N": 24
+    },
+    "parameter_text": "N=24",
     "formula": "BIAS24(i,t) = ((C(i,t) - MA24(i,t)) / MA24(i,t)) * 100",
     "category": "bias_ratio",
     "required_fields": [
@@ -220,6 +287,11 @@
   "commodity_channel_index_14": {
     "field_name": "commodity_channel_index_14",
     "display_name": "CCI顺势指标",
+    "display_label": "CCI顺势指标_14",
+    "parameters": {
+      "N": 14
+    },
+    "parameter_text": "N=14",
     "formula": "CCI(i,t) = (TP(i,t) - MA14(TP,i,t)) / (0.015 * MD14(TP,i,t))",
     "category": "commodity_channel_index",
     "required_fields": [
@@ -239,6 +311,11 @@
   "price_momentum_index_20": {
     "field_name": "price_momentum_index_20",
     "display_name": "CR价格动量指标",
+    "display_label": "CR价格动量指标_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
     "formula": "CR(i,t) = sum(max(0,H(i,t-k)-REF(MID,i,t-k,1)), k=0..19) / sum(max(0,REF(MID,i,t-k,1)-L(i,t-k)), k=0..19) * 100",
     "category": "price_momentum_index",
     "required_fields": [
@@ -258,6 +335,12 @@
   "parallel_line_difference_10_50": {
     "field_name": "parallel_line_difference_10_50",
     "display_name": "DFMA平行线差指标DIF",
+    "display_label": "DFMA平行线差指标DIF_10_50",
+    "parameters": {
+      "N1": 10,
+      "N2": 50
+    },
+    "parameter_text": "N1=10, N2=50",
     "formula": "DFMA_DIF(i,t) = MA10(C,i,t) - MA50(C,i,t)",
     "category": "parallel_line_difference",
     "required_fields": [
@@ -275,6 +358,13 @@
   "parallel_line_difference_average_10_50_10": {
     "field_name": "parallel_line_difference_average_10_50_10",
     "display_name": "DFMA平行线差指标DIFMA",
+    "display_label": "DFMA平行线差指标DIFMA_10_50_10",
+    "parameters": {
+      "N1": 10,
+      "N2": 50,
+      "M": 10
+    },
+    "parameter_text": "N1=10, N2=50, M=10",
     "formula": "DFMA_DIFMA(i,t) = MA10(DFMA_DIF,i,t)",
     "category": "parallel_line_difference",
     "required_fields": [
@@ -292,6 +382,9 @@
   "consecutive_up_days": {
     "field_name": "consecutive_up_days",
     "display_name": "连涨天数",
+    "display_label": "连涨天数",
+    "parameters": {},
+    "parameter_text": "",
     "formula": "若 C(i,t) > C(i,t-1)，则 UPDAYS(i,t) = UPDAYS(i,t-1) + 1，否则为 0",
     "category": "consecutive_days",
     "required_fields": [
@@ -309,6 +402,9 @@
   "consecutive_down_days": {
     "field_name": "consecutive_down_days",
     "display_name": "连跌天数",
+    "display_label": "连跌天数",
+    "parameters": {},
+    "parameter_text": "",
     "formula": "若 C(i,t) < C(i,t-1)，则 DOWNDAYS(i,t) = DOWNDAYS(i,t-1) + 1，否则为 0",
     "category": "consecutive_days",
     "required_fields": [
@@ -326,6 +422,11 @@
   "directional_movement_positive_indicator_14": {
     "field_name": "directional_movement_positive_indicator_14",
     "display_name": "DMI上升动向指标PDI",
+    "display_label": "DMI上升动向指标PDI_14",
+    "parameters": {
+      "M1": 14
+    },
+    "parameter_text": "M1=14",
     "formula": "DMI_PDI(i,t) = SUM(+DM,14) / SUM(TR,14) * 100",
     "category": "directional_movement_index",
     "required_fields": [
@@ -345,6 +446,11 @@
   "directional_movement_negative_indicator_14": {
     "field_name": "directional_movement_negative_indicator_14",
     "display_name": "DMI下降动向指标MDI",
+    "display_label": "DMI下降动向指标MDI_14",
+    "parameters": {
+      "M1": 14
+    },
+    "parameter_text": "M1=14",
     "formula": "DMI_MDI(i,t) = SUM(-DM,14) / SUM(TR,14) * 100",
     "category": "directional_movement_index",
     "required_fields": [
@@ -364,6 +470,12 @@
   "average_directional_index_14_6": {
     "field_name": "average_directional_index_14_6",
     "display_name": "DMI趋向平均指标ADX",
+    "display_label": "DMI趋向平均指标ADX_14_6",
+    "parameters": {
+      "M1": 14,
+      "M2": 6
+    },
+    "parameter_text": "M1=14, M2=6",
     "formula": "DMI_ADX(i,t) = MA6(DX(i,t))",
     "category": "directional_movement_index",
     "required_fields": [
@@ -383,6 +495,12 @@
   "average_directional_index_rating_14_6": {
     "field_name": "average_directional_index_rating_14_6",
     "display_name": "DMI评估指标ADXR",
+    "display_label": "DMI评估指标ADXR_14_6",
+    "parameters": {
+      "M1": 14,
+      "M2": 6
+    },
+    "parameter_text": "M1=14, M2=6",
     "formula": "DMI_ADXR(i,t) = (ADX(i,t) + ADX(i,t-6)) / 2",
     "category": "directional_movement_index",
     "required_fields": [
@@ -402,6 +520,11 @@
   "exponential_moving_average_5": {
     "field_name": "exponential_moving_average_5",
     "display_name": "指数移动平均EMA5",
+    "display_label": "指数移动平均EMA5_5",
+    "parameters": {
+      "N": 5
+    },
+    "parameter_text": "N=5",
     "formula": "EMA5(i,t) = alpha * C(i,t) + (1-alpha) * EMA5(i,t-1), alpha=2/6",
     "category": "exponential_moving_average",
     "required_fields": [
@@ -419,6 +542,11 @@
   "exponential_moving_average_10": {
     "field_name": "exponential_moving_average_10",
     "display_name": "指数移动平均EMA10",
+    "display_label": "指数移动平均EMA10_10",
+    "parameters": {
+      "N": 10
+    },
+    "parameter_text": "N=10",
     "formula": "EMA10(i,t) = alpha * C(i,t) + (1-alpha) * EMA10(i,t-1), alpha=2/11",
     "category": "exponential_moving_average",
     "required_fields": [
@@ -436,6 +564,11 @@
   "exponential_moving_average_20": {
     "field_name": "exponential_moving_average_20",
     "display_name": "指数移动平均EMA20",
+    "display_label": "指数移动平均EMA20_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
     "formula": "EMA20(i,t) = alpha * C(i,t) + (1-alpha) * EMA20(i,t-1), alpha=2/21",
     "category": "exponential_moving_average",
     "required_fields": [
@@ -453,6 +586,11 @@
   "exponential_moving_average_30": {
     "field_name": "exponential_moving_average_30",
     "display_name": "指数移动平均EMA30",
+    "display_label": "指数移动平均EMA30_30",
+    "parameters": {
+      "N": 30
+    },
+    "parameter_text": "N=30",
     "formula": "EMA30(i,t) = alpha * C(i,t) + (1-alpha) * EMA30(i,t-1), alpha=2/31",
     "category": "exponential_moving_average",
     "required_fields": [
@@ -470,6 +608,11 @@
   "exponential_moving_average_60": {
     "field_name": "exponential_moving_average_60",
     "display_name": "指数移动平均EMA60",
+    "display_label": "指数移动平均EMA60_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
     "formula": "EMA60(i,t) = alpha * C(i,t) + (1-alpha) * EMA60(i,t-1), alpha=2/61",
     "category": "exponential_moving_average",
     "required_fields": [
@@ -487,6 +630,11 @@
   "exponential_moving_average_90": {
     "field_name": "exponential_moving_average_90",
     "display_name": "指数移动平均EMA90",
+    "display_label": "指数移动平均EMA90_90",
+    "parameters": {
+      "N": 90
+    },
+    "parameter_text": "N=90",
     "formula": "EMA90(i,t) = alpha * C(i,t) + (1-alpha) * EMA90(i,t-1), alpha=2/91",
     "category": "exponential_moving_average",
     "required_fields": [
@@ -504,6 +652,11 @@
   "exponential_moving_average_250": {
     "field_name": "exponential_moving_average_250",
     "display_name": "指数移动平均EMA250",
+    "display_label": "指数移动平均EMA250_250",
+    "parameters": {
+      "N": 250
+    },
+    "parameter_text": "N=250",
     "formula": "EMA250(i,t) = alpha * C(i,t) + (1-alpha) * EMA250(i,t-1), alpha=2/251",
     "category": "exponential_moving_average",
     "required_fields": [
@@ -521,6 +674,11 @@
   "ease_of_movement_value_14": {
     "field_name": "ease_of_movement_value_14",
     "display_name": "简易波动指标EMV",
+    "display_label": "简易波动指标EMV_14",
+    "parameters": {
+      "N": 14
+    },
+    "parameter_text": "N=14",
     "formula": "EMV(i,t) = MA(MID(i,t) * (MA(VOL,14)/VOL) * (H-L) / MA(H-L,14), 14)",
     "category": "ease_of_movement_value",
     "required_fields": [
@@ -540,6 +698,12 @@
   "ease_of_movement_average_14_9": {
     "field_name": "ease_of_movement_average_14_9",
     "display_name": "简易波动指标MAEMV",
+    "display_label": "简易波动指标MAEMV_14_9",
+    "parameters": {
+      "N": 14,
+      "M": 9
+    },
+    "parameter_text": "N=14, M=9",
     "formula": "MAEMV(i,t) = MA(EMV(i,t), 9)",
     "category": "ease_of_movement_value",
     "required_fields": [
@@ -559,6 +723,12 @@
   "detrended_price_oscillator_20_10": {
     "field_name": "detrended_price_oscillator_20_10",
     "display_name": "区间震荡线DPO",
+    "display_label": "区间震荡线DPO_20_10",
+    "parameters": {
+      "M1": 20,
+      "M2": 10
+    },
+    "parameter_text": "M1=20, M2=10",
     "formula": "DPO(i,t) = C(i,t) - REF(MA(C,i,t,20),10)",
     "category": "detrended_price_oscillator",
     "required_fields": [
@@ -576,6 +746,13 @@
   "detrended_price_oscillator_average_20_10_6": {
     "field_name": "detrended_price_oscillator_average_20_10_6",
     "display_name": "区间震荡线MADPO",
+    "display_label": "区间震荡线MADPO_20_10_6",
+    "parameters": {
+      "M1": 20,
+      "M2": 10,
+      "M3": 6
+    },
+    "parameter_text": "M1=20, M2=10, M3=6",
     "formula": "MADPO(i,t) = MA(DPO(i,t),6)",
     "category": "detrended_price_oscillator",
     "required_fields": [
@@ -593,6 +770,11 @@
   "exponential_average_12": {
     "field_name": "exponential_average_12",
     "display_name": "指数平均数指标EXPMA12",
+    "display_label": "指数平均数指标EXPMA12_12",
+    "parameters": {
+      "N1": 12
+    },
+    "parameter_text": "N1=12",
     "formula": "EXPMA12(i,t) = alpha * C(i,t) + (1-alpha) * EXPMA12(i,t-1), alpha=2/13",
     "category": "exponential_average",
     "required_fields": [
@@ -610,6 +792,11 @@
   "exponential_average_50": {
     "field_name": "exponential_average_50",
     "display_name": "指数平均数指标EXPMA50",
+    "display_label": "指数平均数指标EXPMA50_50",
+    "parameters": {
+      "N2": 50
+    },
+    "parameter_text": "N2=50",
     "formula": "EXPMA50(i,t) = alpha * C(i,t) + (1-alpha) * EXPMA50(i,t-1), alpha=2/51",
     "category": "exponential_average",
     "required_fields": [
@@ -627,6 +814,13 @@
   "stochastic_j_line_9_3_3": {
     "field_name": "stochastic_j_line_9_3_3",
     "display_name": "KDJ指标J线",
+    "display_label": "KDJ指标J线_9_3_3",
+    "parameters": {
+      "N": 9,
+      "M1": 3,
+      "M2": 3
+    },
+    "parameter_text": "N=9, M1=3, M2=3",
     "formula": "KDJ(i,t) = 3 * K(i,t) - 2 * D(i,t)",
     "category": "stochastic_oscillator",
     "required_fields": [
@@ -646,6 +840,13 @@
   "stochastic_d_line_9_3_3": {
     "field_name": "stochastic_d_line_9_3_3",
     "display_name": "KDJ指标D线",
+    "display_label": "KDJ指标D线_9_3_3",
+    "parameters": {
+      "N": 9,
+      "M1": 3,
+      "M2": 3
+    },
+    "parameter_text": "N=9, M1=3, M2=3",
     "formula": "D(i,t) = 2/3 * D(i,t-1) + 1/3 * K(i,t)",
     "category": "stochastic_oscillator",
     "required_fields": [
@@ -665,6 +866,13 @@
   "stochastic_k_line_9_3_3": {
     "field_name": "stochastic_k_line_9_3_3",
     "display_name": "KDJ指标K线",
+    "display_label": "KDJ指标K线_9_3_3",
+    "parameters": {
+      "N": 9,
+      "M1": 3,
+      "M2": 3
+    },
+    "parameter_text": "N=9, M1=3, M2=3",
     "formula": "K(i,t) = 2/3 * K(i,t-1) + 1/3 * RSV(i,t)",
     "category": "stochastic_oscillator",
     "required_fields": [
@@ -684,6 +892,12 @@
   "keltner_channel_lower_band_20_10": {
     "field_name": "keltner_channel_lower_band_20_10",
     "display_name": "肯特纳交易通道下轨",
+    "display_label": "肯特纳交易通道下轨_20_10",
+    "parameters": {
+      "N": 20,
+      "M": 10
+    },
+    "parameter_text": "N=20, M=10",
     "formula": "KTN_DOWN(i,t) = MA20(C,i,t) - 2 * ATR10(i,t)",
     "category": "keltner_channel",
     "required_fields": [
@@ -703,6 +917,12 @@
   "keltner_channel_middle_band_20_10": {
     "field_name": "keltner_channel_middle_band_20_10",
     "display_name": "肯特纳交易通道中轨",
+    "display_label": "肯特纳交易通道中轨_20_10",
+    "parameters": {
+      "N": 20,
+      "M": 10
+    },
+    "parameter_text": "N=20, M=10",
     "formula": "KTN_MID(i,t) = MA20(C,i,t)",
     "category": "keltner_channel",
     "required_fields": [
@@ -722,6 +942,12 @@
   "keltner_channel_upper_band_20_10": {
     "field_name": "keltner_channel_upper_band_20_10",
     "display_name": "肯特纳交易通道上轨",
+    "display_label": "肯特纳交易通道上轨_20_10",
+    "parameters": {
+      "N": 20,
+      "M": 10
+    },
+    "parameter_text": "N=20, M=10",
     "formula": "KTN_UPPER(i,t) = MA20(C,i,t) + 2 * ATR10(i,t)",
     "category": "keltner_channel",
     "required_fields": [
@@ -741,6 +967,11 @@
   "simple_moving_average_5": {
     "field_name": "simple_moving_average_5",
     "display_name": "简单移动平均MA5",
+    "display_label": "简单移动平均MA5_5",
+    "parameters": {
+      "N": 5
+    },
+    "parameter_text": "N=5",
     "formula": "MA5(i,t) = mean(C(i,t-4), ..., C(i,t))",
     "category": "simple_moving_average",
     "required_fields": [
@@ -758,6 +989,11 @@
   "simple_moving_average_10": {
     "field_name": "simple_moving_average_10",
     "display_name": "简单移动平均MA10",
+    "display_label": "简单移动平均MA10_10",
+    "parameters": {
+      "N": 10
+    },
+    "parameter_text": "N=10",
     "formula": "MA10(i,t) = mean(C(i,t-9), ..., C(i,t))",
     "category": "simple_moving_average",
     "required_fields": [
@@ -775,6 +1011,11 @@
   "simple_moving_average_20": {
     "field_name": "simple_moving_average_20",
     "display_name": "简单移动平均MA20",
+    "display_label": "简单移动平均MA20_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
     "formula": "MA20(i,t) = mean(C(i,t-19), ..., C(i,t))",
     "category": "simple_moving_average",
     "required_fields": [
@@ -792,6 +1033,11 @@
   "simple_moving_average_30": {
     "field_name": "simple_moving_average_30",
     "display_name": "简单移动平均MA30",
+    "display_label": "简单移动平均MA30_30",
+    "parameters": {
+      "N": 30
+    },
+    "parameter_text": "N=30",
     "formula": "MA30(i,t) = mean(C(i,t-29), ..., C(i,t))",
     "category": "simple_moving_average",
     "required_fields": [
@@ -809,6 +1055,11 @@
   "simple_moving_average_60": {
     "field_name": "simple_moving_average_60",
     "display_name": "简单移动平均MA60",
+    "display_label": "简单移动平均MA60_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
     "formula": "MA60(i,t) = mean(C(i,t-59), ..., C(i,t))",
     "category": "simple_moving_average",
     "required_fields": [
@@ -826,6 +1077,11 @@
   "simple_moving_average_90": {
     "field_name": "simple_moving_average_90",
     "display_name": "简单移动平均MA90",
+    "display_label": "简单移动平均MA90_90",
+    "parameters": {
+      "N": 90
+    },
+    "parameter_text": "N=90",
     "formula": "MA90(i,t) = mean(C(i,t-89), ..., C(i,t))",
     "category": "simple_moving_average",
     "required_fields": [
@@ -843,6 +1099,11 @@
   "simple_moving_average_250": {
     "field_name": "simple_moving_average_250",
     "display_name": "简单移动平均MA250",
+    "display_label": "简单移动平均MA250_250",
+    "parameters": {
+      "N": 250
+    },
+    "parameter_text": "N=250",
     "formula": "MA250(i,t) = mean(C(i,t-249), ..., C(i,t))",
     "category": "simple_moving_average",
     "required_fields": [
@@ -860,6 +1121,13 @@
   "moving_average_convergence_divergence_histogram_12_26_9": {
     "field_name": "moving_average_convergence_divergence_histogram_12_26_9",
     "display_name": "MACD柱线",
+    "display_label": "MACD柱线_12_26_9",
+    "parameters": {
+      "SHORT": 12,
+      "LONG": 26,
+      "M": 9
+    },
+    "parameter_text": "SHORT=12, LONG=26, M=9",
     "formula": "MACD(i,t) = 2 * (DIF(i,t) - DEA(i,t))",
     "category": "moving_average_convergence_divergence",
     "required_fields": [
@@ -877,6 +1145,13 @@
   "moving_average_convergence_divergence_signal_line_12_26_9": {
     "field_name": "moving_average_convergence_divergence_signal_line_12_26_9",
     "display_name": "MACD DEA线",
+    "display_label": "MACD DEA线_12_26_9",
+    "parameters": {
+      "SHORT": 12,
+      "LONG": 26,
+      "M": 9
+    },
+    "parameter_text": "SHORT=12, LONG=26, M=9",
     "formula": "DEA(i,t) = EMA(DIF(i,t), 9)",
     "category": "moving_average_convergence_divergence",
     "required_fields": [
@@ -894,6 +1169,13 @@
   "moving_average_convergence_divergence_difference_line_12_26_9": {
     "field_name": "moving_average_convergence_divergence_difference_line_12_26_9",
     "display_name": "MACD DIF线",
+    "display_label": "MACD DIF线_12_26_9",
+    "parameters": {
+      "SHORT": 12,
+      "LONG": 26,
+      "M": 9
+    },
+    "parameter_text": "SHORT=12, LONG=26, M=9",
     "formula": "DIF(i,t) = EMA(C,i,t,12) - EMA(C,i,t,26)",
     "category": "moving_average_convergence_divergence",
     "required_fields": [
@@ -911,6 +1193,12 @@
   "mass_index_9_25": {
     "field_name": "mass_index_9_25",
     "display_name": "梅斯线MASS",
+    "display_label": "梅斯线MASS_9_25",
+    "parameters": {
+      "N1": 9,
+      "N2": 25
+    },
+    "parameter_text": "N1=9, N2=25",
     "formula": "MASS(i,t) = SUM(EMA(H-L,9) / EMA(EMA(H-L,9),9), 25)",
     "category": "mass_index",
     "required_fields": [
@@ -929,6 +1217,13 @@
   "mass_index_average_9_25_6": {
     "field_name": "mass_index_average_9_25_6",
     "display_name": "梅斯线平滑MA_MASS",
+    "display_label": "梅斯线平滑MA_MASS_9_25_6",
+    "parameters": {
+      "N1": 9,
+      "N2": 25,
+      "M": 6
+    },
+    "parameter_text": "N1=9, N2=25, M=6",
     "formula": "MA_MASS(i,t) = MA(MASS(i,t), 6)",
     "category": "mass_index",
     "required_fields": [
@@ -947,6 +1242,11 @@
   "money_flow_index_14": {
     "field_name": "money_flow_index_14",
     "display_name": "MFI资金流量指标",
+    "display_label": "MFI资金流量指标_14",
+    "parameters": {
+      "N": 14
+    },
+    "parameter_text": "N=14",
     "formula": "MFI(i,t) = 100 - 100 / (1 + SUM(PMF,14) / SUM(NMF,14))",
     "category": "money_flow_index",
     "required_fields": [
@@ -967,6 +1267,11 @@
   "momentum_12": {
     "field_name": "momentum_12",
     "display_name": "动量指标MTM",
+    "display_label": "动量指标MTM_12",
+    "parameters": {
+      "N": 12
+    },
+    "parameter_text": "N=12",
     "formula": "MTM(i,t) = C(i,t) - C(i,t-12)",
     "category": "momentum",
     "required_fields": [
@@ -984,6 +1289,12 @@
   "momentum_average_12_6": {
     "field_name": "momentum_average_12_6",
     "display_name": "动量指标平滑MTMMA",
+    "display_label": "动量指标平滑MTMMA_12_6",
+    "parameters": {
+      "N": 12,
+      "M": 6
+    },
+    "parameter_text": "N=12, M=6",
     "formula": "MTMMA(i,t) = MA(MTM(i,t), 6)",
     "category": "momentum",
     "required_fields": [
@@ -1001,6 +1312,9 @@
   "on_balance_volume": {
     "field_name": "on_balance_volume",
     "display_name": "能量潮指标OBV",
+    "display_label": "能量潮指标OBV",
+    "parameters": {},
+    "parameter_text": "",
     "formula": "OBV(i,t) 按收盘涨跌方向对成交量进行累计加减",
     "category": "on_balance_volume",
     "required_fields": [
@@ -1019,6 +1333,11 @@
   "psychological_line_12": {
     "field_name": "psychological_line_12",
     "display_name": "PSY心理线指标",
+    "display_label": "PSY心理线指标_12",
+    "parameters": {
+      "N": 12
+    },
+    "parameter_text": "N=12",
     "formula": "PSY(i,t) = COUNT(C(i,t) > C(i,t-1), 12) / 12 * 100",
     "category": "psychological_line",
     "required_fields": [
@@ -1036,6 +1355,12 @@
   "psychological_line_average_12_6": {
     "field_name": "psychological_line_average_12_6",
     "display_name": "PSY心理线平滑指标",
+    "display_label": "PSY心理线平滑指标_12_6",
+    "parameters": {
+      "N": 12,
+      "M": 6
+    },
+    "parameter_text": "N=12, M=6",
     "formula": "PSYMA(i,t) = MA(PSY(i,t), 6)",
     "category": "psychological_line",
     "required_fields": [
@@ -1053,6 +1378,11 @@
   "rate_of_change_12": {
     "field_name": "rate_of_change_12",
     "display_name": "变动率指标ROC",
+    "display_label": "变动率指标ROC_12",
+    "parameters": {
+      "N": 12
+    },
+    "parameter_text": "N=12",
     "formula": "ROC(i,t) = (C(i,t) - C(i,t-12)) / C(i,t-12) * 100",
     "category": "rate_of_change",
     "required_fields": [
@@ -1070,6 +1400,12 @@
   "rate_of_change_average_12_6": {
     "field_name": "rate_of_change_average_12_6",
     "display_name": "变动率指标平滑MAROC",
+    "display_label": "变动率指标平滑MAROC_12_6",
+    "parameters": {
+      "N": 12,
+      "M": 6
+    },
+    "parameter_text": "N=12, M=6",
     "formula": "MAROC(i,t) = MA(ROC(i,t), 6)",
     "category": "rate_of_change",
     "required_fields": [
@@ -1087,6 +1423,11 @@
   "relative_strength_index_6": {
     "field_name": "relative_strength_index_6",
     "display_name": "相对强弱指标RSI6",
+    "display_label": "相对强弱指标RSI6_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
     "formula": "RSI6(i,t) = SMA(MAX(C(i,t)-C(i,t-1),0),6,1) / SMA(ABS(C(i,t)-C(i,t-1)),6,1) * 100",
     "category": "relative_strength_index",
     "required_fields": [
@@ -1104,6 +1445,11 @@
   "relative_strength_index_12": {
     "field_name": "relative_strength_index_12",
     "display_name": "相对强弱指标RSI12",
+    "display_label": "相对强弱指标RSI12_12",
+    "parameters": {
+      "N": 12
+    },
+    "parameter_text": "N=12",
     "formula": "RSI12(i,t) = SMA(MAX(C(i,t)-C(i,t-1),0),12,1) / SMA(ABS(C(i,t)-C(i,t-1)),12,1) * 100",
     "category": "relative_strength_index",
     "required_fields": [
@@ -1121,6 +1467,11 @@
   "relative_strength_index_24": {
     "field_name": "relative_strength_index_24",
     "display_name": "相对强弱指标RSI24",
+    "display_label": "相对强弱指标RSI24_24",
+    "parameters": {
+      "N": 24
+    },
+    "parameter_text": "N=24",
     "formula": "RSI24(i,t) = SMA(MAX(C(i,t)-C(i,t-1),0),24,1) / SMA(ABS(C(i,t)-C(i,t-1)),24,1) * 100",
     "category": "relative_strength_index",
     "required_fields": [
@@ -1138,6 +1489,11 @@
   "donchian_channel_lower_band_20": {
     "field_name": "donchian_channel_lower_band_20",
     "display_name": "唐安奇通道下轨",
+    "display_label": "唐安奇通道下轨_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
     "formula": "TAQ_DOWN(i,t) = LLV(L,20)",
     "category": "donchian_channel",
     "required_fields": [
@@ -1156,6 +1512,11 @@
   "donchian_channel_middle_band_20": {
     "field_name": "donchian_channel_middle_band_20",
     "display_name": "唐安奇通道中轨",
+    "display_label": "唐安奇通道中轨_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
     "formula": "TAQ_MID(i,t) = (TAQ_UP(i,t) + TAQ_DOWN(i,t)) / 2",
     "category": "donchian_channel",
     "required_fields": [
@@ -1174,6 +1535,11 @@
   "donchian_channel_upper_band_20": {
     "field_name": "donchian_channel_upper_band_20",
     "display_name": "唐安奇通道上轨",
+    "display_label": "唐安奇通道上轨_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
     "formula": "TAQ_UP(i,t) = HHV(H,20)",
     "category": "donchian_channel",
     "required_fields": [
@@ -1192,6 +1558,11 @@
   "triple_exponential_oscillator_12": {
     "field_name": "triple_exponential_oscillator_12",
     "display_name": "三重指数平滑平均线TRIX",
+    "display_label": "三重指数平滑平均线TRIX_12",
+    "parameters": {
+      "M1": 12
+    },
+    "parameter_text": "M1=12",
     "formula": "TRIX(i,t) = (EMA3(i,t) - EMA3(i,t-1)) / EMA3(i,t-1) * 100",
     "category": "triple_exponential_oscillator",
     "required_fields": [
@@ -1209,6 +1580,12 @@
   "triple_exponential_oscillator_average_12_20": {
     "field_name": "triple_exponential_oscillator_average_12_20",
     "display_name": "三重指数平滑平均线TRMA",
+    "display_label": "三重指数平滑平均线TRMA_12_20",
+    "parameters": {
+      "M1": 12,
+      "M2": 20
+    },
+    "parameter_text": "M1=12, M2=20",
     "formula": "TRMA(i,t) = MA(TRIX(i,t), 20)",
     "category": "triple_exponential_oscillator",
     "required_fields": [
@@ -1226,6 +1603,11 @@
   "volume_ratio_26": {
     "field_name": "volume_ratio_26",
     "display_name": "VR容量比率",
+    "display_label": "VR容量比率_26",
+    "parameters": {
+      "M1": 26
+    },
+    "parameter_text": "M1=26",
     "formula": "VR(i,t) = (SUM(AV,26) + 0.5 * SUM(CV,26)) / (SUM(BV,26) + 0.5 * SUM(CV,26)) * 100",
     "category": "volume_ratio",
     "required_fields": [
@@ -1244,6 +1626,11 @@
   "williams_percent_range_6": {
     "field_name": "williams_percent_range_6",
     "display_name": "W&R威廉指标6日",
+    "display_label": "W&R威廉指标6日_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
     "formula": "WR6(i,t) = (HHV(H,6) - C(i,t)) / (HHV(H,6) - LLV(L,6)) * 100",
     "category": "williams_percent_range",
     "required_fields": [
@@ -1263,6 +1650,11 @@
   "williams_percent_range_10": {
     "field_name": "williams_percent_range_10",
     "display_name": "W&R威廉指标10日",
+    "display_label": "W&R威廉指标10日_10",
+    "parameters": {
+      "N": 10
+    },
+    "parameter_text": "N=10",
     "formula": "WR10(i,t) = (HHV(H,10) - C(i,t)) / (HHV(H,10) - LLV(L,10)) * 100",
     "category": "williams_percent_range",
     "required_fields": [
@@ -1282,6 +1674,12 @@
   "xue_si_channel_ii_line_1_102_7": {
     "field_name": "xue_si_channel_ii_line_1_102_7",
     "display_name": "薛斯通道II 通道1",
+    "display_label": "薛斯通道II 通道1_102_7",
+    "parameters": {
+      "N": 102,
+      "M": 7
+    },
+    "parameter_text": "N=102, M=7",
     "formula": "XSII_TD1(i,t) = MA((2*C(i,t)+H(i,t)+L(i,t))/4, 5) * 102 / 100",
     "category": "xue_si_channel_ii",
     "required_fields": [
@@ -1301,6 +1699,12 @@
   "xue_si_channel_ii_line_2_102_7": {
     "field_name": "xue_si_channel_ii_line_2_102_7",
     "display_name": "薛斯通道II 通道2",
+    "display_label": "薛斯通道II 通道2_102_7",
+    "parameters": {
+      "N": 102,
+      "M": 7
+    },
+    "parameter_text": "N=102, M=7",
     "formula": "XSII_TD2(i,t) = MA((2*C(i,t)+H(i,t)+L(i,t))/4, 5) * 98 / 100",
     "category": "xue_si_channel_ii",
     "required_fields": [
@@ -1320,6 +1724,12 @@
   "xue_si_channel_ii_line_3_102_7": {
     "field_name": "xue_si_channel_ii_line_3_102_7",
     "display_name": "薛斯通道II 通道3",
+    "display_label": "薛斯通道II 通道3_102_7",
+    "parameters": {
+      "N": 102,
+      "M": 7
+    },
+    "parameter_text": "N=102, M=7",
     "formula": "XSII_TD3(i,t) = (1 + 7/100) * DMA(C(i,t), ABS((2*C(i,t)+H(i,t)+L(i,t))/4 - MA(C(i,t),20)) / MA(C(i,t),20))",
     "category": "xue_si_channel_ii",
     "required_fields": [
@@ -1339,6 +1749,12 @@
   "xue_si_channel_ii_line_4_102_7": {
     "field_name": "xue_si_channel_ii_line_4_102_7",
     "display_name": "薛斯通道II 通道4",
+    "display_label": "薛斯通道II 通道4_102_7",
+    "parameters": {
+      "N": 102,
+      "M": 7
+    },
+    "parameter_text": "N=102, M=7",
     "formula": "XSII_TD4(i,t) = (1 - 7/100) * DMA(C(i,t), ABS((2*C(i,t)+H(i,t)+L(i,t))/4 - MA(C(i,t),20)) / MA(C(i,t),20))",
     "category": "xue_si_channel_ii",
     "required_fields": [

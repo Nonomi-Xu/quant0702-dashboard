@@ -41,7 +41,12 @@ class AnalysisStore:
         options: list[dict[str, str]] = []
         for factor in factors:
             factor_metadata = metadata.get(factor, {})
-            label = factor_metadata.get("display_name") or factor_metadata.get("label") or factor
+            label = (
+                factor_metadata.get("display_label")
+                or factor_metadata.get("display_name")
+                or factor_metadata.get("label")
+                or factor
+            )
             options.append({"value": factor, "label": label})
         return options
 
