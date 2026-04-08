@@ -377,6 +377,7 @@ button {
 }
 
 .chart-grid,
+.monitor-grid,
 .panel-grid {
   display: grid;
   gap: 20px;
@@ -391,6 +392,11 @@ button {
   grid-template-columns: 1.4fr 1fr;
 }
 
+.monitor-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
 .panel-grid + .panel-grid {
   grid-template-columns: 1fr 1fr;
 }
@@ -398,6 +404,23 @@ button {
 .panel {
   padding: 22px;
   border-radius: 30px;
+}
+
+.compact-panel {
+  padding: 16px 18px;
+  border-radius: 24px;
+}
+
+.compact-panel .panel-heading {
+  margin-bottom: 8px;
+}
+
+.compact-panel h2 {
+  font-size: 17px;
+}
+
+.compact-panel .panel-heading span {
+  font-size: 12px;
 }
 
 .panel-heading {
@@ -431,15 +454,15 @@ canvas {
 
 .metrics-list {
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 14px;
   margin: 0;
 }
 
 .metrics-list div {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 13px 0;
+  display: grid;
+  gap: 4px;
+  padding: 9px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -450,11 +473,13 @@ dt {
 dd {
   margin: 0;
   font-weight: 800;
+  font-size: 14px;
 }
 
 @media (max-width: 900px) {
   .hero,
   .chart-grid,
+  .monitor-grid,
   .panel-grid,
   .panel-grid + .panel-grid,
   .factor-info,
@@ -471,5 +496,9 @@ dd {
 
   .panel-heading span {
     text-align: left;
+  }
+
+  .metrics-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

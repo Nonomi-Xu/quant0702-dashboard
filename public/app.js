@@ -186,36 +186,90 @@ function drawLineChart(canvas, rows) {
   ctx.scale(devicePixelRatio, devicePixelRatio);
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 
-  const padding = 34;
+  const chartWidth = canvas.clientWidth;
+  const chartHeight = canvas.clientHeight;
+  const padding = { top: 28, right: 26, bottom: 58, left: 64 };
   const values = rows.map((row) => Number(row.ic));
-  const min = Math.min(-0.06, ...values);
-  const max = Math.max(0.06, ...values);
-  const xStep = (canvas.clientWidth - padding * 2) / Math.max(rows.length - 1, 1);
-  const y = (value) => padding + (max - value) / (max - min) * (canvas.clientHeight - padding * 2);
+  const finiteValues = values.filter((value) => Number.isFinite(value));
+  if (!finiteValues.length) return;
 
+  const min = Math.min(-0.06, ...finiteValues);
+  const max = Math.max(0.06, ...finiteValues);
+  const plotWidth = chartWidth - padding.left - padding.right;
+  const plotHeight = chartHeight - padding.top - padding.bottom;
+  const xStep = plotWidth / Math.max(rows.length - 1, 1);
+  const x = (index) => padding.left + xStep * index;
+  const y = (value) => padding.top + (max - value) / (max - min) * plotHeight;
+
+  ctx.font = "12px Avenir Next";
+  ctx.fillStyle = "#68766f";
   ctx.strokeStyle = "rgba(23, 33, 27, 0.18)";
   ctx.lineWidth = 1;
+
+  const yTicks = 5;
+  for (let index = 0; index <= yTicks; index += 1) {
+    const value = min + (max - min) * index / yTicks;
+    const tickY = y(value);
+    ctx.beginPath();
+    ctx.moveTo(padding.left, tickY);
+    ctx.lineTo(chartWidth - padding.right, tickY);
+    ctx.stroke();
+    ctx.fillText(value.toFixed(3), 12, tickY + 4);
+  }
+
+  ctx.strokeStyle = "rgba(23, 33, 27, 0.55)";
+  ctx.lineWidth = 1.4;
   ctx.beginPath();
-  ctx.moveTo(padding, y(0));
-  ctx.lineTo(canvas.clientWidth - padding, y(0));
+  ctx.moveTo(padding.left, padding.top);
+  ctx.lineTo(padding.left, chartHeight - padding.bottom);
+  ctx.lineTo(chartWidth - padding.right, chartHeight - padding.bottom);
   ctx.stroke();
+
+  ctx.fillStyle = "#17211b";
+  ctx.font = "700 12px Avenir Next";
+  ctx.fillText("IC", 14, padding.top - 10);
+  ctx.fillText("交易日期", chartWidth - padding.right - 46, chartHeight - 18);
+
+  const xTickCount = Math.min(6, rows.length);
+  ctx.fillStyle = "#68766f";
+  ctx.font = "12px Avenir Next";
+  for (let index = 0; index < xTickCount; index += 1) {
+    const rowIndex = Math.round(index * (rows.length - 1) / Math.max(xTickCount - 1, 1));
+    const label = String(rows[rowIndex]?.trade_date ?? "").slice(5);
+    const tickX = x(rowIndex);
+    ctx.beginPath();
+    ctx.moveTo(tickX, chartHeight - padding.bottom);
+    ctx.lineTo(tickX, chartHeight - padding.bottom + 5);
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(tickX - 18, chartHeight - padding.bottom + 24);
+    ctx.rotate(-Math.PI / 7);
+    ctx.fillText(label, 0, 0);
+    ctx.restore();
+  }
+
+  ctx.strokeStyle = "rgba(189, 87, 52, 0.36)";
+  ctx.setLineDash([6, 6]);
+  ctx.beginPath();
+  ctx.moveTo(padding.left, y(0));
+  ctx.lineTo(chartWidth - padding.right, y(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
 
   ctx.strokeStyle = "#164c37";
   ctx.lineWidth = 3;
   ctx.beginPath();
   values.forEach((value, index) => {
-    const x = padding + xStep * index;
     const pointY = y(value);
-    if (index === 0) ctx.moveTo(x, pointY);
-    else ctx.lineTo(x, pointY);
+    if (index === 0) ctx.moveTo(x(index), pointY);
+    else ctx.lineTo(x(index), pointY);
   });
   ctx.stroke();
 
   ctx.fillStyle = "#bd5734";
   values.forEach((value, index) => {
-    const x = padding + xStep * index;
     ctx.beginPath();
-    ctx.arc(x, y(value), 3.5, 0, Math.PI * 2);
+    ctx.arc(x(index), y(value), 3.5, 0, Math.PI * 2);
     ctx.fill();
   });
 }
