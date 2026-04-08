@@ -205,8 +205,6 @@ function renderFactorInfo(data) {
     ?? "-";
   document.querySelector("#hero-title").textContent = displayLabel;
   document.querySelector("#hero-subtitle").textContent = fieldName;
-  document.querySelector("#factor-field").textContent = metadata.field_name ?? data.factor ?? "-";
-  document.querySelector("#factor-description").textContent = metadata.display_name ?? metadata.label ?? "-";
   document.querySelector("#factor-parameters").textContent = metadata.parameter_text || "-";
   document.querySelector("#factor-formula").textContent = metadata.formula ?? "-";
   document.querySelector("#rebalance-period").textContent = `${data.horizon ?? "-"} 个交易日`;
@@ -268,7 +266,7 @@ function drawLineChart(canvas, rows) {
   ctx.font = "12px Avenir Next";
   for (let index = 0; index < xTickCount; index += 1) {
     const rowIndex = Math.round(index * (rows.length - 1) / Math.max(xTickCount - 1, 1));
-    const label = String(rows[rowIndex]?.trade_date ?? "").slice(5);
+    const label = String(rows[rowIndex]?.trade_date ?? "");
     const tickX = x(rowIndex);
     ctx.beginPath();
     ctx.moveTo(tickX, chartHeight - padding.bottom);
@@ -298,13 +296,6 @@ function drawLineChart(canvas, rows) {
     else ctx.lineTo(x(index), pointY);
   });
   ctx.stroke();
-
-  ctx.fillStyle = "#bd5734";
-  values.forEach((value, index) => {
-    ctx.beginPath();
-    ctx.arc(x(index), y(value), 3.5, 0, Math.PI * 2);
-    ctx.fill();
-  });
 }
 
 function drawGroupChart(canvas, groupReturns) {
