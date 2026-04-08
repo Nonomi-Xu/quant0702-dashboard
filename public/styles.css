@@ -233,6 +233,38 @@ button {
   font-weight: 900;
 }
 
+.sort-button,
+.factor-link {
+  border: 0;
+  width: auto;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  text-align: left;
+}
+
+.sort-button {
+  color: var(--muted);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.factor-link {
+  color: var(--pine);
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.sort-button:hover,
+.factor-link:hover {
+  color: var(--brick);
+}
+
 .comparison-table td {
   font-weight: 700;
 }

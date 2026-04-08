@@ -52,6 +52,7 @@ const summaryKeyOrder = [
 
 const hiddenKpiKeys = new Set(["factor"]);
 const factorLabelMap = new Map();
+const tableSortState = {};
 
 function escapeHtml(value) {
   return String(value ?? "-")
@@ -64,6 +65,7 @@ function escapeHtml(value) {
 
 function formatSummaryValue(key, value, digits = 4) {
   if (key === "factor") return factorLabelMap.get(value) ?? value ?? "-";
+  if (key === "horizon") return formatNumber(value, 1);
   if (percentKeys.has(key)) return formatPercent(value, digits);
   if (typeof value === "number") return formatNumber(value, digits);
   return value ?? "-";
@@ -72,8 +74,54 @@ function formatSummaryValue(key, value, digits = 4) {
 function summaryTableColumns(rows) {
   const presentKeys = new Set(rows.flatMap((row) => Object.keys(row)));
   const orderedKeys = summaryKeyOrder.filter((key) => presentKeys.has(key));
-  const extraKeys = [...presentKeys].filter((key) => !summaryKeyOrder.includes(key)).sort();
+  const extraKeys = [...presentKeys]
+    .filter((key) => !summaryKeyOrder.includes(key) && key !== "factor_key")
+    .sort();
   return [...orderedKeys, ...extraKeys];
+}
+
+function compareSummaryRows(left, right, key, direction) {
+  const leftValue = left[key];
+  const rightValue = right[key];
+  const leftNumber = Number(leftValue);
+  const rightNumber = Number(rightValue);
+  const multiplier = direction === "desc" ? -1 : 1;
+
+  if (!Number.isNaN(leftNumber) && !Number.isNaN(rightNumber)) {
+    return (leftNumber - rightNumber) * multiplier;
+  }
+
+  return String(leftValue ?? "").localeCompare(String(rightValue ?? ""), "zh-Hans-CN") * multiplier;
+}
+
+function renderTableHeader(target, key) {
+  const label = key === "horizon" ? "调仓周期（天）" : summaryLabels[key] ?? key;
+  if (key === "factor") return `<th>${escapeHtml(label)}</th>`;
+
+  const state = tableSortState[target];
+  const marker = state?.key === key ? (state.direction === "asc" ? " ↑" : " ↓") : "";
+  return `
+    <th>
+      <button class="sort-button" type="button" data-table-target="${escapeHtml(target)}" data-sort-key="${escapeHtml(key)}">
+        ${escapeHtml(label)}${marker}
+      </button>
+    </th>
+  `;
+}
+
+function renderSummaryCell(key, row) {
+  if (key === "factor" && row.factor_key) {
+    const horizon = row.horizon ?? document.querySelector("#horizon-input").value;
+    return `
+      <td>
+        <button class="factor-link" type="button" data-factor="${escapeHtml(row.factor_key)}" data-horizon="${escapeHtml(horizon)}">
+          ${escapeHtml(formatSummaryValue(key, row[key], 1))}
+        </button>
+      </td>
+    `;
+  }
+
+  return `<td>${escapeHtml(formatSummaryValue(key, row[key], 1))}</td>`;
 }
 
 function renderSummaryTable(target, rows) {
@@ -83,16 +131,25 @@ function renderSummaryTable(target, rows) {
     return;
   }
 
-  const hiddenColumns = target === "#factor-horizon-table" ? new Set(["ic_observations"]) : new Set();
-  const columns = summaryTableColumns(rows).filter((key) => !hiddenColumns.has(key));
+  const shouldHideColumn = (key) => (
+    target === "#factor-horizon-table"
+    && ["ic_observations", "ic_observation", "ic_count", "IC观测数"].includes(key)
+  );
+  const columns = summaryTableColumns(rows).filter((key) => !shouldHideColumn(key));
+  const sortedRows = [...rows];
+  const sortState = tableSortState[target];
+  if (sortState?.key) {
+    sortedRows.sort((left, right) => compareSummaryRows(left, right, sortState.key, sortState.direction));
+  }
+
   table.innerHTML = `
     <thead>
-      <tr>${columns.map((key) => `<th>${escapeHtml(summaryLabels[key] ?? key)}</th>`).join("")}</tr>
+      <tr>${columns.map((key) => renderTableHeader(target, key)).join("")}</tr>
     </thead>
     <tbody>
-      ${rows.map((row) => `
+      ${sortedRows.map((row) => `
         <tr>
-          ${columns.map((key) => `<td>${escapeHtml(formatSummaryValue(key, row[key], 1))}</td>`).join("")}
+          ${columns.map((key) => renderSummaryCell(key, row)).join("")}
         </tr>
       `).join("")}
     </tbody>
@@ -250,6 +307,45 @@ async function loadSummaryComparisons(factor, horizon) {
     renderSummaryTable("#horizon-factor-table", payload.rows ?? []);
   }
 }
+
+function activateFactorFromTable(factor, horizon) {
+  const factorInput = document.querySelector("#factor-input");
+  factorInput.value = factor;
+  loadHorizonOptions(factor)
+    .then(() => {
+      const horizonInput = document.querySelector("#horizon-input");
+      if ([...horizonInput.options].some((option) => option.value === String(horizon))) {
+        horizonInput.value = String(horizon);
+      }
+      return loadDashboard(factor, horizonInput.value);
+    })
+    .catch((error) => {
+      document.querySelector("#dataset-label").textContent = error.message;
+    });
+}
+
+document.addEventListener("click", (event) => {
+  const sortButton = event.target.closest(".sort-button");
+  if (sortButton) {
+    const target = sortButton.dataset.tableTarget;
+    const key = sortButton.dataset.sortKey;
+    const current = tableSortState[target];
+    tableSortState[target] = {
+      key,
+      direction: current?.key === key && current.direction === "desc" ? "asc" : "desc",
+    };
+    loadSummaryComparisons(
+      document.querySelector("#factor-input").value,
+      document.querySelector("#horizon-input").value
+    );
+    return;
+  }
+
+  const factorLink = event.target.closest(".factor-link");
+  if (factorLink) {
+    activateFactorFromTable(factorLink.dataset.factor, factorLink.dataset.horizon);
+  }
+});
 
 async function loadFactorOptions() {
   const response = await fetch("/api/factors");

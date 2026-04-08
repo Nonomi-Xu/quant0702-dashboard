@@ -51,6 +51,7 @@ class AnalysisStore:
 
     def summary_with_display_factor(self, summary: dict[str, Any], factor: str) -> dict[str, Any]:
         row = dict(summary)
+        row["factor_key"] = factor
         row["factor"] = self.factor_display_label(factor)
         return row
 
