@@ -82,7 +82,7 @@ const summaryKeyOrder = [
   "max_daily_sample_count",
 ];
 
-const hiddenKpiKeys = new Set(["factor", "updated_at"]);
+const hiddenKpiKeys = new Set(["factor", "updated_at", "horizon"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
 let candidateLibraryRows = [];
@@ -108,7 +108,6 @@ const kpiKeyOrder = [
   "avg_daily_sample_count",
   "min_daily_sample_count",
   "max_daily_sample_count",
-  "horizon",
 ];
 
 function escapeHtml(value) {
