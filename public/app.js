@@ -35,8 +35,8 @@ const percentKeys = new Set([
 ]);
 
 const summaryKeyOrder = [
-  "factor",
   "horizon",
+  "factor",
   "ic_mean",
   "ic_ir",
   "ic_abs_gt_002_ratio",
@@ -50,7 +50,20 @@ const summaryKeyOrder = [
   "ic_observations",
 ];
 
+const hiddenKpiKeys = new Set(["factor"]);
+const factorLabelMap = new Map();
+
+function escapeHtml(value) {
+  return String(value ?? "-")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 function formatSummaryValue(key, value) {
+  if (key === "factor") return factorLabelMap.get(value) ?? value ?? "-";
   if (percentKeys.has(key)) return formatPercent(value);
   if (typeof value === "number") return formatNumber(value);
   return value ?? "-";
@@ -73,12 +86,12 @@ function renderSummaryTable(target, rows) {
   const columns = summaryTableColumns(rows);
   table.innerHTML = `
     <thead>
-      <tr>${columns.map((key) => `<th>${summaryLabels[key] ?? key}</th>`).join("")}</tr>
+      <tr>${columns.map((key) => `<th>${escapeHtml(summaryLabels[key] ?? key)}</th>`).join("")}</tr>
     </thead>
     <tbody>
       ${rows.map((row) => `
         <tr>
-          ${columns.map((key) => `<td>${formatSummaryValue(key, row[key])}</td>`).join("")}
+          ${columns.map((key) => `<td>${escapeHtml(formatSummaryValue(key, row[key]))}</td>`).join("")}
         </tr>
       `).join("")}
     </tbody>
@@ -88,10 +101,11 @@ function renderSummaryTable(target, rows) {
 function renderKpis(summary) {
   const grid = document.querySelector("#kpi-grid");
   grid.innerHTML = Object.entries(summary)
+    .filter(([key]) => !hiddenKpiKeys.has(key))
     .map(([key, value]) => `
       <article class="kpi-card">
-        <span class="kpi-label">${summaryLabels[key] ?? key}</span>
-        <span class="kpi-value">${formatSummaryValue(key, value)}</span>
+        <span class="kpi-label">${escapeHtml(summaryLabels[key] ?? key)}</span>
+        <span class="kpi-value">${escapeHtml(formatSummaryValue(key, value))}</span>
       </article>
     `)
     .join("");
@@ -205,7 +219,8 @@ async function loadDashboard(factor, horizon) {
   if (!response.ok) throw new Error(`请求失败: ${response.status}`);
   const data = await response.json();
 
-  document.querySelector("#dataset-label").textContent = `${data.factor} / horizon_${data.horizon}`;
+  const factorLabel = factorLabelMap.get(data.factor) ?? data.factor;
+  document.querySelector("#dataset-label").textContent = `${factorLabel} / horizon_${data.horizon}`;
   document.querySelector("#updated-label").textContent = `更新时间: ${data.updated_at}`;
 
   renderFactorInfo(data);
@@ -239,9 +254,16 @@ async function loadFactorOptions() {
   if (!response.ok) return [];
   const data = await response.json();
   const factors = data.factors ?? [];
+  factorLabelMap.clear();
+  (data.factor_options ?? []).forEach((option) => {
+    factorLabelMap.set(option.value, option.label);
+  });
   const select = document.querySelector("#factor-input");
-  select.innerHTML = factors
-    .map((factor) => `<option value="${factor}">${factor}</option>`)
+  const factorOptions = data.factor_options?.length
+    ? data.factor_options
+    : factors.map((factor) => ({ value: factor, label: factor }));
+  select.innerHTML = factorOptions
+    .map((option) => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`)
     .join("");
   return factors;
 }

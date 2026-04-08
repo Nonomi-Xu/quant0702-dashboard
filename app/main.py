@@ -25,6 +25,7 @@ def list_factors() -> dict[str, object]:
     factors = store.list_factors()
     return {
         "factors": factors,
+        "factor_options": store.factor_options(factors),
         "default_factor": factors[0] if factors else "relative_strength_index_6",
     }
 

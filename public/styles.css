@@ -196,7 +196,7 @@ button {
 }
 
 .comparison-panel {
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .table-scroll {
@@ -248,6 +248,47 @@ button {
 .empty-cell {
   color: var(--muted);
   text-align: center;
+}
+
+.collapsible-panel summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  margin: -4px 0 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.collapsible-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-panel summary span {
+  display: grid;
+  gap: 6px;
+}
+
+.collapsible-panel summary strong {
+  font-size: 20px;
+}
+
+.collapsible-panel summary small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.collapsible-panel summary b {
+  flex: 0 0 auto;
+  padding: 9px 14px;
+  border-radius: 999px;
+  color: #fff8e8;
+  background: var(--pine);
+  font-size: 13px;
+}
+
+.collapsible-panel .table-scroll {
+  margin-top: 18px;
 }
 
 .kpi-card {

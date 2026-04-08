@@ -36,6 +36,15 @@ class AnalysisStore:
         ]
         return sorted(factors)
 
+    def factor_options(self, factors: list[str]) -> list[dict[str, str]]:
+        metadata = self.read_factor_metadata()
+        options: list[dict[str, str]] = []
+        for factor in factors:
+            factor_metadata = metadata.get(factor, {})
+            label = factor_metadata.get("display_name") or factor_metadata.get("label") or factor
+            options.append({"value": factor, "label": label})
+        return options
+
     def list_horizons(self, factor: str) -> list[int]:
         factor_dir = self.data_dir / "factors" / factor
         if not factor_dir.exists():

@@ -67,26 +67,6 @@
         <section class="grid kpis" id="kpi-grid"></section>
       </section>
 
-      <section class="panel comparison-panel">
-        <div class="panel-heading">
-          <h2>同因子调仓周期对比</h2>
-          <span>同一个因子在已完成 horizon 下的 summary 横向比较</span>
-        </div>
-        <div class="table-scroll">
-          <table class="comparison-table" id="factor-horizon-table"></table>
-        </div>
-      </section>
-
-      <section class="panel comparison-panel">
-        <div class="panel-heading">
-          <h2>同周期全因子对比</h2>
-          <span>当前调仓周期下已完成因子的 summary 横向比较</span>
-        </div>
-        <div class="table-scroll">
-          <table class="comparison-table" id="horizon-factor-table"></table>
-        </div>
-      </section>
-
       <section class="panel-grid">
         <article class="panel wide">
           <div class="panel-heading">
@@ -120,6 +100,29 @@
           <dl class="metrics-list" id="raw-monitor-list"></dl>
         </article>
       </section>
+
+      <section class="panel comparison-panel">
+        <div class="panel-heading">
+          <h2>同因子调仓周期对比</h2>
+          <span>同一个因子在已完成 horizon 下的 summary 横向比较</span>
+        </div>
+        <div class="table-scroll">
+          <table class="comparison-table" id="factor-horizon-table"></table>
+        </div>
+      </section>
+
+      <details class="panel comparison-panel collapsible-panel">
+        <summary>
+          <span>
+            <strong>同周期全因子对比</strong>
+            <small>当前调仓周期下已完成因子的 summary 横向比较</small>
+          </span>
+          <b>展开 / 收起</b>
+        </summary>
+        <div class="table-scroll">
+          <table class="comparison-table" id="horizon-factor-table"></table>
+        </div>
+      </details>
     </main>
     <script type="module" src="/assets/app.js"></script>
   </body>
