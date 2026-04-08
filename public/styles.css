@@ -278,6 +278,37 @@ body[data-view="detail"] #candidate-factor-library {
   font-weight: 900;
 }
 
+.candidate-search {
+  display: inline-grid;
+  grid-template-columns: auto minmax(220px, 320px);
+  gap: 10px;
+  align-items: center;
+  width: auto;
+  color: var(--muted);
+}
+
+.candidate-search span {
+  white-space: nowrap;
+}
+
+.candidate-search input {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  font: inherit;
+  font-weight: 800;
+  outline: none;
+}
+
+.candidate-search input:focus {
+  border-color: rgba(122, 92, 55, 0.72);
+  box-shadow: 0 0 0 3px rgba(189, 87, 52, 0.13);
+}
+
 .horizon-chip {
   display: inline-flex;
   grid-template-columns: none;

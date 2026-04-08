@@ -213,9 +213,24 @@ function renderSummaryCell(target, key, row) {
   return `<td class="${cellClass}">${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}</td>`;
 }
 
+function candidateSearchKeyword() {
+  return document.querySelector("#candidate-factor-search")?.value.trim().toLowerCase() ?? "";
+}
+
+function rowMatchesCandidateSearch(row) {
+  const keyword = candidateSearchKeyword();
+  if (!keyword) return true;
+
+  const factorKey = String(row.factor_key ?? row.factor ?? "").toLowerCase();
+  const factorName = String(row.factor ?? "").toLowerCase();
+  const factorLabel = String(factorLabelMap.get(row.factor_key) ?? "").toLowerCase();
+
+  return [factorKey, factorName, factorLabel].some((text) => text.includes(keyword));
+}
+
 function renderCandidateLibraryTable(rows) {
   candidateLibraryRows = rows;
-  renderSummaryTable("#candidate-factor-table", rows);
+  renderSummaryTable("#candidate-factor-table", rows.filter(rowMatchesCandidateSearch));
 }
 
 function renderSummaryTable(target, rows) {
@@ -615,6 +630,10 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
       document.querySelector("#candidate-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
     });
   });
+});
+
+document.querySelector("#candidate-factor-search").addEventListener("input", () => {
+  renderCandidateLibraryTable(candidateLibraryRows);
 });
 
 document.querySelectorAll(".top-nav-item").forEach((item) => {

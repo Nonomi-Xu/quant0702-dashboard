@@ -50,6 +50,54 @@
     "analysis_path": "factor/analysis/accumulation_swing_index_average_26_10",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "average_true_range_6": {
+    "field_name": "average_true_range_6",
+    "display_name": "真实波动平均值",
+    "display_label": "真实波动平均值_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
+    "formula": "ATR6(i,t) = mean(TR(i,t-5), ..., TR(i,t))",
+    "category": "average_true_range",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "average_true_range_6"
+    ],
+    "module": "src.factor.assets.factors.factors.average_true_range.average_true_range_6",
+    "function": "compute_average_true_range_6",
+    "factor_path": "factor/factors/average_true_range/average_true_range_6",
+    "analysis_path": "factor/analysis/average_true_range_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "average_true_range_14": {
+    "field_name": "average_true_range_14",
+    "display_name": "真实波动平均值",
+    "display_label": "真实波动平均值_14",
+    "parameters": {
+      "N": 14
+    },
+    "parameter_text": "N=14",
+    "formula": "ATR14(i,t) = mean(TR(i,t-13), ..., TR(i,t))",
+    "category": "average_true_range",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "average_true_range_14"
+    ],
+    "module": "src.factor.assets.factors.factors.average_true_range.average_true_range_14",
+    "function": "compute_average_true_range_14",
+    "factor_path": "factor/factors/average_true_range/average_true_range_14",
+    "analysis_path": "factor/analysis/average_true_range_14",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "average_true_range_20": {
     "field_name": "average_true_range_20",
     "display_name": "真实波动平均值",
@@ -72,6 +120,52 @@
     "function": "compute_average_true_range_20",
     "factor_path": "factor/factors/average_true_range/average_true_range_20",
     "analysis_path": "factor/analysis/average_true_range_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "arron_up_25": {
+    "field_name": "arron_up_25",
+    "display_name": "Aroon指标上轨",
+    "display_label": "Aroon指标上轨_25",
+    "parameters": {
+      "N": 25
+    },
+    "parameter_text": "N=25",
+    "formula": "AroonUp(i,t) = ((25 - days_after_highest_high(i,t)) / 25) * 100",
+    "category": "arron_indicator",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq"
+    ],
+    "output_columns": [
+      "arron_up_25"
+    ],
+    "module": "src.factor.assets.factors.factors.arron_indicator.arron_up_25",
+    "function": "compute_arron_up_25",
+    "factor_path": "factor/factors/arron_indicator/arron_up_25",
+    "analysis_path": "factor/analysis/arron_up_25",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "arron_down_25": {
+    "field_name": "arron_down_25",
+    "display_name": "Aroon指标下轨",
+    "display_label": "Aroon指标下轨_25",
+    "parameters": {
+      "N": 25
+    },
+    "parameter_text": "N=25",
+    "formula": "AroonDown(i,t) = ((25 - days_after_lowest_low(i,t)) / 25) * 100",
+    "category": "arron_indicator",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq"
+    ],
+    "output_columns": [
+      "arron_down_25"
+    ],
+    "module": "src.factor.assets.factors.factors.arron_indicator.arron_down_25",
+    "function": "compute_arron_down_25",
+    "factor_path": "factor/factors/arron_indicator/arron_down_25",
+    "analysis_path": "factor/analysis/arron_down_25",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
   "bull_and_bear_index_3_6_12_21": {
@@ -97,6 +191,483 @@
     "function": "compute_bull_and_bear_index_3_6_12_21",
     "factor_path": "factor/factors/bull_and_bear_index/bull_and_bear_index_3_6_12_21",
     "analysis_path": "factor/analysis/bull_and_bear_index_3_6_12_21",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "bull_and_bear_index_momentum_3_6_12_24": {
+    "field_name": "bull_and_bear_index_momentum_3_6_12_24",
+    "display_name": "BBI动量BBIC",
+    "display_label": "BBI动量BBIC_3_6_12_24",
+    "parameters": {
+      "M1": 3,
+      "M2": 6,
+      "M3": 12,
+      "M4": 24
+    },
+    "parameter_text": "M1=3, M2=6, M3=12, M4=24",
+    "formula": "BBIC(i,t) = BBI(3,6,12,24)(i,t) / C(i,t)",
+    "category": "bull_and_bear_index",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "bull_and_bear_index_momentum_3_6_12_24"
+    ],
+    "module": "src.factor.assets.factors.factors.bull_and_bear_index.bull_and_bear_index_momentum_3_6_12_24",
+    "function": "compute_bull_and_bear_index_momentum_3_6_12_24",
+    "factor_path": "factor/factors/bull_and_bear_index/bull_and_bear_index_momentum_3_6_12_24",
+    "analysis_path": "factor/analysis/bull_and_bear_index_momentum_3_6_12_24",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "average_turnover_rate_5": {
+    "field_name": "average_turnover_rate_5",
+    "display_name": "平均换手率",
+    "display_label": "平均换手率_5",
+    "parameters": {
+      "N": 5
+    },
+    "parameter_text": "N=5",
+    "formula": "VOL5(i,t) = mean(turnover_rate(i,t-4), ..., turnover_rate(i,t))",
+    "category": "average_turnover_rate",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "average_turnover_rate_5"
+    ],
+    "module": "src.factor.assets.factors.factors.average_turnover_rate.average_turnover_rate_5",
+    "function": "compute_average_turnover_rate_5",
+    "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_5",
+    "analysis_path": "factor/analysis/average_turnover_rate_5",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "average_turnover_rate_10": {
+    "field_name": "average_turnover_rate_10",
+    "display_name": "平均换手率",
+    "display_label": "平均换手率_10",
+    "parameters": {
+      "N": 10
+    },
+    "parameter_text": "N=10",
+    "formula": "VOL10(i,t) = mean(turnover_rate(i,t-9), ..., turnover_rate(i,t))",
+    "category": "average_turnover_rate",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "average_turnover_rate_10"
+    ],
+    "module": "src.factor.assets.factors.factors.average_turnover_rate.average_turnover_rate_10",
+    "function": "compute_average_turnover_rate_10",
+    "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_10",
+    "analysis_path": "factor/analysis/average_turnover_rate_10",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "average_turnover_rate_20": {
+    "field_name": "average_turnover_rate_20",
+    "display_name": "平均换手率",
+    "display_label": "平均换手率_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "VOL20(i,t) = mean(turnover_rate(i,t-19), ..., turnover_rate(i,t))",
+    "category": "average_turnover_rate",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "average_turnover_rate_20"
+    ],
+    "module": "src.factor.assets.factors.factors.average_turnover_rate.average_turnover_rate_20",
+    "function": "compute_average_turnover_rate_20",
+    "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_20",
+    "analysis_path": "factor/analysis/average_turnover_rate_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "average_turnover_rate_60": {
+    "field_name": "average_turnover_rate_60",
+    "display_name": "平均换手率",
+    "display_label": "平均换手率_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "VOL60(i,t) = mean(turnover_rate(i,t-59), ..., turnover_rate(i,t))",
+    "category": "average_turnover_rate",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "average_turnover_rate_60"
+    ],
+    "module": "src.factor.assets.factors.factors.average_turnover_rate.average_turnover_rate_60",
+    "function": "compute_average_turnover_rate_60",
+    "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_60",
+    "analysis_path": "factor/analysis/average_turnover_rate_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "average_turnover_rate_120": {
+    "field_name": "average_turnover_rate_120",
+    "display_name": "平均换手率",
+    "display_label": "平均换手率_120",
+    "parameters": {
+      "N": 120
+    },
+    "parameter_text": "N=120",
+    "formula": "VOL120(i,t) = mean(turnover_rate(i,t-119), ..., turnover_rate(i,t))",
+    "category": "average_turnover_rate",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "average_turnover_rate_120"
+    ],
+    "module": "src.factor.assets.factors.factors.average_turnover_rate.average_turnover_rate_120",
+    "function": "compute_average_turnover_rate_120",
+    "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_120",
+    "analysis_path": "factor/analysis/average_turnover_rate_120",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "average_turnover_rate_240": {
+    "field_name": "average_turnover_rate_240",
+    "display_name": "平均换手率",
+    "display_label": "平均换手率_240",
+    "parameters": {
+      "N": 240
+    },
+    "parameter_text": "N=240",
+    "formula": "VOL240(i,t) = mean(turnover_rate(i,t-239), ..., turnover_rate(i,t))",
+    "category": "average_turnover_rate",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "average_turnover_rate_240"
+    ],
+    "module": "src.factor.assets.factors.factors.average_turnover_rate.average_turnover_rate_240",
+    "function": "compute_average_turnover_rate_240",
+    "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_240",
+    "analysis_path": "factor/analysis/average_turnover_rate_240",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "turnover_rate_ratio_10_120": {
+    "field_name": "turnover_rate_ratio_10_120",
+    "display_name": "平均换手率比值DAVOL",
+    "display_label": "平均换手率比值DAVOL_10_120",
+    "parameters": {
+      "N1": 10,
+      "N2": 120
+    },
+    "parameter_text": "N1=10, N2=120",
+    "formula": "DAVOL10(i,t) = mean(turnover_rate(i,t-9), ..., turnover_rate(i,t)) / mean(turnover_rate(i,t-119), ..., turnover_rate(i,t))",
+    "category": "turnover_rate_ratio",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "turnover_rate_ratio_10_120"
+    ],
+    "module": "src.factor.assets.factors.factors.turnover_rate_ratio.turnover_rate_ratio_10_120",
+    "function": "compute_turnover_rate_ratio_10_120",
+    "factor_path": "factor/factors/turnover_rate_ratio/turnover_rate_ratio_10_120",
+    "analysis_path": "factor/analysis/turnover_rate_ratio_10_120",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "turnover_rate_ratio_20_120": {
+    "field_name": "turnover_rate_ratio_20_120",
+    "display_name": "平均换手率比值DAVOL",
+    "display_label": "平均换手率比值DAVOL_20_120",
+    "parameters": {
+      "N1": 20,
+      "N2": 120
+    },
+    "parameter_text": "N1=20, N2=120",
+    "formula": "DAVOL20(i,t) = mean(turnover_rate(i,t-19), ..., turnover_rate(i,t)) / mean(turnover_rate(i,t-119), ..., turnover_rate(i,t))",
+    "category": "turnover_rate_ratio",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "turnover_rate_ratio_20_120"
+    ],
+    "module": "src.factor.assets.factors.factors.turnover_rate_ratio.turnover_rate_ratio_20_120",
+    "function": "compute_turnover_rate_ratio_20_120",
+    "factor_path": "factor/factors/turnover_rate_ratio/turnover_rate_ratio_20_120",
+    "analysis_path": "factor/analysis/turnover_rate_ratio_20_120",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "turnover_rate_ratio_60_120": {
+    "field_name": "turnover_rate_ratio_60_120",
+    "display_name": "平均换手率比值DAVOL",
+    "display_label": "平均换手率比值DAVOL_60_120",
+    "parameters": {
+      "N1": 60,
+      "N2": 120
+    },
+    "parameter_text": "N1=60, N2=120",
+    "formula": "DAVOL60(i,t) = mean(turnover_rate(i,t-59), ..., turnover_rate(i,t)) / mean(turnover_rate(i,t-119), ..., turnover_rate(i,t))",
+    "category": "turnover_rate_ratio",
+    "required_fields": [
+      "turnover_rate"
+    ],
+    "output_columns": [
+      "turnover_rate_ratio_60_120"
+    ],
+    "module": "src.factor.assets.factors.factors.turnover_rate_ratio.turnover_rate_ratio_60_120",
+    "function": "compute_turnover_rate_ratio_60_120",
+    "factor_path": "factor/factors/turnover_rate_ratio/turnover_rate_ratio_60_120",
+    "analysis_path": "factor/analysis/turnover_rate_ratio_60_120",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "williams_variable_accumulation_distribution_6": {
+    "field_name": "williams_variable_accumulation_distribution_6",
+    "display_name": "威廉变异离散量WVAD",
+    "display_label": "威廉变异离散量WVAD_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
+    "formula": "WVAD(i,t) = sum((C(i,t-k)-O(i,t-k))/(H(i,t-k)-L(i,t-k))*VOL(i,t-k), k=0..5)",
+    "category": "williams_variable_accumulation_distribution",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "williams_variable_accumulation_distribution_6"
+    ],
+    "module": "src.factor.assets.factors.factors.williams_variable_accumulation_distribution.williams_variable_accumulation_distribution_6",
+    "function": "compute_williams_variable_accumulation_distribution_6",
+    "factor_path": "factor/factors/williams_variable_accumulation_distribution/williams_variable_accumulation_distribution_6",
+    "analysis_path": "factor/analysis/williams_variable_accumulation_distribution_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "williams_variable_accumulation_distribution_average_6_6": {
+    "field_name": "williams_variable_accumulation_distribution_average_6_6",
+    "display_name": "威廉变异离散量均值MAWVAD",
+    "display_label": "威廉变异离散量均值MAWVAD_6_6",
+    "parameters": {
+      "N": 6,
+      "M": 6
+    },
+    "parameter_text": "N=6, M=6",
+    "formula": "MAWVAD(i,t) = mean(WVAD(i,t-5), ..., WVAD(i,t))",
+    "category": "williams_variable_accumulation_distribution",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "williams_variable_accumulation_distribution_average_6_6"
+    ],
+    "module": "src.factor.assets.factors.factors.williams_variable_accumulation_distribution.williams_variable_accumulation_distribution_average_6_6",
+    "function": "compute_williams_variable_accumulation_distribution_average_6_6",
+    "factor_path": "factor/factors/williams_variable_accumulation_distribution/williams_variable_accumulation_distribution_average_6_6",
+    "analysis_path": "factor/analysis/williams_variable_accumulation_distribution_average_6_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_variance_20": {
+    "field_name": "return_variance_20",
+    "display_name": "收益方差",
+    "display_label": "收益方差_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "Variance20(i,t) = var(C(i,t-k)/C(i,t-k-1)-1, k=0..19)",
+    "category": "return_variance",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_variance_20"
+    ],
+    "module": "src.factor.assets.factors.factors.return_variance.return_variance_20",
+    "function": "compute_return_variance_20",
+    "factor_path": "factor/factors/return_variance/return_variance_20",
+    "analysis_path": "factor/analysis/return_variance_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_variance_60": {
+    "field_name": "return_variance_60",
+    "display_name": "收益方差",
+    "display_label": "收益方差_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "Variance60(i,t) = var(C(i,t-k)/C(i,t-k-1)-1, k=0..59)",
+    "category": "return_variance",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_variance_60"
+    ],
+    "module": "src.factor.assets.factors.factors.return_variance.return_variance_60",
+    "function": "compute_return_variance_60",
+    "factor_path": "factor/factors/return_variance/return_variance_60",
+    "analysis_path": "factor/analysis/return_variance_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_variance_120": {
+    "field_name": "return_variance_120",
+    "display_name": "收益方差",
+    "display_label": "收益方差_120",
+    "parameters": {
+      "N": 120
+    },
+    "parameter_text": "N=120",
+    "formula": "Variance120(i,t) = var(C(i,t-k)/C(i,t-k-1)-1, k=0..119)",
+    "category": "return_variance",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_variance_120"
+    ],
+    "module": "src.factor.assets.factors.factors.return_variance.return_variance_120",
+    "function": "compute_return_variance_120",
+    "factor_path": "factor/factors/return_variance/return_variance_120",
+    "analysis_path": "factor/analysis/return_variance_120",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_skewness_20": {
+    "field_name": "return_skewness_20",
+    "display_name": "收益偏度",
+    "display_label": "收益偏度_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "Skewness20(i,t) = skew(C(i,t-k)/C(i,t-k-1)-1, k=0..19)",
+    "category": "return_skewness",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_skewness_20"
+    ],
+    "module": "src.factor.assets.factors.factors.return_skewness.return_skewness_20",
+    "function": "compute_return_skewness_20",
+    "factor_path": "factor/factors/return_skewness/return_skewness_20",
+    "analysis_path": "factor/analysis/return_skewness_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_skewness_60": {
+    "field_name": "return_skewness_60",
+    "display_name": "收益偏度",
+    "display_label": "收益偏度_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "Skewness60(i,t) = skew(C(i,t-k)/C(i,t-k-1)-1, k=0..59)",
+    "category": "return_skewness",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_skewness_60"
+    ],
+    "module": "src.factor.assets.factors.factors.return_skewness.return_skewness_60",
+    "function": "compute_return_skewness_60",
+    "factor_path": "factor/factors/return_skewness/return_skewness_60",
+    "analysis_path": "factor/analysis/return_skewness_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_skewness_120": {
+    "field_name": "return_skewness_120",
+    "display_name": "收益偏度",
+    "display_label": "收益偏度_120",
+    "parameters": {
+      "N": 120
+    },
+    "parameter_text": "N=120",
+    "formula": "Skewness120(i,t) = skew(C(i,t-k)/C(i,t-k-1)-1, k=0..119)",
+    "category": "return_skewness",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_skewness_120"
+    ],
+    "module": "src.factor.assets.factors.factors.return_skewness.return_skewness_120",
+    "function": "compute_return_skewness_120",
+    "factor_path": "factor/factors/return_skewness/return_skewness_120",
+    "analysis_path": "factor/analysis/return_skewness_120",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_kurtosis_20": {
+    "field_name": "return_kurtosis_20",
+    "display_name": "收益峰度",
+    "display_label": "收益峰度_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "Kurtosis20(i,t) = kurtosis(C(i,t-k)/C(i,t-k-1)-1, k=0..19)",
+    "category": "return_kurtosis",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_kurtosis_20"
+    ],
+    "module": "src.factor.assets.factors.factors.return_kurtosis.return_kurtosis_20",
+    "function": "compute_return_kurtosis_20",
+    "factor_path": "factor/factors/return_kurtosis/return_kurtosis_20",
+    "analysis_path": "factor/analysis/return_kurtosis_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_kurtosis_60": {
+    "field_name": "return_kurtosis_60",
+    "display_name": "收益峰度",
+    "display_label": "收益峰度_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "Kurtosis60(i,t) = kurtosis(C(i,t-k)/C(i,t-k-1)-1, k=0..59)",
+    "category": "return_kurtosis",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_kurtosis_60"
+    ],
+    "module": "src.factor.assets.factors.factors.return_kurtosis.return_kurtosis_60",
+    "function": "compute_return_kurtosis_60",
+    "factor_path": "factor/factors/return_kurtosis/return_kurtosis_60",
+    "analysis_path": "factor/analysis/return_kurtosis_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "return_kurtosis_120": {
+    "field_name": "return_kurtosis_120",
+    "display_name": "收益峰度",
+    "display_label": "收益峰度_120",
+    "parameters": {
+      "N": 120
+    },
+    "parameter_text": "N=120",
+    "formula": "Kurtosis120(i,t) = kurtosis(C(i,t-k)/C(i,t-k-1)-1, k=0..119)",
+    "category": "return_kurtosis",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "return_kurtosis_120"
+    ],
+    "module": "src.factor.assets.factors.factors.return_kurtosis.return_kurtosis_120",
+    "function": "compute_return_kurtosis_120",
+    "factor_path": "factor/factors/return_kurtosis/return_kurtosis_120",
+    "analysis_path": "factor/analysis/return_kurtosis_120",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
   "popularity_index_ar_26": {
@@ -147,6 +718,31 @@
     "function": "compute_willingness_index_br_26",
     "factor_path": "factor/factors/popularity_willingness_index/willingness_index_br_26",
     "analysis_path": "factor/analysis/willingness_index_br_26",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "popularity_willingness_difference_26": {
+    "field_name": "popularity_willingness_difference_26",
+    "display_name": "ARBR差值",
+    "display_label": "ARBR差值_26",
+    "parameters": {
+      "M1": 26
+    },
+    "parameter_text": "M1=26",
+    "formula": "ARBR(i,t) = AR(i,t) - BR(i,t)",
+    "category": "popularity_willingness_index",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "popularity_willingness_difference_26"
+    ],
+    "module": "src.factor.assets.factors.factors.popularity_willingness_index.popularity_willingness_difference_26",
+    "function": "compute_popularity_willingness_difference_26",
+    "factor_path": "factor/factors/popularity_willingness_index/popularity_willingness_difference_26",
+    "analysis_path": "factor/analysis/popularity_willingness_difference_26",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
   "bollinger_lower_band_20_2": {
@@ -284,6 +880,94 @@
     "analysis_path": "factor/analysis/bias_ratio_24",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "bias_ratio_60": {
+    "field_name": "bias_ratio_60",
+    "display_name": "BIAS乖离率",
+    "display_label": "BIAS乖离率_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "BIAS60(i,t) = ((C(i,t) - MA60(i,t)) / MA60(i,t)) * 100",
+    "category": "bias_ratio",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "bias_ratio_60"
+    ],
+    "module": "src.factor.assets.factors.factors.bias_ratio.bias_ratio_60",
+    "function": "compute_bias_ratio_60",
+    "factor_path": "factor/factors/bias_ratio/bias_ratio_60",
+    "analysis_path": "factor/analysis/bias_ratio_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "price_linear_regression_coefficient_12": {
+    "field_name": "price_linear_regression_coefficient_12",
+    "display_name": "价格线性回归系数PLRC",
+    "display_label": "价格线性回归系数PLRC_12",
+    "parameters": {
+      "N": 12
+    },
+    "parameter_text": "N=12",
+    "formula": "PLRC12(i,t): C(i,t-k)/mean(C(i,t-11),...,C(i,t)) = beta*T_k + alpha, T_k=1..12",
+    "category": "price_linear_regression_coefficient",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "price_linear_regression_coefficient_12"
+    ],
+    "module": "src.factor.assets.factors.factors.price_linear_regression_coefficient.price_linear_regression_coefficient_12",
+    "function": "compute_price_linear_regression_coefficient_12",
+    "factor_path": "factor/factors/price_linear_regression_coefficient/price_linear_regression_coefficient_12",
+    "analysis_path": "factor/analysis/price_linear_regression_coefficient_12",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "price_linear_regression_coefficient_6": {
+    "field_name": "price_linear_regression_coefficient_6",
+    "display_name": "价格线性回归系数PLRC",
+    "display_label": "价格线性回归系数PLRC_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
+    "formula": "PLRC6(i,t): C(i,t-k)/mean(C(i,t-5),...,C(i,t)) = beta*T_k + alpha, T_k=1..6",
+    "category": "price_linear_regression_coefficient",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "price_linear_regression_coefficient_6"
+    ],
+    "module": "src.factor.assets.factors.factors.price_linear_regression_coefficient.price_linear_regression_coefficient_6",
+    "function": "compute_price_linear_regression_coefficient_6",
+    "factor_path": "factor/factors/price_linear_regression_coefficient/price_linear_regression_coefficient_6",
+    "analysis_path": "factor/analysis/price_linear_regression_coefficient_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "price_linear_regression_coefficient_24": {
+    "field_name": "price_linear_regression_coefficient_24",
+    "display_name": "价格线性回归系数PLRC",
+    "display_label": "价格线性回归系数PLRC_24",
+    "parameters": {
+      "N": 24
+    },
+    "parameter_text": "N=24",
+    "formula": "PLRC24(i,t): C(i,t-k)/mean(C(i,t-23),...,C(i,t)) = beta*T_k + alpha, T_k=1..24",
+    "category": "price_linear_regression_coefficient",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "price_linear_regression_coefficient_24"
+    ],
+    "module": "src.factor.assets.factors.factors.price_linear_regression_coefficient.price_linear_regression_coefficient_24",
+    "function": "compute_price_linear_regression_coefficient_24",
+    "factor_path": "factor/factors/price_linear_regression_coefficient/price_linear_regression_coefficient_24",
+    "analysis_path": "factor/analysis/price_linear_regression_coefficient_24",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "commodity_channel_index_14": {
     "field_name": "commodity_channel_index_14",
     "display_name": "CCI顺势指标",
@@ -308,6 +992,102 @@
     "analysis_path": "factor/analysis/commodity_channel_index_14",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "commodity_channel_index_10": {
+    "field_name": "commodity_channel_index_10",
+    "display_name": "CCI顺势指标",
+    "display_label": "CCI顺势指标_10",
+    "parameters": {
+      "N": 10
+    },
+    "parameter_text": "N=10",
+    "formula": "CCI10(i,t) = (TYP(i,t) - MA10(TYP,i,t)) / (0.015 * AVEDEV10(TYP,i,t))",
+    "category": "commodity_channel_index",
+    "required_fields": [
+      "close_hfq",
+      "high_hfq",
+      "low_hfq"
+    ],
+    "output_columns": [
+      "commodity_channel_index_10"
+    ],
+    "module": "src.factor.assets.factors.factors.commodity_channel_index.commodity_channel_index_10",
+    "function": "compute_commodity_channel_index_10",
+    "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_10",
+    "analysis_path": "factor/analysis/commodity_channel_index_10",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "commodity_channel_index_20": {
+    "field_name": "commodity_channel_index_20",
+    "display_name": "CCI顺势指标",
+    "display_label": "CCI顺势指标_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "CCI20(i,t) = (TYP(i,t) - MA20(TYP,i,t)) / (0.015 * AVEDEV20(TYP,i,t))",
+    "category": "commodity_channel_index",
+    "required_fields": [
+      "close_hfq",
+      "high_hfq",
+      "low_hfq"
+    ],
+    "output_columns": [
+      "commodity_channel_index_20"
+    ],
+    "module": "src.factor.assets.factors.factors.commodity_channel_index.commodity_channel_index_20",
+    "function": "compute_commodity_channel_index_20",
+    "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_20",
+    "analysis_path": "factor/analysis/commodity_channel_index_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "commodity_channel_index_60": {
+    "field_name": "commodity_channel_index_60",
+    "display_name": "CCI顺势指标",
+    "display_label": "CCI顺势指标_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "CCI60(i,t) = (TYP(i,t) - MA60(TYP,i,t)) / (0.015 * AVEDEV60(TYP,i,t))",
+    "category": "commodity_channel_index",
+    "required_fields": [
+      "close_hfq",
+      "high_hfq",
+      "low_hfq"
+    ],
+    "output_columns": [
+      "commodity_channel_index_60"
+    ],
+    "module": "src.factor.assets.factors.factors.commodity_channel_index.commodity_channel_index_60",
+    "function": "compute_commodity_channel_index_60",
+    "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_60",
+    "analysis_path": "factor/analysis/commodity_channel_index_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "commodity_channel_index_120": {
+    "field_name": "commodity_channel_index_120",
+    "display_name": "CCI顺势指标",
+    "display_label": "CCI顺势指标_120",
+    "parameters": {
+      "N": 120
+    },
+    "parameter_text": "N=120",
+    "formula": "CCI120(i,t) = (TYP(i,t) - MA120(TYP,i,t)) / (0.015 * AVEDEV120(TYP,i,t))",
+    "category": "commodity_channel_index",
+    "required_fields": [
+      "close_hfq",
+      "high_hfq",
+      "low_hfq"
+    ],
+    "output_columns": [
+      "commodity_channel_index_120"
+    ],
+    "module": "src.factor.assets.factors.factors.commodity_channel_index.commodity_channel_index_120",
+    "function": "compute_commodity_channel_index_120",
+    "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_120",
+    "analysis_path": "factor/analysis/commodity_channel_index_120",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "price_momentum_index_20": {
     "field_name": "price_momentum_index_20",
     "display_name": "CR价格动量指标",
@@ -316,10 +1096,9 @@
       "N": 20
     },
     "parameter_text": "N=20",
-    "formula": "CR(i,t) = sum(max(0,H(i,t-k)-REF(MID,i,t-k,1)), k=0..19) / sum(max(0,REF(MID,i,t-k,1)-L(i,t-k)), k=0..19) * 100",
+    "formula": "CR20(i,t) = sum(max(0,H(i,t-k)-MID(i,t-k-1)), k=0..19) / sum(max(0,MID(i,t-k-1)-L(i,t-k)), k=0..19) * 100, MID=(H+L)/2",
     "category": "price_momentum_index",
     "required_fields": [
-      "close_hfq",
       "high_hfq",
       "low_hfq"
     ],
@@ -515,6 +1294,52 @@
     "function": "compute_average_directional_index_rating_14_6",
     "factor_path": "factor/factors/directional_movement_index/average_directional_index_rating_14_6",
     "analysis_path": "factor/analysis/average_directional_index_rating_14_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "bull_power_13": {
+    "field_name": "bull_power_13",
+    "display_name": "多头力道BullPower",
+    "display_label": "多头力道BullPower_13",
+    "parameters": {
+      "N": 13
+    },
+    "parameter_text": "N=13",
+    "formula": "BullPower(i,t) = (H(i,t) - EMA(C(i,t),13)) / C(i,t)",
+    "category": "bull_power",
+    "required_fields": [
+      "high_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "bull_power_13"
+    ],
+    "module": "src.factor.assets.factors.factors.bull_power.bull_power_13",
+    "function": "compute_bull_power_13",
+    "factor_path": "factor/factors/bull_power/bull_power_13",
+    "analysis_path": "factor/analysis/bull_power_13",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "bear_power_13": {
+    "field_name": "bear_power_13",
+    "display_name": "空头力道BearPower",
+    "display_label": "空头力道BearPower_13",
+    "parameters": {
+      "N": 13
+    },
+    "parameter_text": "N=13",
+    "formula": "BearPower(i,t) = (L(i,t) - EMA(C(i,t),13)) / C(i,t)",
+    "category": "bull_power",
+    "required_fields": [
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "bear_power_13"
+    ],
+    "module": "src.factor.assets.factors.factors.bull_power.bear_power_13",
+    "function": "compute_bear_power_13",
+    "factor_path": "factor/factors/bull_power/bear_power_13",
+    "analysis_path": "factor/analysis/bear_power_13",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
   "exponential_moving_average_5": {
@@ -1118,6 +1943,116 @@
     "analysis_path": "factor/analysis/simple_moving_average_250",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "monthly_price_average_deviation_20": {
+    "field_name": "monthly_price_average_deviation_20",
+    "display_name": "一月均价偏离率",
+    "display_label": "一月均价偏离率_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "MonthlyPriceAverageDeviation20(i,t) = C(i,t) / mean(C(i,t-19), ..., C(i,t)) - 1",
+    "category": "monthly_price_average_deviation",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "monthly_price_average_deviation_20"
+    ],
+    "module": "src.factor.assets.factors.factors.monthly_price_average_deviation.monthly_price_average_deviation_20",
+    "function": "compute_monthly_price_average_deviation_20",
+    "factor_path": "factor/factors/monthly_price_average_deviation/monthly_price_average_deviation_20",
+    "analysis_path": "factor/analysis/monthly_price_average_deviation_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "quarterly_price_average_deviation_60": {
+    "field_name": "quarterly_price_average_deviation_60",
+    "display_name": "三月均价偏离率",
+    "display_label": "三月均价偏离率_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "QuarterlyPriceAverageDeviation60(i,t) = C(i,t) / mean(C(i,t-59), ..., C(i,t)) - 1",
+    "category": "quarterly_price_average_deviation",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "quarterly_price_average_deviation_60"
+    ],
+    "module": "src.factor.assets.factors.factors.quarterly_price_average_deviation.quarterly_price_average_deviation_60",
+    "function": "compute_quarterly_price_average_deviation_60",
+    "factor_path": "factor/factors/quarterly_price_average_deviation/quarterly_price_average_deviation_60",
+    "analysis_path": "factor/analysis/quarterly_price_average_deviation_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "annual_price_average_deviation_250": {
+    "field_name": "annual_price_average_deviation_250",
+    "display_name": "一年均价偏离率",
+    "display_label": "一年均价偏离率_250",
+    "parameters": {
+      "N": 250
+    },
+    "parameter_text": "N=250",
+    "formula": "AnnualPriceAverageDeviation250(i,t) = C(i,t) / mean(C(i,t-249), ..., C(i,t)) - 1",
+    "category": "annual_price_average_deviation",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "annual_price_average_deviation_250"
+    ],
+    "module": "src.factor.assets.factors.factors.annual_price_average_deviation.annual_price_average_deviation_250",
+    "function": "compute_annual_price_average_deviation_250",
+    "factor_path": "factor/factors/annual_price_average_deviation/annual_price_average_deviation_250",
+    "analysis_path": "factor/analysis/annual_price_average_deviation_250",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "annual_price_rank_position_250": {
+    "field_name": "annual_price_rank_position_250",
+    "display_name": "一年价格排序位置",
+    "display_label": "一年价格排序位置_250",
+    "parameters": {
+      "N": 250
+    },
+    "parameter_text": "N=250",
+    "formula": "AnnualPriceRankPosition250(i,t) = 1 + count(C(i,t-k) > C(i,t), k=0..249)",
+    "category": "annual_price_rank_position",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "annual_price_rank_position_250"
+    ],
+    "module": "src.factor.assets.factors.factors.annual_price_rank_position.annual_price_rank_position_250",
+    "function": "compute_annual_price_rank_position_250",
+    "factor_path": "factor/factors/annual_price_rank_position/annual_price_rank_position_250",
+    "analysis_path": "factor/analysis/annual_price_rank_position_250",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "monthly_return_rank_score_20": {
+    "field_name": "monthly_return_rank_score_20",
+    "display_name": "一月收益排名得分",
+    "display_label": "一月收益排名得分_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "MonthlyReturnRankScore20(i,t) = 1 - rank_desc(R20(i,t)) / count(R20(i,t)), R20=C(i,t)/C(i,t-20)-1",
+    "category": "monthly_return_rank_score",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "monthly_return_rank_score_20"
+    ],
+    "module": "src.factor.assets.factors.factors.monthly_return_rank_score.monthly_return_rank_score_20",
+    "function": "compute_monthly_return_rank_score_20",
+    "factor_path": "factor/factors/monthly_return_rank_score/monthly_return_rank_score_20",
+    "analysis_path": "factor/analysis/monthly_return_rank_score_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "moving_average_convergence_divergence_histogram_12_26_9": {
     "field_name": "moving_average_convergence_divergence_histogram_12_26_9",
     "display_name": "MACD柱线",
@@ -1264,6 +2199,31 @@
     "analysis_path": "factor/analysis/money_flow_index_14",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "money_flow_20": {
+    "field_name": "money_flow_20",
+    "display_name": "资金流量",
+    "display_label": "资金流量_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "MoneyFlow20(i,t) = sum(((C+H+L)/3*VOL)(i,t-k), k=0..19)",
+    "category": "money_flow",
+    "required_fields": [
+      "close_hfq",
+      "high_hfq",
+      "low_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "money_flow_20"
+    ],
+    "module": "src.factor.assets.factors.factors.money_flow.money_flow_20",
+    "function": "compute_money_flow_20",
+    "factor_path": "factor/factors/money_flow/money_flow_20",
+    "analysis_path": "factor/analysis/money_flow_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "momentum_12": {
     "field_name": "momentum_12",
     "display_name": "动量指标MTM",
@@ -1309,6 +2269,30 @@
     "analysis_path": "factor/analysis/momentum_average_12_6",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "momentum_504_21_126": {
+    "field_name": "momentum_504_21_126",
+    "display_name": "动量因子Momentum",
+    "display_label": "动量因子Momentum_504_21_126",
+    "parameters": {
+      "N": 504,
+      "LAG": 21,
+      "HALFLIFE": 126
+    },
+    "parameter_text": "N=504, LAG=21, HALFLIFE=126",
+    "formula": "Momentum(i,t) = sum(w_k * ln(C(i,t-21-k)/C(i,t-22-k)), k=0..503), half_life=126",
+    "category": "momentum",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "momentum_504_21_126"
+    ],
+    "module": "src.factor.assets.factors.factors.momentum.momentum_504_21_126",
+    "function": "compute_momentum_504_21_126",
+    "factor_path": "factor/factors/momentum/momentum_504_21_126",
+    "analysis_path": "factor/analysis/momentum_504_21_126",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "on_balance_volume": {
     "field_name": "on_balance_volume",
     "display_name": "能量潮指标OBV",
@@ -1328,6 +2312,96 @@
     "function": "compute_on_balance_volume",
     "factor_path": "factor/factors/on_balance_volume/on_balance_volume",
     "analysis_path": "factor/analysis/on_balance_volume",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "single_day_volume_price_trend": {
+    "field_name": "single_day_volume_price_trend",
+    "display_name": "单日价量趋势VPT",
+    "display_label": "单日价量趋势VPT",
+    "parameters": {},
+    "parameter_text": "",
+    "formula": "SingleDayVPT(i,t) = (C(i,t) - C(i,t-1)) / C(i,t-1) * VOL(i,t)",
+    "category": "single_day_volume_price_trend",
+    "required_fields": [
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "single_day_volume_price_trend"
+    ],
+    "module": "src.factor.assets.factors.factors.single_day_volume_price_trend.single_day_volume_price_trend",
+    "function": "compute_single_day_volume_price_trend",
+    "factor_path": "factor/factors/single_day_volume_price_trend/single_day_volume_price_trend",
+    "analysis_path": "factor/analysis/single_day_volume_price_trend",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "single_day_volume_price_trend_average_6": {
+    "field_name": "single_day_volume_price_trend_average_6",
+    "display_name": "单日价量趋势均值VPT",
+    "display_label": "单日价量趋势均值VPT_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
+    "formula": "SingleDayVPT_MA6(i,t) = MA(SingleDayVPT(i,t), 6)",
+    "category": "single_day_volume_price_trend",
+    "required_fields": [
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "single_day_volume_price_trend_average_6"
+    ],
+    "module": "src.factor.assets.factors.factors.single_day_volume_price_trend.single_day_volume_price_trend_average_6",
+    "function": "compute_single_day_volume_price_trend_average_6",
+    "factor_path": "factor/factors/single_day_volume_price_trend/single_day_volume_price_trend_average_6",
+    "analysis_path": "factor/analysis/single_day_volume_price_trend_average_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "single_day_volume_price_trend_average_12": {
+    "field_name": "single_day_volume_price_trend_average_12",
+    "display_name": "单日价量趋势均值VPT",
+    "display_label": "单日价量趋势均值VPT_12",
+    "parameters": {
+      "N": 12
+    },
+    "parameter_text": "N=12",
+    "formula": "SingleDayVPT_MA12(i,t) = MA(SingleDayVPT(i,t), 12)",
+    "category": "single_day_volume_price_trend",
+    "required_fields": [
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "single_day_volume_price_trend_average_12"
+    ],
+    "module": "src.factor.assets.factors.factors.single_day_volume_price_trend.single_day_volume_price_trend_average_12",
+    "function": "compute_single_day_volume_price_trend_average_12",
+    "factor_path": "factor/factors/single_day_volume_price_trend/single_day_volume_price_trend_average_12",
+    "analysis_path": "factor/analysis/single_day_volume_price_trend_average_12",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "volume_return_interaction_20": {
+    "field_name": "volume_return_interaction_20",
+    "display_name": "量价收益交互Volume1M",
+    "display_label": "量价收益交互Volume1M_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "Volume1M(i,t) = VOL(i,t) / mean(VOL(i,t-19),...,VOL(i,t)) * mean(R(i,t-19),...,R(i,t))",
+    "category": "volume_return_interaction",
+    "required_fields": [
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "volume_return_interaction_20"
+    ],
+    "module": "src.factor.assets.factors.factors.volume_return_interaction.volume_return_interaction_20",
+    "function": "compute_volume_return_interaction_20",
+    "factor_path": "factor/factors/volume_return_interaction/volume_return_interaction_20",
+    "analysis_path": "factor/analysis/volume_return_interaction_20",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
   "psychological_line_12": {
@@ -1375,6 +2449,28 @@
     "analysis_path": "factor/analysis/psychological_line_average_12_6",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "rate_of_change_6": {
+    "field_name": "rate_of_change_6",
+    "display_name": "变动率指标ROC",
+    "display_label": "变动率指标ROC_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
+    "formula": "ROC6(i,t) = (C(i,t) - C(i,t-6)) / C(i,t-6) * 100",
+    "category": "rate_of_change",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "rate_of_change_6"
+    ],
+    "module": "src.factor.assets.factors.factors.rate_of_change.rate_of_change_6",
+    "function": "compute_rate_of_change_6",
+    "factor_path": "factor/factors/rate_of_change/rate_of_change_6",
+    "analysis_path": "factor/analysis/rate_of_change_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "rate_of_change_12": {
     "field_name": "rate_of_change_12",
     "display_name": "变动率指标ROC",
@@ -1395,6 +2491,72 @@
     "function": "compute_rate_of_change_12",
     "factor_path": "factor/factors/rate_of_change/rate_of_change_12",
     "analysis_path": "factor/analysis/rate_of_change_12",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "rate_of_change_20": {
+    "field_name": "rate_of_change_20",
+    "display_name": "变动率指标ROC",
+    "display_label": "变动率指标ROC_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "ROC20(i,t) = (C(i,t) - C(i,t-20)) / C(i,t-20) * 100",
+    "category": "rate_of_change",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "rate_of_change_20"
+    ],
+    "module": "src.factor.assets.factors.factors.rate_of_change.rate_of_change_20",
+    "function": "compute_rate_of_change_20",
+    "factor_path": "factor/factors/rate_of_change/rate_of_change_20",
+    "analysis_path": "factor/analysis/rate_of_change_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "rate_of_change_60": {
+    "field_name": "rate_of_change_60",
+    "display_name": "变动率指标ROC",
+    "display_label": "变动率指标ROC_60",
+    "parameters": {
+      "N": 60
+    },
+    "parameter_text": "N=60",
+    "formula": "ROC60(i,t) = (C(i,t) - C(i,t-60)) / C(i,t-60) * 100",
+    "category": "rate_of_change",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "rate_of_change_60"
+    ],
+    "module": "src.factor.assets.factors.factors.rate_of_change.rate_of_change_60",
+    "function": "compute_rate_of_change_60",
+    "factor_path": "factor/factors/rate_of_change/rate_of_change_60",
+    "analysis_path": "factor/analysis/rate_of_change_60",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "rate_of_change_120": {
+    "field_name": "rate_of_change_120",
+    "display_name": "变动率指标ROC",
+    "display_label": "变动率指标ROC_120",
+    "parameters": {
+      "N": 120
+    },
+    "parameter_text": "N=120",
+    "formula": "ROC120(i,t) = (C(i,t) - C(i,t-120)) / C(i,t-120) * 100",
+    "category": "rate_of_change",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "rate_of_change_120"
+    ],
+    "module": "src.factor.assets.factors.factors.rate_of_change.rate_of_change_120",
+    "function": "compute_rate_of_change_120",
+    "factor_path": "factor/factors/rate_of_change/rate_of_change_120",
+    "analysis_path": "factor/analysis/rate_of_change_120",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
   "rate_of_change_average_12_6": {
@@ -1577,6 +2739,30 @@
     "analysis_path": "factor/analysis/triple_exponential_oscillator_12",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
+  "triple_exponential_oscillator_5_10_5": {
+    "field_name": "triple_exponential_oscillator_5_10_5",
+    "display_name": "三重指数平滑平均线TRIX",
+    "display_label": "三重指数平滑平均线TRIX_5_10_5",
+    "parameters": {
+      "M1": 5,
+      "M2": 10,
+      "M3": 5
+    },
+    "parameter_text": "M1=5, M2=10, M3=5",
+    "formula": "TRIX(i,t) = (MTR(i,t) - MTR(i,t-1)) / MTR(i,t-1) * 100, MTR=EMA(EMA(EMA(C,5),10),5)",
+    "category": "triple_exponential_oscillator",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "triple_exponential_oscillator_5_10_5"
+    ],
+    "module": "src.factor.assets.factors.factors.triple_exponential_oscillator.triple_exponential_oscillator_5_10_5",
+    "function": "compute_triple_exponential_oscillator_5_10_5",
+    "factor_path": "factor/factors/triple_exponential_oscillator/triple_exponential_oscillator_5_10_5",
+    "analysis_path": "factor/analysis/triple_exponential_oscillator_5_10_5",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
   "triple_exponential_oscillator_average_12_20": {
     "field_name": "triple_exponential_oscillator_average_12_20",
     "display_name": "三重指数平滑平均线TRMA",
@@ -1621,6 +2807,94 @@
     "function": "compute_volume_ratio_26",
     "factor_path": "factor/factors/volume_ratio/volume_ratio_26",
     "analysis_path": "factor/analysis/volume_ratio_26",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "volume_standard_deviation_10": {
+    "field_name": "volume_standard_deviation_10",
+    "display_name": "成交量标准差VSTD",
+    "display_label": "成交量标准差VSTD_10",
+    "parameters": {
+      "N": 10
+    },
+    "parameter_text": "N=10",
+    "formula": "VSTD10(i,t) = std(VOL(i,t-9), ..., VOL(i,t))",
+    "category": "volume_standard_deviation",
+    "required_fields": [
+      "vol"
+    ],
+    "output_columns": [
+      "volume_standard_deviation_10"
+    ],
+    "module": "src.factor.assets.factors.factors.volume_standard_deviation.volume_standard_deviation_10",
+    "function": "compute_volume_standard_deviation_10",
+    "factor_path": "factor/factors/volume_standard_deviation/volume_standard_deviation_10",
+    "analysis_path": "factor/analysis/volume_standard_deviation_10",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "volume_standard_deviation_20": {
+    "field_name": "volume_standard_deviation_20",
+    "display_name": "成交量标准差VSTD",
+    "display_label": "成交量标准差VSTD_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "VSTD20(i,t) = std(VOL(i,t-19), ..., VOL(i,t))",
+    "category": "volume_standard_deviation",
+    "required_fields": [
+      "vol"
+    ],
+    "output_columns": [
+      "volume_standard_deviation_20"
+    ],
+    "module": "src.factor.assets.factors.factors.volume_standard_deviation.volume_standard_deviation_20",
+    "function": "compute_volume_standard_deviation_20",
+    "factor_path": "factor/factors/volume_standard_deviation/volume_standard_deviation_20",
+    "analysis_path": "factor/analysis/volume_standard_deviation_20",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "turnover_value_standard_deviation_6": {
+    "field_name": "turnover_value_standard_deviation_6",
+    "display_name": "成交金额标准差TVSTD",
+    "display_label": "成交金额标准差TVSTD_6",
+    "parameters": {
+      "N": 6
+    },
+    "parameter_text": "N=6",
+    "formula": "TVSTD6(i,t) = std(AMOUNT(i,t-5), ..., AMOUNT(i,t))",
+    "category": "turnover_value_standard_deviation",
+    "required_fields": [
+      "amount"
+    ],
+    "output_columns": [
+      "turnover_value_standard_deviation_6"
+    ],
+    "module": "src.factor.assets.factors.factors.turnover_value_standard_deviation.turnover_value_standard_deviation_6",
+    "function": "compute_turnover_value_standard_deviation_6",
+    "factor_path": "factor/factors/turnover_value_standard_deviation/turnover_value_standard_deviation_6",
+    "analysis_path": "factor/analysis/turnover_value_standard_deviation_6",
+    "source": "quant/src/factor/assets/factors/factor_registry.py"
+  },
+  "turnover_value_standard_deviation_20": {
+    "field_name": "turnover_value_standard_deviation_20",
+    "display_name": "成交金额标准差TVSTD",
+    "display_label": "成交金额标准差TVSTD_20",
+    "parameters": {
+      "N": 20
+    },
+    "parameter_text": "N=20",
+    "formula": "TVSTD20(i,t) = std(AMOUNT(i,t-19), ..., AMOUNT(i,t))",
+    "category": "turnover_value_standard_deviation",
+    "required_fields": [
+      "amount"
+    ],
+    "output_columns": [
+      "turnover_value_standard_deviation_20"
+    ],
+    "module": "src.factor.assets.factors.factors.turnover_value_standard_deviation.turnover_value_standard_deviation_20",
+    "function": "compute_turnover_value_standard_deviation_20",
+    "factor_path": "factor/factors/turnover_value_standard_deviation/turnover_value_standard_deviation_20",
+    "analysis_path": "factor/analysis/turnover_value_standard_deviation_20",
     "source": "quant/src/factor/assets/factors/factor_registry.py"
   },
   "williams_percent_range_6": {
