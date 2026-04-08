@@ -53,6 +53,7 @@ const summaryKeyOrder = [
 const hiddenKpiKeys = new Set(["factor"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
+const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 
 function escapeHtml(value) {
   return String(value ?? "-")
@@ -115,13 +116,13 @@ function renderSummaryCell(key, row) {
     return `
       <td>
         <button class="factor-link" type="button" data-factor="${escapeHtml(row.factor_key)}" data-horizon="${escapeHtml(horizon)}">
-          ${escapeHtml(formatSummaryValue(key, row[key], 1))}
+          ${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}
         </button>
       </td>
     `;
   }
 
-  return `<td>${escapeHtml(formatSummaryValue(key, row[key], 1))}</td>`;
+  return `<td>${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}</td>`;
 }
 
 function renderSummaryTable(target, rows) {
