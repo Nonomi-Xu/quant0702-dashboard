@@ -138,26 +138,60 @@ factor-dashboard/data/factor-metadata.json
 
 前端会优先用这个文件展示因子字段名、展示名、计算公式和所需字段。
 
-后端会优先读取：
+后端会读取本机已经同步好的：
 
 ```text
 data/factors/{factor_name}/horizon_{horizon}/analysis.json
 ```
 
-如果找不到，就使用：
+它不会直接读取页面上的 parquet。你需要先把 COS 上的因子分析 parquet 同步成本项目使用的 `analysis.json`：
+
+```bash
+cd /home/ubuntu/factor-dashboard
+. .venv/bin/activate
+python scripts/sync_cos_analysis.py
+```
+
+同步脚本默认读取 COS 前缀：
+
+```text
+a-stock/factor/analysis/{factor_name}/horizon_{horizon}/
+```
+
+每个 horizon 目录需要包含：
+
+```text
+summary.parquet
+ic.parquet
+group_returns.parquet
+monitor.parquet
+raw_monitor.parquet
+```
+
+同步后会写成本地：
+
+```text
+data/factors/{factor_name}/horizon_{horizon}/analysis.json
+```
+
+需要的环境变量和 `quant` 项目一致：
+
+```text
+COS_SECRET_ID
+COS_SECRET_KEY
+COS_BUCKET
+COS_REGION
+COS_ENDPOINT
+```
+
+如果你的分析结果前缀不是默认值，可以设置：
+
+```bash
+FACTOR_DASHBOARD_COS_ANALYSIS_PREFIX=a-stock/factor/analysis python scripts/sync_cos_analysis.py
+```
+
+如果找不到指定因子的 `analysis.json`，单因子接口会使用：
 
 ```text
 data/sample-factor-analysis.json
 ```
-
-后续可以在 `quant` 里增加一个导出步骤，把这些 parquet：
-
-```text
-factor/analysis/{factor_name}/horizon_{horizon}/summary.parquet
-factor/analysis/{factor_name}/horizon_{horizon}/ic.parquet
-factor/analysis/{factor_name}/horizon_{horizon}/group_returns.parquet
-factor/analysis/{factor_name}/horizon_{horizon}/monitor.parquet
-factor/analysis/{factor_name}/horizon_{horizon}/raw_monitor.parquet
-```
-
-聚合成 `analysis.json` 给前端读取。
