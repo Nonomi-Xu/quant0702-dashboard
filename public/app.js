@@ -113,11 +113,11 @@ const kpiKeyOrder = [
 
 function escapeHtml(value) {
   return String(value ?? "-")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function showCandidateLibrary() {
@@ -172,7 +172,7 @@ function compareSummaryRows(left, right, key, direction) {
 }
 
 function summaryColumnClass(key) {
-  return `summary-col summary-col-${String(key).replaceAll("_", "-")}`;
+  return `summary-col summary-col-${String(key).replace(/_/g, "-")}`;
 }
 
 function isCandidateRuleHit(key, value) {
@@ -230,8 +230,8 @@ function candidateSearchKeyword() {
 function normalizeSearchText(value) {
   return String(value ?? "")
     .toLowerCase()
-    .replaceAll(/\s+/g, "")
-    .replaceAll(/[_\-./（）()]/g, "");
+    .replace(/\s+/g, "")
+    .replace(/[_\-./（）()]/g, "");
 }
 
 function rowSearchHaystack(row) {
@@ -663,10 +663,14 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
   });
 });
 
-["input", "change", "search", "keyup", "compositionend"].forEach((eventName) => {
-  document.querySelector("#candidate-factor-search").addEventListener(eventName, () => {
+function refreshCandidateSearch(event) {
+  if (event.target?.id === "candidate-factor-search") {
     renderCandidateLibraryTable();
-  });
+  }
+}
+
+["input", "change", "search", "keyup", "compositionend"].forEach((eventName) => {
+  document.addEventListener(eventName, refreshCandidateSearch);
 });
 
 document.querySelectorAll(".top-nav-item").forEach((item) => {
