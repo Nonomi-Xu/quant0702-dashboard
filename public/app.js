@@ -74,6 +74,7 @@ const summaryKeyOrder = [
 const hiddenKpiKeys = new Set(["factor"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
+let candidateLibraryRows = [];
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const kpiKeyOrder = [
@@ -161,6 +162,11 @@ function renderSummaryCell(key, row) {
   }
 
   return `<td>${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}</td>`;
+}
+
+function renderCandidateLibraryTable(rows) {
+  candidateLibraryRows = rows;
+  renderSummaryTable("#candidate-factor-table", rows);
 }
 
 function renderSummaryTable(target, rows) {
@@ -462,6 +468,31 @@ async function loadSummaryComparisons(factor, horizon) {
   }
 }
 
+function selectedCandidateHorizons() {
+  return [...document.querySelectorAll(".candidate-horizon")]
+    .filter((input) => input.checked)
+    .map((input) => input.value);
+}
+
+async function loadCandidateLibrary() {
+  const horizons = selectedCandidateHorizons();
+  if (!horizons.length) {
+    renderCandidateLibraryTable([]);
+    return;
+  }
+
+  const responses = await Promise.all(
+    horizons.map((horizon) => fetch(`/api/comparisons/horizon/${encodeURIComponent(horizon)}/summary`))
+  );
+  const payloads = await Promise.all(
+    responses
+      .filter((response) => response.ok)
+      .map((response) => response.json())
+  );
+  const rows = payloads.flatMap((payload) => payload.rows ?? []);
+  renderCandidateLibraryTable(rows);
+}
+
 function activateFactorFromTable(factor, horizon) {
   const factorInput = document.querySelector("#factor-input");
   factorInput.value = factor;
@@ -472,6 +503,9 @@ function activateFactorFromTable(factor, horizon) {
         horizonInput.value = String(horizon);
       }
       return loadDashboard(factor, horizonInput.value);
+    })
+    .then(() => {
+      document.querySelector("#factor-detail").scrollIntoView({ behavior: "smooth", block: "start" });
     })
     .catch((error) => {
       document.querySelector("#dataset-label").textContent = error.message;
@@ -488,6 +522,10 @@ document.addEventListener("click", (event) => {
       key,
       direction: current?.key === key && current.direction === "desc" ? "asc" : "desc",
     };
+    if (target === "#candidate-factor-table") {
+      renderCandidateLibraryTable(candidateLibraryRows);
+      return;
+    }
     loadSummaryComparisons(
       document.querySelector("#factor-input").value,
       document.querySelector("#horizon-input").value
@@ -499,6 +537,32 @@ document.addEventListener("click", (event) => {
   if (factorLink) {
     activateFactorFromTable(factorLink.dataset.factor, factorLink.dataset.horizon);
   }
+});
+
+document.querySelector("#candidate-horizon-all").addEventListener("change", (event) => {
+  document.querySelectorAll(".candidate-horizon").forEach((input) => {
+    input.checked = event.target.checked;
+  });
+  loadCandidateLibrary().catch((error) => {
+    document.querySelector("#candidate-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
+  });
+});
+
+document.querySelectorAll(".candidate-horizon").forEach((input) => {
+  input.addEventListener("change", () => {
+    const horizonInputs = [...document.querySelectorAll(".candidate-horizon")];
+    document.querySelector("#candidate-horizon-all").checked = horizonInputs.every((item) => item.checked);
+    loadCandidateLibrary().catch((error) => {
+      document.querySelector("#candidate-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
+    });
+  });
+});
+
+document.querySelectorAll(".top-nav-item").forEach((item) => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll(".top-nav-item").forEach((navItem) => navItem.classList.remove("active"));
+    item.classList.add("active");
+  });
 });
 
 async function loadFactorOptions() {
@@ -556,6 +620,7 @@ async function bootDashboard() {
     return;
   }
   await loadHorizonOptions(initialFactor);
+  await loadCandidateLibrary();
   await loadDashboard(initialFactor, document.querySelector("#horizon-input").value);
 }
 

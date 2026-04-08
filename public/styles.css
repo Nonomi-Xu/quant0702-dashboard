@@ -223,6 +223,44 @@ button {
   margin-bottom: 20px;
 }
 
+.candidate-library-panel {
+  margin-bottom: 24px;
+}
+
+.candidate-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.horizon-chip {
+  display: inline-flex;
+  grid-template-columns: none;
+  gap: 8px;
+  align-items: center;
+  width: auto;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.56);
+  cursor: pointer;
+}
+
+.horizon-chip input {
+  width: auto;
+  margin: 0;
+}
+
+.candidate-table-scroll {
+  max-height: 520px;
+}
+
 .comparison-panel {
   margin-top: 20px;
 }

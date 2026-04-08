@@ -14,7 +14,40 @@
         <a class="top-nav-item" href="#factor-portfolio-test">因子组合测试</a>
       </nav>
 
-      <section class="hero">
+      <section class="panel candidate-library-panel" id="candidate-factor-library">
+        <div class="panel-heading">
+          <h2>候选因子库</h2>
+          <span>按调仓周期查看已完成评测的所有因子</span>
+        </div>
+        <div class="candidate-toolbar">
+          <span>调仓周期筛选</span>
+          <label class="horizon-chip">
+            <input type="checkbox" id="candidate-horizon-all" checked />
+            全选
+          </label>
+          <label class="horizon-chip">
+            <input type="checkbox" class="candidate-horizon" value="1" checked />
+            1天
+          </label>
+          <label class="horizon-chip">
+            <input type="checkbox" class="candidate-horizon" value="5" checked />
+            5天
+          </label>
+          <label class="horizon-chip">
+            <input type="checkbox" class="candidate-horizon" value="10" checked />
+            10天
+          </label>
+          <label class="horizon-chip">
+            <input type="checkbox" class="candidate-horizon" value="20" checked />
+            20天
+          </label>
+        </div>
+        <div class="table-scroll candidate-table-scroll">
+          <table class="comparison-table candidate-factor-table" id="candidate-factor-table"></table>
+        </div>
+      </section>
+
+      <section class="hero" id="factor-detail">
         <div>
           <p class="eyebrow">A-Stock Factor Lab</p>
           <h1 id="hero-title">因子评测结果看板</h1>
