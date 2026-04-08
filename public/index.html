@@ -47,7 +47,7 @@
         </div>
       </section>
 
-      <section class="hero" id="factor-detail">
+      <section class="hero detail-section hidden" id="factor-detail">
         <div>
           <p class="eyebrow">A-Stock Factor Lab</p>
           <h1 id="hero-title">因子评测结果看板</h1>
@@ -71,12 +71,12 @@
         </form>
       </section>
 
-      <section class="status-bar">
+      <section class="status-bar detail-section hidden">
         <span id="dataset-label">等待加载</span>
         <span id="updated-label">更新时间: -</span>
       </section>
 
-      <section class="factor-info">
+      <section class="factor-info detail-section hidden">
         <article class="info-card">
           <span>参数配置</span>
           <strong id="factor-parameters">-</strong>
@@ -87,14 +87,14 @@
         </article>
       </section>
 
-      <section class="factor-formula-row">
+      <section class="factor-formula-row detail-section hidden">
         <article class="info-card formula-card">
           <span>计算公式</span>
           <strong id="factor-formula">-</strong>
         </article>
       </section>
 
-      <section class="panel summary-panel">
+      <section class="panel summary-panel detail-section hidden">
         <div class="panel-heading">
           <h2>Summary 指标</h2>
           <span>自动展示后端 summary.parquet 中的所有字段</span>
@@ -102,7 +102,7 @@
         <section class="grid kpis" id="kpi-grid"></section>
       </section>
 
-      <section class="ic-chart-row">
+      <section class="ic-chart-row detail-section hidden">
         <article class="panel wide ic-panel">
           <div class="panel-heading">
             <h2>IC 时间序列</h2>
@@ -111,7 +111,7 @@
         </article>
       </section>
 
-      <section class="secondary-grid">
+      <section class="secondary-grid detail-section hidden">
         <article class="panel group-panel">
           <div class="panel-heading">
             <h2>分组收益</h2>
@@ -135,7 +135,7 @@
         </article>
       </section>
 
-      <section class="panel strong-signals-panel">
+      <section class="panel strong-signals-panel detail-section hidden">
         <div class="panel-heading">
           <h2>当天信号极值股票</h2>
           <span id="strong-signals-updated">数据更新时间: -</span>
@@ -156,7 +156,7 @@
         </div>
       </section>
 
-      <section class="panel comparison-panel">
+      <section class="panel comparison-panel detail-section hidden">
         <div class="panel-heading">
           <h2>同因子调仓周期对比</h2>
           <span>同一个因子在已完成 horizon 下的 summary 横向比较</span>
@@ -166,7 +166,7 @@
         </div>
       </section>
 
-      <details class="panel comparison-panel collapsible-panel">
+      <details class="panel comparison-panel collapsible-panel detail-section hidden">
         <summary>
           <span>
             <strong>同周期全因子对比</strong>

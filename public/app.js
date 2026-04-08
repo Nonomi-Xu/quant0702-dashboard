@@ -68,10 +68,9 @@ const summaryKeyOrder = [
   "short_group_turnover",
   "long_short_turnover",
   "ic_observations",
-  "updated_at",
 ];
 
-const hiddenKpiKeys = new Set(["factor"]);
+const hiddenKpiKeys = new Set(["factor", "updated_at"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
 let candidateLibraryRows = [];
@@ -91,7 +90,6 @@ const kpiKeyOrder = [
   "short_group_turnover",
   "ic_observations",
   "horizon",
-  "updated_at",
 ];
 
 function escapeHtml(value) {
@@ -101,6 +99,15 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function showCandidateLibrary() {
+  document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelector("#candidate-factor-library").classList.remove("hidden");
+}
+
+function showFactorDetail() {
+  document.querySelectorAll(".detail-section").forEach((section) => section.classList.remove("hidden"));
 }
 
 function formatSummaryValue(key, value, digits = 4) {
@@ -115,7 +122,7 @@ function summaryTableColumns(rows) {
   const presentKeys = new Set(rows.flatMap((row) => Object.keys(row)));
   const orderedKeys = summaryKeyOrder.filter((key) => presentKeys.has(key));
   const extraKeys = [...presentKeys]
-    .filter((key) => !summaryKeyOrder.includes(key) && key !== "factor_key")
+    .filter((key) => !summaryKeyOrder.includes(key) && key !== "factor_key" && key !== "updated_at")
     .sort();
   return [...orderedKeys, ...extraKeys];
 }
@@ -494,6 +501,7 @@ async function loadCandidateLibrary() {
 }
 
 function activateFactorFromTable(factor, horizon) {
+  showFactorDetail();
   const factorInput = document.querySelector("#factor-input");
   factorInput.value = factor;
   loadHorizonOptions(factor)
@@ -551,7 +559,8 @@ document.querySelector("#candidate-horizon-all").addEventListener("change", (eve
 document.querySelectorAll(".candidate-horizon").forEach((input) => {
   input.addEventListener("change", () => {
     const horizonInputs = [...document.querySelectorAll(".candidate-horizon")];
-    document.querySelector("#candidate-horizon-all").checked = horizonInputs.every((item) => item.checked);
+    const checkedCount = horizonInputs.filter((item) => item.checked).length;
+    document.querySelector("#candidate-horizon-all").checked = checkedCount === horizonInputs.length;
     loadCandidateLibrary().catch((error) => {
       document.querySelector("#candidate-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
     });
@@ -562,6 +571,9 @@ document.querySelectorAll(".top-nav-item").forEach((item) => {
   item.addEventListener("click", () => {
     document.querySelectorAll(".top-nav-item").forEach((navItem) => navItem.classList.remove("active"));
     item.classList.add("active");
+    if (item.getAttribute("href") === "#candidate-factor-library") {
+      showCandidateLibrary();
+    }
   });
 });
 
@@ -602,6 +614,7 @@ async function loadHorizonOptions(factor) {
 document.querySelector("#query-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const factor = document.querySelector("#factor-input").value.trim();
+  showFactorDetail();
   loadHorizonOptions(factor).then(() => loadDashboard(
     factor,
     document.querySelector("#horizon-input").value
@@ -621,11 +634,12 @@ async function bootDashboard() {
   }
   await loadHorizonOptions(initialFactor);
   await loadCandidateLibrary();
-  await loadDashboard(initialFactor, document.querySelector("#horizon-input").value);
+  showCandidateLibrary();
 }
 
 document.querySelector("#factor-input").addEventListener("change", (event) => {
   const factor = event.target.value;
+  showFactorDetail();
   loadHorizonOptions(factor)
     .then(() => loadDashboard(factor, document.querySelector("#horizon-input").value))
     .catch((error) => {
@@ -635,6 +649,7 @@ document.querySelector("#factor-input").addEventListener("change", (event) => {
 
 document.querySelector("#horizon-input").addEventListener("change", () => {
   const factor = document.querySelector("#factor-input").value;
+  showFactorDetail();
   loadDashboard(factor, document.querySelector("#horizon-input").value)
     .catch((error) => {
       document.querySelector("#dataset-label").textContent = error.message;

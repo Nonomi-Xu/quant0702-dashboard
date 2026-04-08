@@ -172,6 +172,10 @@ button {
   gap: 16px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .factor-info {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.5fr);
@@ -215,7 +219,7 @@ button {
 }
 
 .kpis {
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   align-items: stretch;
 }
 
@@ -467,7 +471,7 @@ button {
 }
 
 .primary-kpi {
-  grid-column: span 2;
+  grid-column: span 3;
   min-height: 158px;
   padding: 20px;
   color: #fff8e8;
@@ -481,8 +485,8 @@ button {
 }
 
 .secondary-kpi {
-  grid-column: span 1;
-  min-height: 118px;
+  grid-column: span 2;
+  min-height: 112px;
   padding: 16px;
   background:
     radial-gradient(circle at 100% 10%, rgba(135, 168, 120, 0.18), transparent 7rem),
@@ -515,7 +519,7 @@ button {
 }
 
 .secondary-kpi .kpi-value {
-  font-size: 24px;
+  font-size: 23px;
 }
 
 .ic-chart-row,
