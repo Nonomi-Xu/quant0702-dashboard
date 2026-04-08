@@ -71,7 +71,7 @@
         <section class="grid kpis" id="kpi-grid"></section>
       </section>
 
-      <section class="chart-grid">
+      <section class="ic-chart-row">
         <article class="panel wide ic-panel">
           <div class="panel-heading">
             <h2>IC 时间序列</h2>
@@ -79,16 +79,16 @@
           </div>
           <canvas id="ic-chart" height="420"></canvas>
         </article>
-        <article class="panel">
-          <div class="panel-heading">
-            <h2>分组收益</h2>
-            <span>最高组减最低组即多空收益</span>
-          </div>
-          <canvas id="group-chart" height="260"></canvas>
-        </article>
       </section>
 
-      <section class="monitor-grid">
+      <section class="secondary-grid">
+        <article class="panel group-panel">
+          <div class="panel-heading">
+            <h2>分组收益</h2>
+            <span>横向柱状图展示各组收益</span>
+          </div>
+          <canvas id="group-chart" height="280"></canvas>
+        </article>
         <article class="panel compact-panel">
           <div class="panel-heading">
             <h2>原始监控</h2>

@@ -54,6 +54,35 @@ const hiddenKpiKeys = new Set(["factor"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
+const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
+const kpiHelpText = {
+  horizon: "当前评测持有周期",
+  ic_mean: "横截面排序能力",
+  ic_ir: "IC稳定性",
+  ic_abs_gt_002_ratio: "有效信号出现频率",
+  long_short_mean: "最高组减最低组",
+  long_short_sharpe: "风险调整后表现",
+  long_short_max_drawdown: "多空组合回撤风险",
+  win_rate: "多空收益为正比例",
+  long_group_turnover: "最高因子组调仓幅度",
+  short_group_turnover: "最低因子组调仓幅度",
+  long_short_turnover: "多空组合综合换手",
+  ic_observations: "参与IC统计的日期数",
+};
+const kpiKeyOrder = [
+  "ic_mean",
+  "ic_ir",
+  "long_short_mean",
+  "long_short_sharpe",
+  "ic_abs_gt_002_ratio",
+  "win_rate",
+  "long_short_max_drawdown",
+  "long_short_turnover",
+  "long_group_turnover",
+  "short_group_turnover",
+  "ic_observations",
+  "horizon",
+];
 
 function escapeHtml(value) {
   return String(value ?? "-")
@@ -159,12 +188,22 @@ function renderSummaryTable(target, rows) {
 
 function renderKpis(summary) {
   const grid = document.querySelector("#kpi-grid");
-  grid.innerHTML = Object.entries(summary)
-    .filter(([key]) => !hiddenKpiKeys.has(key))
+  const presentKeys = new Set(Object.keys(summary));
+  const orderedKeys = [
+    ...kpiKeyOrder.filter((key) => presentKeys.has(key)),
+    ...Object.keys(summary)
+      .filter((key) => !kpiKeyOrder.includes(key) && !hiddenKpiKeys.has(key))
+      .sort(),
+  ];
+
+  grid.innerHTML = orderedKeys
+    .filter((key) => !hiddenKpiKeys.has(key))
+    .map((key) => [key, summary[key]])
     .map(([key, value]) => `
-      <article class="kpi-card">
+      <article class="kpi-card ${primaryKpiKeys.has(key) ? "primary-kpi" : "secondary-kpi"}">
         <span class="kpi-label">${escapeHtml(summaryLabels[key] ?? key)}</span>
-        <span class="kpi-value">${escapeHtml(formatSummaryValue(key, value))}</span>
+        <span class="kpi-value">${escapeHtml(formatSummaryValue(key, value, primaryKpiKeys.has(key) ? 3 : 2))}</span>
+        <span class="kpi-hint">${escapeHtml(kpiHelpText[key] ?? "summary 指标")}</span>
       </article>
     `)
     .join("");
@@ -285,26 +324,41 @@ function drawGroupChart(canvas, groupReturns) {
   const labels = ["G1", "G2", "G3", "G4", "G5", "L-S"];
   const values = groups.map((key) => Number(groupReturns[key] ?? 0));
   const maxAbs = Math.max(0.01, ...values.map(Math.abs));
-  const padding = 34;
-  const chartHeight = canvas.clientHeight - padding * 2;
-  const zeroY = padding + chartHeight / 2;
-  const barWidth = (canvas.clientWidth - padding * 2) / groups.length * 0.58;
+  const chartWidth = canvas.clientWidth;
+  const chartHeight = canvas.clientHeight;
+  const padding = { top: 20, right: 68, bottom: 24, left: 46 };
+  const plotWidth = chartWidth - padding.left - padding.right;
+  const plotHeight = chartHeight - padding.top - padding.bottom;
+  const rowHeight = plotHeight / groups.length;
+  const zeroX = padding.left + plotWidth / 2;
+  const valueToWidth = (value) => Math.abs(value) / maxAbs * (plotWidth / 2);
 
   ctx.strokeStyle = "rgba(23, 33, 27, 0.18)";
+  ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(padding, zeroY);
-  ctx.lineTo(canvas.clientWidth - padding, zeroY);
+  ctx.moveTo(zeroX, padding.top);
+  ctx.lineTo(zeroX, chartHeight - padding.bottom);
   ctx.stroke();
 
   values.forEach((value, index) => {
-    const x = padding + index * ((canvas.clientWidth - padding * 2) / groups.length) + barWidth * 0.35;
-    const height = Math.abs(value) / maxAbs * (chartHeight / 2);
-    const y = value >= 0 ? zeroY - height : zeroY;
+    const centerY = padding.top + rowHeight * index + rowHeight / 2;
+    const barHeight = Math.min(24, rowHeight * 0.56);
+    const width = valueToWidth(value);
+    const x = value >= 0 ? zeroX : zeroX - width;
+    const y = centerY - barHeight / 2;
+
     ctx.fillStyle = value >= 0 ? "#164c37" : "#bd5734";
-    ctx.fillRect(x, y, barWidth, height);
+    ctx.fillRect(x, y, width, barHeight);
+
     ctx.fillStyle = "#68766f";
-    ctx.font = "12px Avenir Next";
-    ctx.fillText(labels[index], x + 2, canvas.clientHeight - 12);
+    ctx.font = "700 12px Avenir Next";
+    ctx.fillText(labels[index], 14, centerY + 4);
+
+    ctx.fillStyle = "#17211b";
+    ctx.font = "700 12px Avenir Next";
+    const formattedValue = `${(value * 100).toFixed(2)}%`;
+    const labelX = value >= 0 ? x + width + 8 : x - ctx.measureText(formattedValue).width - 8;
+    ctx.fillText(formattedValue, Math.max(padding.left, Math.min(labelX, chartWidth - padding.right + 22)), centerY + 4);
   });
 }
 
