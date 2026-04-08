@@ -543,7 +543,7 @@ function selectedCandidateHorizons() {
 async function loadCandidateLibrary() {
   const horizons = selectedCandidateHorizons();
   if (!horizons.length) {
-    setCandidateLibraryRows([]);
+    renderCandidateLibraryTable([]);
     return;
   }
 
@@ -556,7 +556,7 @@ async function loadCandidateLibrary() {
       .map((response) => response.json())
   );
   const rows = payloads.flatMap((payload) => payload.rows ?? []);
-  setCandidateLibraryRows(rows);
+  renderCandidateLibraryTable(rows);
 }
 
 function activateFactorFromTable(factor, horizon) {
