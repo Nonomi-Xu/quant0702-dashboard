@@ -31,9 +31,11 @@ const summaryLabels = {
   ic_ir: "ICIR",
   ic_abs_gt_002_ratio: "|IC|>0.02比例",
   ic_positive_ratio: "IC为正比例",
+  long_short_gross_mean: "多空平均收益（扣费前）",
   long_short_mean: "多空平均收益",
   long_short_sharpe: "多空年化夏普",
   long_short_max_drawdown: "最大回撤",
+  transaction_cost_mean: "平均交易成本",
   win_rate: "胜率",
   long_group_turnover: "最高组换手",
   short_group_turnover: "最低组换手",
@@ -45,8 +47,10 @@ const summaryLabels = {
 const percentKeys = new Set([
   "ic_abs_gt_002_ratio",
   "ic_positive_ratio",
+  "long_short_gross_mean",
   "long_short_mean",
   "long_short_max_drawdown",
+  "transaction_cost_mean",
   "win_rate",
   "long_group_turnover",
   "short_group_turnover",
@@ -60,9 +64,11 @@ const summaryKeyOrder = [
   "ic_ir",
   "ic_abs_gt_002_ratio",
   "ic_positive_ratio",
+  "long_short_gross_mean",
   "long_short_mean",
   "long_short_sharpe",
   "long_short_max_drawdown",
+  "transaction_cost_mean",
   "win_rate",
   "long_group_turnover",
   "short_group_turnover",
@@ -76,11 +82,14 @@ const tableSortState = {};
 let candidateLibraryRows = [];
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
+const costKpiKeys = new Set(["long_short_gross_mean", "transaction_cost_mean"]);
 const kpiKeyOrder = [
   "ic_mean",
   "ic_ir",
   "long_short_mean",
   "long_short_sharpe",
+  "long_short_gross_mean",
+  "transaction_cost_mean",
   "ic_abs_gt_002_ratio",
   "ic_positive_ratio",
   "win_rate",
@@ -107,6 +116,7 @@ function showCandidateLibrary() {
 }
 
 function showFactorDetail() {
+  document.querySelector("#candidate-factor-library").classList.add("hidden");
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.remove("hidden"));
 }
 
@@ -221,12 +231,20 @@ function renderKpis(summary) {
   grid.innerHTML = orderedKeys
     .filter((key) => !hiddenKpiKeys.has(key))
     .map((key) => [key, summary[key]])
-    .map(([key, value]) => `
-      <article class="kpi-card ${primaryKpiKeys.has(key) ? "primary-kpi" : "secondary-kpi"}">
+    .map(([key, value]) => {
+      const cardClass = primaryKpiKeys.has(key)
+        ? "primary-kpi"
+        : costKpiKeys.has(key)
+          ? "cost-kpi"
+          : "secondary-kpi";
+      const digits = primaryKpiKeys.has(key) || costKpiKeys.has(key) ? 3 : 2;
+      return `
+      <article class="kpi-card ${cardClass}">
         <span class="kpi-label">${escapeHtml(summaryLabels[key] ?? key)}</span>
-        <span class="kpi-value">${escapeHtml(formatSummaryValue(key, value, primaryKpiKeys.has(key) ? 3 : 2))}</span>
+        <span class="kpi-value">${escapeHtml(formatSummaryValue(key, value, digits))}</span>
       </article>
-    `)
+    `;
+    })
     .join("");
 }
 

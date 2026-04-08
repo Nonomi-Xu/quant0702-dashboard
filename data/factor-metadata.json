@@ -52,8 +52,8 @@
   },
   "average_true_range_20": {
     "field_name": "average_true_range_20",
-    "display_name": "真实波动20日平均值",
-    "display_label": "真实波动20日平均值_20",
+    "display_name": "真实波动平均值",
+    "display_label": "真实波动平均值_20",
     "parameters": {
       "N": 20
     },
@@ -220,8 +220,8 @@
   },
   "bias_ratio_6": {
     "field_name": "bias_ratio_6",
-    "display_name": "BIAS6乖离率",
-    "display_label": "BIAS6乖离率_6",
+    "display_name": "BIAS乖离率",
+    "display_label": "BIAS乖离率_6",
     "parameters": {
       "N": 6
     },
@@ -242,8 +242,8 @@
   },
   "bias_ratio_12": {
     "field_name": "bias_ratio_12",
-    "display_name": "BIAS12乖离率",
-    "display_label": "BIAS12乖离率_12",
+    "display_name": "BIAS乖离率",
+    "display_label": "BIAS乖离率_12",
     "parameters": {
       "N": 12
     },
@@ -264,8 +264,8 @@
   },
   "bias_ratio_24": {
     "field_name": "bias_ratio_24",
-    "display_name": "BIAS24乖离率",
-    "display_label": "BIAS24乖离率_24",
+    "display_name": "BIAS乖离率",
+    "display_label": "BIAS乖离率_24",
     "parameters": {
       "N": 24
     },
@@ -519,8 +519,8 @@
   },
   "exponential_moving_average_5": {
     "field_name": "exponential_moving_average_5",
-    "display_name": "指数移动平均EMA5",
-    "display_label": "指数移动平均EMA5_5",
+    "display_name": "指数移动平均EMA",
+    "display_label": "指数移动平均EMA_5",
     "parameters": {
       "N": 5
     },
@@ -541,8 +541,8 @@
   },
   "exponential_moving_average_10": {
     "field_name": "exponential_moving_average_10",
-    "display_name": "指数移动平均EMA10",
-    "display_label": "指数移动平均EMA10_10",
+    "display_name": "指数移动平均EMA",
+    "display_label": "指数移动平均EMA_10",
     "parameters": {
       "N": 10
     },
@@ -563,8 +563,8 @@
   },
   "exponential_moving_average_20": {
     "field_name": "exponential_moving_average_20",
-    "display_name": "指数移动平均EMA20",
-    "display_label": "指数移动平均EMA20_20",
+    "display_name": "指数移动平均EMA",
+    "display_label": "指数移动平均EMA_20",
     "parameters": {
       "N": 20
     },
@@ -585,8 +585,8 @@
   },
   "exponential_moving_average_30": {
     "field_name": "exponential_moving_average_30",
-    "display_name": "指数移动平均EMA30",
-    "display_label": "指数移动平均EMA30_30",
+    "display_name": "指数移动平均EMA",
+    "display_label": "指数移动平均EMA_30",
     "parameters": {
       "N": 30
     },
@@ -607,8 +607,8 @@
   },
   "exponential_moving_average_60": {
     "field_name": "exponential_moving_average_60",
-    "display_name": "指数移动平均EMA60",
-    "display_label": "指数移动平均EMA60_60",
+    "display_name": "指数移动平均EMA",
+    "display_label": "指数移动平均EMA_60",
     "parameters": {
       "N": 60
     },
@@ -629,8 +629,8 @@
   },
   "exponential_moving_average_90": {
     "field_name": "exponential_moving_average_90",
-    "display_name": "指数移动平均EMA90",
-    "display_label": "指数移动平均EMA90_90",
+    "display_name": "指数移动平均EMA",
+    "display_label": "指数移动平均EMA_90",
     "parameters": {
       "N": 90
     },
@@ -651,8 +651,8 @@
   },
   "exponential_moving_average_250": {
     "field_name": "exponential_moving_average_250",
-    "display_name": "指数移动平均EMA250",
-    "display_label": "指数移动平均EMA250_250",
+    "display_name": "指数移动平均EMA",
+    "display_label": "指数移动平均EMA_250",
     "parameters": {
       "N": 250
     },
@@ -769,8 +769,8 @@
   },
   "exponential_average_12": {
     "field_name": "exponential_average_12",
-    "display_name": "指数平均数指标EXPMA12",
-    "display_label": "指数平均数指标EXPMA12_12",
+    "display_name": "指数平均数指标EXPMA",
+    "display_label": "指数平均数指标EXPMA_12",
     "parameters": {
       "N1": 12
     },
@@ -791,8 +791,8 @@
   },
   "exponential_average_50": {
     "field_name": "exponential_average_50",
-    "display_name": "指数平均数指标EXPMA50",
-    "display_label": "指数平均数指标EXPMA50_50",
+    "display_name": "指数平均数指标EXPMA",
+    "display_label": "指数平均数指标EXPMA_50",
     "parameters": {
       "N2": 50
     },
@@ -966,8 +966,8 @@
   },
   "simple_moving_average_5": {
     "field_name": "simple_moving_average_5",
-    "display_name": "简单移动平均MA5",
-    "display_label": "简单移动平均MA5_5",
+    "display_name": "简单移动平均MA",
+    "display_label": "简单移动平均MA_5",
     "parameters": {
       "N": 5
     },
@@ -988,8 +988,8 @@
   },
   "simple_moving_average_10": {
     "field_name": "simple_moving_average_10",
-    "display_name": "简单移动平均MA10",
-    "display_label": "简单移动平均MA10_10",
+    "display_name": "简单移动平均MA",
+    "display_label": "简单移动平均MA_10",
     "parameters": {
       "N": 10
     },
@@ -1010,8 +1010,8 @@
   },
   "simple_moving_average_20": {
     "field_name": "simple_moving_average_20",
-    "display_name": "简单移动平均MA20",
-    "display_label": "简单移动平均MA20_20",
+    "display_name": "简单移动平均MA",
+    "display_label": "简单移动平均MA_20",
     "parameters": {
       "N": 20
     },
@@ -1032,8 +1032,8 @@
   },
   "simple_moving_average_30": {
     "field_name": "simple_moving_average_30",
-    "display_name": "简单移动平均MA30",
-    "display_label": "简单移动平均MA30_30",
+    "display_name": "简单移动平均MA",
+    "display_label": "简单移动平均MA_30",
     "parameters": {
       "N": 30
     },
@@ -1054,8 +1054,8 @@
   },
   "simple_moving_average_60": {
     "field_name": "simple_moving_average_60",
-    "display_name": "简单移动平均MA60",
-    "display_label": "简单移动平均MA60_60",
+    "display_name": "简单移动平均MA",
+    "display_label": "简单移动平均MA_60",
     "parameters": {
       "N": 60
     },
@@ -1076,8 +1076,8 @@
   },
   "simple_moving_average_90": {
     "field_name": "simple_moving_average_90",
-    "display_name": "简单移动平均MA90",
-    "display_label": "简单移动平均MA90_90",
+    "display_name": "简单移动平均MA",
+    "display_label": "简单移动平均MA_90",
     "parameters": {
       "N": 90
     },
@@ -1098,8 +1098,8 @@
   },
   "simple_moving_average_250": {
     "field_name": "simple_moving_average_250",
-    "display_name": "简单移动平均MA250",
-    "display_label": "简单移动平均MA250_250",
+    "display_name": "简单移动平均MA",
+    "display_label": "简单移动平均MA_250",
     "parameters": {
       "N": 250
     },
@@ -1422,8 +1422,8 @@
   },
   "relative_strength_index_6": {
     "field_name": "relative_strength_index_6",
-    "display_name": "相对强弱指标RSI6",
-    "display_label": "相对强弱指标RSI6_6",
+    "display_name": "相对强弱指标RSI",
+    "display_label": "相对强弱指标RSI_6",
     "parameters": {
       "N": 6
     },
@@ -1444,8 +1444,8 @@
   },
   "relative_strength_index_12": {
     "field_name": "relative_strength_index_12",
-    "display_name": "相对强弱指标RSI12",
-    "display_label": "相对强弱指标RSI12_12",
+    "display_name": "相对强弱指标RSI",
+    "display_label": "相对强弱指标RSI_12",
     "parameters": {
       "N": 12
     },
@@ -1466,8 +1466,8 @@
   },
   "relative_strength_index_24": {
     "field_name": "relative_strength_index_24",
-    "display_name": "相对强弱指标RSI24",
-    "display_label": "相对强弱指标RSI24_24",
+    "display_name": "相对强弱指标RSI",
+    "display_label": "相对强弱指标RSI_24",
     "parameters": {
       "N": 24
     },
@@ -1625,8 +1625,8 @@
   },
   "williams_percent_range_6": {
     "field_name": "williams_percent_range_6",
-    "display_name": "W&R威廉指标6日",
-    "display_label": "W&R威廉指标6日_6",
+    "display_name": "W&R威廉指标",
+    "display_label": "W&R威廉指标_6",
     "parameters": {
       "N": 6
     },
@@ -1649,8 +1649,8 @@
   },
   "williams_percent_range_10": {
     "field_name": "williams_percent_range_10",
-    "display_name": "W&R威廉指标10日",
-    "display_label": "W&R威廉指标10日_10",
+    "display_name": "W&R威廉指标",
+    "display_label": "W&R威廉指标_10",
     "parameters": {
       "N": 10
     },

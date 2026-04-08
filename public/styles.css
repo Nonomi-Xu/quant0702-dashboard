@@ -493,6 +493,20 @@ button {
     var(--panel);
 }
 
+.cost-kpi {
+  grid-column: span 3;
+  min-height: 118px;
+  padding: 17px;
+  border-color: rgba(214, 159, 53, 0.32);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(214, 159, 53, 0.24), transparent 7rem),
+    linear-gradient(145deg, rgba(255, 252, 243, 0.9), rgba(239, 230, 210, 0.78));
+}
+
+.cost-kpi::after {
+  background: rgba(189, 87, 52, 0.13);
+}
+
 .kpi-label {
   display: block;
   color: var(--muted);
@@ -520,6 +534,10 @@ button {
 
 .secondary-kpi .kpi-value {
   font-size: 23px;
+}
+
+.cost-kpi .kpi-value {
+  font-size: clamp(24px, 2.4vw, 32px);
 }
 
 .ic-chart-row,
@@ -653,6 +671,7 @@ dd {
   }
 
   .primary-kpi,
+  .cost-kpi,
   .secondary-kpi {
     grid-column: span 1;
   }
