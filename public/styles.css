@@ -193,6 +193,26 @@ button {
   margin-top: 20px;
 }
 
+.strong-signals-panel {
+  margin-top: 20px;
+}
+
+.signal-tables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.signal-table-card {
+  min-width: 0;
+}
+
+.signal-table-card h3 {
+  margin: 0 0 10px;
+  color: var(--pine);
+  font-size: 15px;
+}
+
 .table-scroll {
   width: 100%;
   overflow-x: auto;
@@ -209,8 +229,17 @@ button {
   table-layout: auto;
 }
 
+.strong-signals-table {
+  width: 100%;
+  min-width: 360px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
 .comparison-table th,
-.comparison-table td {
+.comparison-table td,
+.strong-signals-table th,
+.strong-signals-table td {
   max-width: 240px;
   padding: 13px 14px;
   border-bottom: 1px solid var(--line);
@@ -219,7 +248,8 @@ button {
   overflow-wrap: anywhere;
 }
 
-.comparison-table th {
+.comparison-table th,
+.strong-signals-table th {
   position: sticky;
   top: 0;
   z-index: 1;
@@ -228,6 +258,14 @@ button {
   font-weight: 900;
   white-space: nowrap;
   overflow-wrap: normal;
+}
+
+.strong-signals-table td {
+  font-weight: 800;
+}
+
+.strong-signals-table tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 .comparison-table th:first-child,
@@ -550,6 +588,10 @@ dd {
 
   .metrics-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .signal-tables-grid {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -190,6 +190,12 @@ COS_ENDPOINT
 FACTOR_DASHBOARD_COS_ANALYSIS_PREFIX=a-stock/factor/analysis python scripts/sync_cos_analysis.py
 ```
 
+如果希望服务器每天 20:00 从 COS 同步一次因子分析结果，可以在服务器上执行 `crontab -e`，加入：
+
+```cron
+0 20 * * * cd /home/ubuntu/factor-dashboard && set -a && . /etc/factor-dashboard.env && set +a && . .venv/bin/activate && python scripts/sync_cos_analysis.py >> /home/ubuntu/factor-dashboard/sync.log 2>&1
+```
+
 如果找不到指定因子的 `analysis.json`，单因子接口会使用：
 
 ```text

@@ -8,12 +8,29 @@ const formatPercent = (value, digits = 2) => {
   return `${(Number(value) * 100).toFixed(digits)}%`;
 };
 
+function formatDateTimeMinute(value) {
+  if (!value) return "-";
+  const text = String(value);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return `${text} 00:00`;
+
+  const date = new Date(text);
+  if (Number.isNaN(date.getTime())) return text.slice(0, 16);
+
+  const pad = (number) => String(number).padStart(2, "0");
+  return [
+    date.getFullYear(),
+    pad(date.getMonth() + 1),
+    pad(date.getDate()),
+  ].join("-") + ` ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
 const summaryLabels = {
   factor: "因子名",
   horizon: "调仓周期（天）",
   ic_mean: "IC均值",
   ic_ir: "ICIR",
   ic_abs_gt_002_ratio: "|IC|>0.02比例",
+  ic_positive_ratio: "IC为正比例",
   long_short_mean: "多空平均收益",
   long_short_sharpe: "多空年化夏普",
   long_short_max_drawdown: "最大回撤",
@@ -22,10 +39,12 @@ const summaryLabels = {
   short_group_turnover: "最低组换手",
   long_short_turnover: "多空换手率",
   ic_observations: "IC观测数",
+  updated_at: "更新时间",
 };
 
 const percentKeys = new Set([
   "ic_abs_gt_002_ratio",
+  "ic_positive_ratio",
   "long_short_mean",
   "long_short_max_drawdown",
   "win_rate",
@@ -40,6 +59,7 @@ const summaryKeyOrder = [
   "ic_mean",
   "ic_ir",
   "ic_abs_gt_002_ratio",
+  "ic_positive_ratio",
   "long_short_mean",
   "long_short_sharpe",
   "long_short_max_drawdown",
@@ -48,6 +68,7 @@ const summaryKeyOrder = [
   "short_group_turnover",
   "long_short_turnover",
   "ic_observations",
+  "updated_at",
 ];
 
 const hiddenKpiKeys = new Set(["factor"]);
@@ -61,6 +82,7 @@ const kpiKeyOrder = [
   "long_short_mean",
   "long_short_sharpe",
   "ic_abs_gt_002_ratio",
+  "ic_positive_ratio",
   "win_rate",
   "long_short_max_drawdown",
   "long_short_turnover",
@@ -68,6 +90,7 @@ const kpiKeyOrder = [
   "short_group_turnover",
   "ic_observations",
   "horizon",
+  "updated_at",
 ];
 
 function escapeHtml(value) {
@@ -362,6 +385,42 @@ function renderMetrics(target, payload) {
     .join("");
 }
 
+function renderSignalTable(target, rows) {
+  const table = document.querySelector(target);
+  if (!rows.length) {
+    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无最新信号数据</td></tr></tbody>`;
+    return;
+  }
+
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>排名</th>
+        <th>股票代码</th>
+        <th>因子值</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map((row, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${escapeHtml(row.ts_code ?? "-")}</td>
+          <td>${escapeHtml(formatNumber(row.factor_value, 4))}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+}
+
+function renderStrongSignals(payload) {
+  const updatedLabel = document.querySelector("#strong-signals-updated");
+  const topRows = payload?.top_rows ?? payload?.rows ?? [];
+  const bottomRows = payload?.bottom_rows ?? [];
+  updatedLabel.textContent = `数据更新时间: ${payload?.updated_at ?? "-"}`;
+  renderSignalTable("#top-signals-table", topRows);
+  renderSignalTable("#bottom-signals-table", bottomRows);
+}
+
 async function loadDashboard(factor, horizon) {
   if (!factor || !horizon) {
     document.querySelector("#dataset-label").textContent = "暂无已完成的因子评测结果";
@@ -374,7 +433,7 @@ async function loadDashboard(factor, horizon) {
 
   const factorLabel = factorLabelMap.get(data.factor) ?? data.factor;
   document.querySelector("#dataset-label").textContent = `${factorLabel} / horizon_${data.horizon}`;
-  document.querySelector("#updated-label").textContent = `更新时间: ${data.updated_at}`;
+  document.querySelector("#updated-label").textContent = `更新时间: ${formatDateTimeMinute(data.updated_at)}`;
 
   renderFactorInfo(data);
   renderKpis(data.summary);
@@ -382,6 +441,7 @@ async function loadDashboard(factor, horizon) {
   renderMetrics("#raw-monitor-list", data.raw_monitor_latest);
   drawLineChart(document.querySelector("#ic-chart"), data.ic_timeseries);
   drawGroupChart(document.querySelector("#group-chart"), data.group_returns);
+  renderStrongSignals(data.factor_signals ?? data.strong_signals);
   await loadSummaryComparisons(factor, horizon);
 }
 

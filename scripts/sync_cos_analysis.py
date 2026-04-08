@@ -4,7 +4,7 @@ import json
 import math
 import os
 import tempfile
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -15,7 +15,12 @@ from qcloud_cos import CosConfig, CosS3Client
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.environ.get("FACTOR_DASHBOARD_DATA_DIR", PROJECT_ROOT / "data")).resolve()
 COS_PREFIX = os.environ.get("FACTOR_DASHBOARD_COS_ANALYSIS_PREFIX", "a-stock/factor/analysis").strip("/")
-IC_POINTS_LIMIT = int(os.environ.get("FACTOR_DASHBOARD_IC_POINTS_LIMIT", "260"))
+FACTOR_PREFIX = os.environ.get(
+    "FACTOR_DASHBOARD_COS_FACTOR_PREFIX",
+    COS_PREFIX.removesuffix("/analysis") + "/factors",
+).strip("/")
+IC_LOOKBACK_DAYS = int(os.environ.get("FACTOR_DASHBOARD_IC_LOOKBACK_DAYS", "90"))
+FACTOR_LOOKBACK_YEARS = int(os.environ.get("FACTOR_DASHBOARD_FACTOR_LOOKBACK_YEARS", "10"))
 
 
 def build_cos_client() -> tuple[CosS3Client, str]:
@@ -77,6 +82,13 @@ def download_parquet(client: CosS3Client, bucket: str, key: str, cache_dir: Path
     return pl.read_parquet(local_path)
 
 
+def try_download_parquet(client: CosS3Client, bucket: str, key: str, cache_dir: Path) -> pl.DataFrame | None:
+    try:
+        return download_parquet(client, bucket, key, cache_dir)
+    except Exception:
+        return None
+
+
 def value_to_json(value: Any) -> Any:
     if isinstance(value, (datetime, date)):
         return value.isoformat()
@@ -106,7 +118,25 @@ def summary_row(frame: pl.DataFrame, factor_name: str, horizon: int) -> dict[str
     return row
 
 
-def ic_timeseries(frame: pl.DataFrame) -> list[dict[str, Any]]:
+def parse_date_value(value: Any) -> date | None:
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+
+    text = str(value).strip()
+    if not text:
+        return None
+
+    try:
+        return date.fromisoformat(text[:10])
+    except ValueError:
+        return None
+
+
+def ic_timeseries(frame: pl.DataFrame, updated_at: date | None) -> list[dict[str, Any]]:
     if frame.is_empty():
         return []
     columns = [column for column in ["trade_date", "ic"] if column in frame.columns]
@@ -114,9 +144,15 @@ def ic_timeseries(frame: pl.DataFrame) -> list[dict[str, Any]]:
         return []
     frame = frame.select(columns)
     if "trade_date" in frame.columns:
-        frame = frame.sort("trade_date")
-    if IC_POINTS_LIMIT > 0:
-        frame = frame.tail(IC_POINTS_LIMIT)
+        frame = frame.with_columns(pl.col("trade_date").cast(pl.Date)).sort("trade_date")
+
+    if updated_at is None and "trade_date" in frame.columns and not frame.is_empty():
+        updated_at = frame.select(pl.col("trade_date").max()).item()
+
+    if updated_at is not None and IC_LOOKBACK_DAYS > 0:
+        start_date = updated_at - timedelta(days=IC_LOOKBACK_DAYS)
+        frame = frame.filter((pl.col("trade_date") >= start_date) & (pl.col("trade_date") <= updated_at))
+
     return [row_to_dict(row) for row in frame.to_dicts()]
 
 
@@ -136,6 +172,77 @@ def read_metadata() -> dict[str, dict[str, Any]]:
     return json.loads(metadata_file.read_text(encoding="utf-8"))
 
 
+def factor_path_prefixes(factor_name: str, factor_metadata: dict[str, Any]) -> list[str]:
+    prefixes: list[str] = []
+    factor_path = str(factor_metadata.get("factor_path") or "").strip("/")
+    category = str(factor_metadata.get("category") or "").strip("/")
+
+    if factor_path:
+        prefixes.append(factor_path)
+        prefixes.append(f"a-stock/{factor_path}")
+
+    if category:
+        prefixes.append(f"{FACTOR_PREFIX}/{category}/{factor_name}")
+
+    prefixes.append(f"{FACTOR_PREFIX}/{factor_name}")
+    prefixes.append(f"a-stock/factor/factors/{factor_name}")
+    prefixes.append(f"factor/factors/{factor_name}")
+
+    deduplicated: list[str] = []
+    for prefix in prefixes:
+        prefix = prefix.strip("/")
+        if prefix and prefix not in deduplicated:
+            deduplicated.append(prefix)
+    return deduplicated
+
+
+def latest_factor_signals(
+    client: CosS3Client,
+    bucket: str,
+    factor_name: str,
+    factor_metadata: dict[str, Any],
+    cache_dir: Path,
+) -> dict[str, Any]:
+    current_year = date.today().year
+    years = range(current_year, current_year - FACTOR_LOOKBACK_YEARS - 1, -1)
+    required_columns = {"ts_code", "trade_date", factor_name}
+
+    for year in years:
+        for prefix in factor_path_prefixes(factor_name, factor_metadata):
+            key = f"{prefix}/{factor_name}_{year}.parquet"
+            frame = try_download_parquet(client, bucket, key, cache_dir)
+            if frame is None or frame.is_empty() or not required_columns.issubset(frame.columns):
+                continue
+
+            latest_date = frame.select(pl.col("trade_date").max()).item()
+            latest_frame = (
+                frame
+                .select(["ts_code", "trade_date", factor_name])
+                .filter(pl.col("trade_date") == latest_date)
+                .drop_nulls(factor_name)
+            )
+            if latest_frame.is_empty():
+                continue
+
+            top_frame = latest_frame.sort(factor_name, descending=True).head(10)
+            bottom_frame = latest_frame.sort(factor_name, descending=False).head(10)
+
+            return {
+                "updated_at": f"{value_to_json(latest_date)} 20:00",
+                "source": key,
+                "top_rows": [
+                    row_to_dict({**row, "factor_value": row.get(factor_name)})
+                    for row in top_frame.to_dicts()
+                ],
+                "bottom_rows": [
+                    row_to_dict({**row, "factor_value": row.get(factor_name)})
+                    for row in bottom_frame.to_dicts()
+                ],
+            }
+
+    return {"updated_at": "-", "source": "-", "top_rows": [], "bottom_rows": []}
+
+
 def sync_one_result(
     client: CosS3Client,
     bucket: str,
@@ -143,6 +250,7 @@ def sync_one_result(
     horizon: int,
     filenames: set[str],
     metadata: dict[str, dict[str, Any]],
+    strong_signal_cache: dict[str, dict[str, Any]],
     cache_dir: Path,
 ) -> bool:
     required = {"summary.parquet", "ic.parquet", "group_returns.parquet", "monitor.parquet", "raw_monitor.parquet"}
@@ -155,6 +263,13 @@ def sync_one_result(
     group_returns = download_parquet(client, bucket, f"{base_key}/group_returns.parquet", cache_dir)
     monitor = download_parquet(client, bucket, f"{base_key}/monitor.parquet", cache_dir)
     raw_monitor = download_parquet(client, bucket, f"{base_key}/raw_monitor.parquet", cache_dir)
+    summary_payload = summary_row(summary, factor_name, horizon)
+    summary_updated_at = parse_date_value(summary_payload.get("updated_at"))
+    factor_metadata = metadata.get(factor_name, {})
+    strong_signals = strong_signal_cache.setdefault(
+        factor_name,
+        latest_factor_signals(client, bucket, factor_name, factor_metadata, cache_dir),
+    )
 
     payload = {
         "factor": factor_name,
@@ -164,13 +279,15 @@ def sync_one_result(
             "field_name": factor_name,
             "formula": "-",
             "source": f"{COS_PREFIX}/{factor_name}/horizon_{horizon}",
-            **metadata.get(factor_name, {}),
+            **factor_metadata,
         },
-        "summary": summary_row(summary, factor_name, horizon),
+        "summary": summary_payload,
         "monitor_latest": latest_row(monitor),
         "raw_monitor_latest": latest_row(raw_monitor),
-        "ic_timeseries": ic_timeseries(ic),
+        "ic_timeseries": ic_timeseries(ic, summary_updated_at),
         "group_returns": latest_group_returns(group_returns),
+        "factor_signals": strong_signals,
+        "strong_signals": strong_signals,
     }
 
     output_path = DATA_DIR / "factors" / factor_name / f"horizon_{horizon}" / "analysis.json"
@@ -185,12 +302,13 @@ def main() -> None:
     keys = list_cos_keys(client, bucket, COS_PREFIX)
     discovered = discover_completed_results(keys)
     metadata = read_metadata()
+    strong_signal_cache: dict[str, dict[str, Any]] = {}
 
     synced = 0
     with tempfile.TemporaryDirectory(prefix="factor-dashboard-cos-") as tmpdir:
         cache_dir = Path(tmpdir)
         for (factor_name, horizon), filenames in sorted(discovered.items()):
-            if sync_one_result(client, bucket, factor_name, horizon, filenames, metadata, cache_dir):
+            if sync_one_result(client, bucket, factor_name, horizon, filenames, metadata, strong_signal_cache, cache_dir):
                 synced += 1
 
     print(f"synced {synced} factor horizon result(s) into {DATA_DIR / 'factors'}")
