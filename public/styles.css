@@ -176,6 +176,10 @@ button {
   display: none !important;
 }
 
+body[data-view="detail"] #candidate-factor-library {
+  display: none !important;
+}
+
 .factor-info {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.5fr);

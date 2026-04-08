@@ -119,7 +119,7 @@ class AnalysisStore:
             "field_name": payload["factor"],
             "formula": "-",
             "source": str(target_file.relative_to(self.data_dir)),
-            **registry_metadata,
             **payload_metadata,
+            **registry_metadata,
         }
         return payload

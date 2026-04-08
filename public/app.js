@@ -111,11 +111,13 @@ function escapeHtml(value) {
 }
 
 function showCandidateLibrary() {
+  document.body.dataset.view = "candidate";
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#candidate-factor-library").classList.remove("hidden");
 }
 
 function showFactorDetail() {
+  document.body.dataset.view = "detail";
   document.querySelector("#candidate-factor-library").classList.add("hidden");
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.remove("hidden"));
 }
