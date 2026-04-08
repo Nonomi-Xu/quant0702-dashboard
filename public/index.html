@@ -21,18 +21,6 @@
             <h2>候选因子库</h2>
             <span>按调仓周期查看已完成评测的所有因子</span>
           </div>
-          <label class="candidate-search">
-            <span>搜索因子</span>
-            <div class="candidate-search-box">
-              <input
-                type="search"
-                id="candidate-factor-search"
-                placeholder="输入中文名或英文字段名，例如 BIAS / bias_ratio"
-                autocomplete="off"
-              />
-              <div class="candidate-search-results hidden" id="candidate-search-results"></div>
-            </div>
-          </label>
         </div>
         <div class="candidate-toolbar">
           <span>调仓周期筛选</span>
@@ -56,7 +44,6 @@
             <input type="checkbox" class="candidate-horizon" value="20" checked />
             20天
           </label>
-          <span class="candidate-search-count" id="candidate-search-count">显示 0 / 0</span>
         </div>
         <div class="table-scroll candidate-table-scroll">
           <table class="comparison-table candidate-factor-table" id="candidate-factor-table"></table>

@@ -85,7 +85,6 @@ const summaryKeyOrder = [
 const hiddenKpiKeys = new Set(["factor", "updated_at"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
-let candidateLibrarySourceRows = [];
 let candidateLibraryRows = [];
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
@@ -223,95 +222,9 @@ function renderSummaryCell(target, key, row) {
   return `<td class="${cellClass}">${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}</td>`;
 }
 
-function candidateSearchKeyword() {
-  return normalizeSearchText(document.querySelector("#candidate-factor-search")?.value ?? "");
-}
-
-function normalizeSearchText(value) {
-  return String(value ?? "")
-    .toLowerCase()
-    .replace(/\s+/g, "")
-    .replace(/[_\-./（）()]/g, "");
-}
-
-function rowSearchHaystack(row) {
-  const factorKey = row.factor_key ?? "";
-  const metadataLabel = factorLabelMap.get(factorKey) ?? "";
-  return [
-    factorKey,
-    row.factor,
-    metadataLabel,
-    ...Object.values(row),
-  ].map(normalizeSearchText).join(" ");
-}
-
-function rowMatchesCandidateSearch(row) {
-  const keyword = candidateSearchKeyword();
-  if (!keyword) return true;
-
-  return rowSearchHaystack(row).includes(keyword);
-}
-
-function setCandidateLibraryRows(rows) {
-  candidateLibrarySourceRows = rows;
-  renderCandidateLibraryTable();
-}
-
-function renderCandidateLibraryTable() {
-  candidateLibraryRows = candidateLibrarySourceRows.filter(rowMatchesCandidateSearch);
-  document.querySelector("#candidate-search-count").textContent =
-    `显示 ${candidateLibraryRows.length} / ${candidateLibrarySourceRows.length}`;
+function renderCandidateLibraryTable(rows = candidateLibraryRows) {
+  candidateLibraryRows = rows;
   renderSummaryTable("#candidate-factor-table", candidateLibraryRows);
-}
-
-function renderCandidateSearchResults() {
-  const results = document.querySelector("#candidate-search-results");
-  const keyword = candidateSearchKeyword();
-  if (!keyword) {
-    results.classList.add("hidden");
-    results.innerHTML = "";
-    return;
-  }
-
-  const seenFactors = new Set();
-  const matches = candidateLibrarySourceRows
-    .filter(rowMatchesCandidateSearch)
-    .filter((row) => {
-      const factor = row.factor_key ?? row.factor;
-      if (!factor || seenFactors.has(factor)) return false;
-      seenFactors.add(factor);
-      return true;
-    })
-    .slice(0, 20);
-
-  if (!matches.length) {
-    results.classList.remove("hidden");
-    results.innerHTML = `<div class="candidate-search-empty">没有匹配的因子</div>`;
-    return;
-  }
-
-  results.classList.remove("hidden");
-  results.innerHTML = matches.map((row) => {
-    const factor = row.factor_key ?? row.factor;
-    const label = factorLabelMap.get(factor) ?? row.factor ?? factor;
-    const horizon = row.horizon ?? document.querySelector("#horizon-input").value;
-    return `
-      <button
-        class="candidate-search-option"
-        type="button"
-        data-factor="${escapeHtml(factor)}"
-        data-horizon="${escapeHtml(horizon)}"
-      >
-        <strong>${escapeHtml(label)}</strong>
-        <span>${escapeHtml(factor)}</span>
-      </button>
-    `;
-  }).join("");
-}
-
-function refreshCandidateSearchView() {
-  renderCandidateLibraryTable();
-  renderCandidateSearchResults();
 }
 
 function renderSummaryTable(target, rows) {
@@ -677,7 +590,7 @@ document.addEventListener("click", (event) => {
       direction: current?.key === key && current.direction === "desc" ? "asc" : "desc",
     };
     if (target === "#candidate-factor-table") {
-      refreshCandidateSearchView();
+      renderCandidateLibraryTable();
       return;
     }
     loadSummaryComparisons(
@@ -690,19 +603,7 @@ document.addEventListener("click", (event) => {
   const factorLink = event.target.closest(".factor-link");
   if (factorLink) {
     activateFactorFromTable(factorLink.dataset.factor, factorLink.dataset.horizon);
-    document.querySelector("#candidate-search-results").classList.add("hidden");
     return;
-  }
-
-  const searchOption = event.target.closest(".candidate-search-option");
-  if (searchOption) {
-    activateFactorFromTable(searchOption.dataset.factor, searchOption.dataset.horizon);
-    document.querySelector("#candidate-search-results").classList.add("hidden");
-    return;
-  }
-
-  if (!event.target.closest(".candidate-search")) {
-    document.querySelector("#candidate-search-results").classList.add("hidden");
   }
 });
 
@@ -724,16 +625,6 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
       document.querySelector("#candidate-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
     });
   });
-});
-
-function refreshCandidateSearch(event) {
-  if (event.target?.id === "candidate-factor-search") {
-    refreshCandidateSearchView();
-  }
-}
-
-["input", "change", "search", "keyup", "compositionend"].forEach((eventName) => {
-  document.addEventListener(eventName, refreshCandidateSearch);
 });
 
 document.querySelectorAll(".top-nav-item").forEach((item) => {
