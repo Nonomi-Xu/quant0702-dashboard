@@ -118,6 +118,26 @@ def summary_row(frame: pl.DataFrame, factor_name: str, horizon: int) -> dict[str
     return row
 
 
+def enrich_summary_sample_counts(summary: dict[str, Any], ic: pl.DataFrame) -> dict[str, Any]:
+    required_keys = {
+        "avg_daily_sample_count",
+        "min_daily_sample_count",
+        "max_daily_sample_count",
+    }
+    if required_keys.issubset(summary.keys()) or ic.is_empty() or "sample_count" not in ic.columns:
+        return summary
+
+    sample_counts = ic.select(pl.col("sample_count").drop_nulls())
+    if sample_counts.is_empty():
+        return summary
+
+    enriched = dict(summary)
+    enriched.setdefault("avg_daily_sample_count", sample_counts.select(pl.col("sample_count").mean()).item())
+    enriched.setdefault("min_daily_sample_count", sample_counts.select(pl.col("sample_count").min()).item())
+    enriched.setdefault("max_daily_sample_count", sample_counts.select(pl.col("sample_count").max()).item())
+    return enriched
+
+
 def parse_date_value(value: Any) -> date | None:
     if value is None:
         return None
@@ -264,6 +284,7 @@ def sync_one_result(
     monitor = download_parquet(client, bucket, f"{base_key}/monitor.parquet", cache_dir)
     raw_monitor = download_parquet(client, bucket, f"{base_key}/raw_monitor.parquet", cache_dir)
     summary_payload = summary_row(summary, factor_name, horizon)
+    summary_payload = enrich_summary_sample_counts(summary_payload, ic)
     summary_updated_at = parse_date_value(summary_payload.get("updated_at"))
     factor_metadata = metadata.get(factor_name, {})
     strong_signals = strong_signal_cache.setdefault(

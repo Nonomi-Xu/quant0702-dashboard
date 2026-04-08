@@ -21,7 +21,10 @@
     "long_group_turnover": 0.386,
     "short_group_turnover": 0.412,
     "long_short_turnover": 0.399,
-    "ic_observations": 416
+    "ic_observations": 416,
+    "avg_daily_sample_count": 1838,
+    "min_daily_sample_count": 1762,
+    "max_daily_sample_count": 1875
   },
   "monitor_latest": {
     "trade_date": "2026-04-03",
