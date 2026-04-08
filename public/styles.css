@@ -586,6 +586,20 @@ body[data-view="detail"] #candidate-factor-library {
   background: rgba(189, 87, 52, 0.13);
 }
 
+.sample-kpi {
+  grid-column: span 2;
+  min-height: 112px;
+  padding: 16px;
+  border-color: rgba(52, 93, 132, 0.22);
+  background:
+    radial-gradient(circle at 100% 8%, rgba(52, 93, 132, 0.16), transparent 7rem),
+    linear-gradient(145deg, rgba(247, 250, 246, 0.94), rgba(230, 239, 230, 0.82));
+}
+
+.sample-kpi::after {
+  background: rgba(52, 93, 132, 0.1);
+}
+
 .kpi-label {
   display: block;
   color: var(--muted);
@@ -617,6 +631,10 @@ body[data-view="detail"] #candidate-factor-library {
 
 .cost-kpi .kpi-value {
   font-size: clamp(24px, 2.4vw, 32px);
+}
+
+.sample-kpi .kpi-value {
+  font-size: 26px;
 }
 
 .ic-chart-row,
@@ -751,6 +769,7 @@ dd {
 
   .primary-kpi,
   .cost-kpi,
+  .sample-kpi,
   .secondary-kpi {
     grid-column: span 1;
   }

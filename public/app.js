@@ -89,6 +89,7 @@ let candidateLibraryRows = [];
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const costKpiKeys = new Set(["long_short_gross_mean", "transaction_cost_mean"]);
+const sampleKpiKeys = new Set(["avg_daily_sample_count", "min_daily_sample_count", "max_daily_sample_count"]);
 const kpiKeyOrder = [
   "ic_mean",
   "ic_ir",
@@ -277,8 +278,14 @@ function renderKpis(summary) {
         ? "primary-kpi"
         : costKpiKeys.has(key)
           ? "cost-kpi"
-          : "secondary-kpi";
-      const digits = primaryKpiKeys.has(key) || costKpiKeys.has(key) ? 3 : 2;
+          : sampleKpiKeys.has(key)
+            ? "sample-kpi"
+            : "secondary-kpi";
+      const digits = primaryKpiKeys.has(key) || costKpiKeys.has(key)
+        ? 3
+        : sampleKpiKeys.has(key)
+          ? 0
+          : 2;
       return `
       <article class="kpi-card ${cardClass}">
         <span class="kpi-label">${escapeHtml(summaryLabels[key] ?? key)}</span>
