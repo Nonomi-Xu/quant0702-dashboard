@@ -427,16 +427,11 @@ body[data-view="detail"] #candidate-factor-library {
 
 .comparison-table .candidate-rule-hit {
   color: #7b3f24;
-  background:
-    linear-gradient(135deg, rgba(189, 87, 52, 0.18), rgba(214, 159, 53, 0.12)),
-    rgba(255, 252, 243, 0.98);
   font-weight: 950;
 }
 
 .comparison-table tbody tr:hover .candidate-rule-hit {
-  background:
-    linear-gradient(135deg, rgba(189, 87, 52, 0.24), rgba(214, 159, 53, 0.18)),
-    rgb(239, 244, 229);
+  color: #7b3f24;
 }
 
 .sort-button,

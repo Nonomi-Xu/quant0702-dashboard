@@ -112,21 +112,20 @@ function escapeHtml(value) {
 
 function showCandidateLibrary() {
   document.body.dataset.view = "candidate";
-  document.querySelector("#factor-filter-rules").classList.add("hidden");
+  document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#candidate-factor-library").classList.remove("hidden");
 }
 
 function showFactorDetail() {
   document.body.dataset.view = "detail";
-  document.querySelector("#factor-filter-rules").classList.add("hidden");
-  document.querySelector("#candidate-factor-library").classList.add("hidden");
+  document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.remove("hidden"));
 }
 
 function showFactorFilterRules() {
   document.body.dataset.view = "rules";
-  document.querySelector("#candidate-factor-library").classList.add("hidden");
+  document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#factor-filter-rules").classList.remove("hidden");
 }
@@ -619,7 +618,8 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
 });
 
 document.querySelectorAll(".top-nav-item").forEach((item) => {
-  item.addEventListener("click", () => {
+  item.addEventListener("click", (event) => {
+    event.preventDefault();
     document.querySelectorAll(".top-nav-item").forEach((navItem) => navItem.classList.remove("active"));
     item.classList.add("active");
     if (item.getAttribute("href") === "#candidate-factor-library") {
