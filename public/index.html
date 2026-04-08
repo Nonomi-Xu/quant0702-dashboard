@@ -12,6 +12,7 @@
         <a class="top-nav-item active" href="#candidate-factor-library">候选因子库</a>
         <a class="top-nav-item" href="#alpha-factor-library">Alpha因子库</a>
         <a class="top-nav-item" href="#factor-portfolio-test">因子组合测试</a>
+        <a class="top-nav-item" href="#factor-filter-rules">因子筛选规则</a>
       </nav>
 
       <section class="panel candidate-library-panel" id="candidate-factor-library">
@@ -45,6 +46,23 @@
         <div class="table-scroll candidate-table-scroll">
           <table class="comparison-table candidate-factor-table" id="candidate-factor-table"></table>
         </div>
+      </section>
+
+      <section class="panel rules-panel hidden" id="factor-filter-rules">
+        <div class="panel-heading">
+          <h2>因子筛选规则</h2>
+          <span>用于候选因子库的初步入池参考</span>
+        </div>
+        <article class="rules-card">
+          <h3>候选因子库</h3>
+          <ul class="rules-list">
+            <li>IC均值 &gt; 0.02</li>
+            <li>ICIR &gt; 0.5</li>
+            <li>|IC| &gt; 0.02 比例大于 40%</li>
+            <li>IC为正的比例大于 60% 或小于 40%</li>
+            <li>换手率小于 40%</li>
+          </ul>
+        </article>
       </section>
 
       <section class="hero detail-section hidden" id="factor-detail">

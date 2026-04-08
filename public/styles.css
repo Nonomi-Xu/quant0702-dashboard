@@ -34,7 +34,7 @@ body {
 
 .top-nav {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   margin-bottom: 26px;
   padding: 8px;
@@ -235,6 +235,38 @@ body[data-view="detail"] #candidate-factor-library {
   margin-bottom: 24px;
 }
 
+.rules-panel {
+  margin-bottom: 24px;
+}
+
+.rules-card {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid rgba(189, 87, 52, 0.22);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(189, 87, 52, 0.15), transparent 10rem),
+    rgba(255, 252, 243, 0.7);
+}
+
+.rules-card h3 {
+  margin: 0;
+  color: var(--pine);
+  font-size: 18px;
+}
+
+.rules-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 22px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
 .candidate-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -361,6 +393,50 @@ body[data-view="detail"] #candidate-factor-library {
 .comparison-table th:not(:first-child):not(:nth-child(2)),
 .comparison-table td:not(:first-child):not(:nth-child(2)) {
   min-width: 132px;
+}
+
+.comparison-table .summary-col-horizon,
+.comparison-table .summary-col-factor {
+  position: sticky;
+  background: rgba(255, 252, 243, 0.98);
+  box-shadow: 1px 0 0 var(--line);
+}
+
+.comparison-table .summary-col-horizon {
+  left: 0;
+  min-width: 128px;
+  z-index: 2;
+}
+
+.comparison-table .summary-col-factor {
+  left: 128px;
+  min-width: 260px;
+  z-index: 2;
+}
+
+.comparison-table th.summary-col-horizon,
+.comparison-table th.summary-col-factor {
+  z-index: 4;
+  background: rgba(247, 244, 236, 0.98);
+}
+
+.comparison-table tbody tr:hover .summary-col-horizon,
+.comparison-table tbody tr:hover .summary-col-factor {
+  background: rgb(239, 244, 229);
+}
+
+.comparison-table .candidate-rule-hit {
+  color: #7b3f24;
+  background:
+    linear-gradient(135deg, rgba(189, 87, 52, 0.18), rgba(214, 159, 53, 0.12)),
+    rgba(255, 252, 243, 0.98);
+  font-weight: 950;
+}
+
+.comparison-table tbody tr:hover .candidate-rule-hit {
+  background:
+    linear-gradient(135deg, rgba(189, 87, 52, 0.24), rgba(214, 159, 53, 0.18)),
+    rgb(239, 244, 229);
 }
 
 .sort-button,

@@ -112,14 +112,23 @@ function escapeHtml(value) {
 
 function showCandidateLibrary() {
   document.body.dataset.view = "candidate";
+  document.querySelector("#factor-filter-rules").classList.add("hidden");
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#candidate-factor-library").classList.remove("hidden");
 }
 
 function showFactorDetail() {
   document.body.dataset.view = "detail";
+  document.querySelector("#factor-filter-rules").classList.add("hidden");
   document.querySelector("#candidate-factor-library").classList.add("hidden");
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.remove("hidden"));
+}
+
+function showFactorFilterRules() {
+  document.body.dataset.view = "rules";
+  document.querySelector("#candidate-factor-library").classList.add("hidden");
+  document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelector("#factor-filter-rules").classList.remove("hidden");
 }
 
 function formatSummaryValue(key, value, digits = 4) {
@@ -153,14 +162,31 @@ function compareSummaryRows(left, right, key, direction) {
   return String(leftValue ?? "").localeCompare(String(rightValue ?? ""), "zh-Hans-CN") * multiplier;
 }
 
+function summaryColumnClass(key) {
+  return `summary-col summary-col-${String(key).replaceAll("_", "-")}`;
+}
+
+function isCandidateRuleHit(key, value) {
+  const number = Number(value);
+  if (Number.isNaN(number)) return false;
+
+  if (key === "ic_mean") return number > 0.02;
+  if (key === "ic_ir") return number > 0.5;
+  if (key === "ic_abs_gt_002_ratio") return number > 0.4;
+  if (key === "ic_positive_ratio") return number > 0.6 || number < 0.4;
+  if (key === "long_short_turnover") return number < 0.4;
+  return false;
+}
+
 function renderTableHeader(target, key) {
   const label = key === "horizon" ? "调仓周期（天）" : summaryLabels[key] ?? key;
-  if (key === "factor") return `<th>${escapeHtml(label)}</th>`;
+  const columnClass = summaryColumnClass(key);
+  if (key === "factor") return `<th class="${columnClass}">${escapeHtml(label)}</th>`;
 
   const state = tableSortState[target];
   const marker = state?.key === key ? (state.direction === "asc" ? " ↑" : " ↓") : "";
   return `
-    <th>
+    <th class="${columnClass}">
       <button class="sort-button" type="button" data-table-target="${escapeHtml(target)}" data-sort-key="${escapeHtml(key)}">
         ${escapeHtml(label)}${marker}
       </button>
@@ -168,11 +194,16 @@ function renderTableHeader(target, key) {
   `;
 }
 
-function renderSummaryCell(key, row) {
+function renderSummaryCell(target, key, row) {
+  const cellClass = [
+    summaryColumnClass(key),
+    target === "#candidate-factor-table" && isCandidateRuleHit(key, row[key]) ? "candidate-rule-hit" : "",
+  ].filter(Boolean).join(" ");
+
   if (key === "factor" && row.factor_key) {
     const horizon = row.horizon ?? document.querySelector("#horizon-input").value;
     return `
-      <td>
+      <td class="${cellClass}">
         <button class="factor-link" type="button" data-factor="${escapeHtml(row.factor_key)}" data-horizon="${escapeHtml(horizon)}">
           ${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}
         </button>
@@ -180,7 +211,7 @@ function renderSummaryCell(key, row) {
     `;
   }
 
-  return `<td>${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}</td>`;
+  return `<td class="${cellClass}">${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}</td>`;
 }
 
 function renderCandidateLibraryTable(rows) {
@@ -213,7 +244,7 @@ function renderSummaryTable(target, rows) {
     <tbody>
       ${sortedRows.map((row) => `
         <tr>
-          ${columns.map((key) => renderSummaryCell(key, row)).join("")}
+          ${columns.map((key) => renderSummaryCell(target, key, row)).join("")}
         </tr>
       `).join("")}
     </tbody>
@@ -593,6 +624,8 @@ document.querySelectorAll(".top-nav-item").forEach((item) => {
     item.classList.add("active");
     if (item.getAttribute("href") === "#candidate-factor-library") {
       showCandidateLibrary();
+    } else if (item.getAttribute("href") === "#factor-filter-rules") {
+      showFactorFilterRules();
     }
   });
 });
