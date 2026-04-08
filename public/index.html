@@ -23,12 +23,15 @@
           </div>
           <label class="candidate-search">
             <span>搜索因子</span>
-            <input
-              type="search"
-              id="candidate-factor-search"
-              placeholder="输入中文名或英文字段名，例如 BIAS / bias_ratio"
-              autocomplete="off"
-            />
+            <div class="candidate-search-box">
+              <input
+                type="search"
+                id="candidate-factor-search"
+                placeholder="输入中文名或英文字段名，例如 BIAS / bias_ratio"
+                autocomplete="off"
+              />
+              <div class="candidate-search-results hidden" id="candidate-search-results"></div>
+            </div>
           </label>
         </div>
         <div class="candidate-toolbar">

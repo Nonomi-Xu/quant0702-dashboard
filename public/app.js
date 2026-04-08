@@ -264,6 +264,56 @@ function renderCandidateLibraryTable() {
   renderSummaryTable("#candidate-factor-table", candidateLibraryRows);
 }
 
+function renderCandidateSearchResults() {
+  const results = document.querySelector("#candidate-search-results");
+  const keyword = candidateSearchKeyword();
+  if (!keyword) {
+    results.classList.add("hidden");
+    results.innerHTML = "";
+    return;
+  }
+
+  const seenFactors = new Set();
+  const matches = candidateLibrarySourceRows
+    .filter(rowMatchesCandidateSearch)
+    .filter((row) => {
+      const factor = row.factor_key ?? row.factor;
+      if (!factor || seenFactors.has(factor)) return false;
+      seenFactors.add(factor);
+      return true;
+    })
+    .slice(0, 20);
+
+  if (!matches.length) {
+    results.classList.remove("hidden");
+    results.innerHTML = `<div class="candidate-search-empty">没有匹配的因子</div>`;
+    return;
+  }
+
+  results.classList.remove("hidden");
+  results.innerHTML = matches.map((row) => {
+    const factor = row.factor_key ?? row.factor;
+    const label = factorLabelMap.get(factor) ?? row.factor ?? factor;
+    const horizon = row.horizon ?? document.querySelector("#horizon-input").value;
+    return `
+      <button
+        class="candidate-search-option"
+        type="button"
+        data-factor="${escapeHtml(factor)}"
+        data-horizon="${escapeHtml(horizon)}"
+      >
+        <strong>${escapeHtml(label)}</strong>
+        <span>${escapeHtml(factor)}</span>
+      </button>
+    `;
+  }).join("");
+}
+
+function refreshCandidateSearchView() {
+  renderCandidateLibraryTable();
+  renderCandidateSearchResults();
+}
+
 function renderSummaryTable(target, rows) {
   const table = document.querySelector(target);
   if (!rows?.length) {
@@ -627,7 +677,7 @@ document.addEventListener("click", (event) => {
       direction: current?.key === key && current.direction === "desc" ? "asc" : "desc",
     };
     if (target === "#candidate-factor-table") {
-      renderCandidateLibraryTable();
+      refreshCandidateSearchView();
       return;
     }
     loadSummaryComparisons(
@@ -640,6 +690,19 @@ document.addEventListener("click", (event) => {
   const factorLink = event.target.closest(".factor-link");
   if (factorLink) {
     activateFactorFromTable(factorLink.dataset.factor, factorLink.dataset.horizon);
+    document.querySelector("#candidate-search-results").classList.add("hidden");
+    return;
+  }
+
+  const searchOption = event.target.closest(".candidate-search-option");
+  if (searchOption) {
+    activateFactorFromTable(searchOption.dataset.factor, searchOption.dataset.horizon);
+    document.querySelector("#candidate-search-results").classList.add("hidden");
+    return;
+  }
+
+  if (!event.target.closest(".candidate-search")) {
+    document.querySelector("#candidate-search-results").classList.add("hidden");
   }
 });
 
@@ -665,7 +728,7 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
 
 function refreshCandidateSearch(event) {
   if (event.target?.id === "candidate-factor-search") {
-    renderCandidateLibraryTable();
+    refreshCandidateSearchView();
   }
 }
 

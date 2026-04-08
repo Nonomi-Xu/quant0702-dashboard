@@ -299,6 +299,10 @@ body[data-view="detail"] #candidate-factor-library {
   white-space: nowrap;
 }
 
+.candidate-search-box {
+  position: relative;
+}
+
 .candidate-search input {
   width: 100%;
   min-height: 44px;
@@ -315,6 +319,54 @@ body[data-view="detail"] #candidate-factor-library {
 .candidate-search input:focus {
   border-color: rgba(122, 92, 55, 0.72);
   box-shadow: 0 0 0 3px rgba(189, 87, 52, 0.13);
+}
+
+.candidate-search-results {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  max-height: 340px;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid rgba(122, 92, 55, 0.22);
+  border-radius: 18px;
+  background: rgba(255, 252, 243, 0.98);
+  box-shadow: 0 20px 46px rgba(42, 52, 43, 0.18);
+}
+
+.candidate-search-option {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.candidate-search-option:hover {
+  background: rgba(189, 87, 52, 0.11);
+}
+
+.candidate-search-option strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.candidate-search-option span,
+.candidate-search-empty {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.candidate-search-empty {
+  padding: 12px;
 }
 
 .horizon-chip {
