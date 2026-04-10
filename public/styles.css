@@ -414,18 +414,22 @@ body[data-view="detail"] #candidate-factor-library {
   min-width: 620px;
 }
 
-.candidate-metadata-table th:first-child,
-.candidate-metadata-table td:first-child {
+.comparison-table.candidate-metadata-table th:first-child,
+.comparison-table.candidate-metadata-table td:first-child {
+  width: 130px;
   min-width: 130px;
+  max-width: 130px;
 }
 
-.candidate-metadata-table th:nth-child(2),
-.candidate-metadata-table td:nth-child(2) {
+.comparison-table.candidate-metadata-table th:nth-child(2),
+.comparison-table.candidate-metadata-table td:nth-child(2) {
+  width: 96px;
   min-width: 96px;
+  max-width: 96px;
 }
 
-.candidate-metadata-table th:nth-child(3),
-.candidate-metadata-table td:nth-child(3) {
+.comparison-table.candidate-metadata-table th:nth-child(3),
+.comparison-table.candidate-metadata-table td:nth-child(3) {
   min-width: 360px;
 }
 
