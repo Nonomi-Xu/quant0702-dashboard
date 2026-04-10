@@ -20,7 +20,7 @@
     "function": "compute_accumulation_distribution_line",
     "factor_path": "factor/factors/accumulation_distribution_line/accumulation_distribution_line",
     "analysis_path": "factor/analysis/accumulation_distribution_line",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "accumulation_swing_index_26": {
     "field_name": "accumulation_swing_index_26",
@@ -45,7 +45,7 @@
     "function": "compute_accumulation_swing_index_26",
     "factor_path": "factor/factors/accumulation_swing_index/accumulation_swing_index_26",
     "analysis_path": "factor/analysis/accumulation_swing_index_26",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "accumulation_swing_index_average_26_10": {
     "field_name": "accumulation_swing_index_average_26_10",
@@ -71,7 +71,7 @@
     "function": "compute_accumulation_swing_index_average_26_10",
     "factor_path": "factor/factors/accumulation_swing_index/accumulation_swing_index_average_26_10",
     "analysis_path": "factor/analysis/accumulation_swing_index_average_26_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "chaikin_accumulation_distribution_oscillator_3_10": {
     "field_name": "chaikin_accumulation_distribution_oscillator_3_10",
@@ -97,7 +97,7 @@
     "function": "compute_chaikin_accumulation_distribution_oscillator_3_10",
     "factor_path": "factor/factors/chaikin_accumulation_distribution_oscillator/chaikin_accumulation_distribution_oscillator_3_10",
     "analysis_path": "factor/analysis/chaikin_accumulation_distribution_oscillator_3_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "annual_price_average_deviation_250": {
     "field_name": "annual_price_average_deviation_250",
@@ -119,7 +119,7 @@
     "function": "compute_annual_price_average_deviation_250",
     "factor_path": "factor/factors/annual_price_average_deviation/annual_price_average_deviation_250",
     "analysis_path": "factor/analysis/annual_price_average_deviation_250",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "annual_price_rank_position_250": {
     "field_name": "annual_price_rank_position_250",
@@ -141,7 +141,7 @@
     "function": "compute_annual_price_rank_position_250",
     "factor_path": "factor/factors/annual_price_rank_position/annual_price_rank_position_250",
     "analysis_path": "factor/analysis/annual_price_rank_position_250",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "arron_down_25": {
     "field_name": "arron_down_25",
@@ -164,7 +164,7 @@
     "function": "compute_arron_down_25",
     "factor_path": "factor/factors/arron_indicator/arron_down_25",
     "analysis_path": "factor/analysis/arron_down_25",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "arron_up_25": {
     "field_name": "arron_up_25",
@@ -187,7 +187,7 @@
     "function": "compute_arron_up_25",
     "factor_path": "factor/factors/arron_indicator/arron_up_25",
     "analysis_path": "factor/analysis/arron_up_25",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "arron_oscillator_25": {
     "field_name": "arron_oscillator_25",
@@ -210,7 +210,7 @@
     "function": "compute_arron_oscillator_25",
     "factor_path": "factor/factors/arron_indicator/arron_oscillator_25",
     "analysis_path": "factor/analysis/arron_oscillator_25",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_directional_index_14_6": {
     "field_name": "average_directional_index_14_6",
@@ -235,7 +235,7 @@
     "function": "compute_average_directional_index_14_6",
     "factor_path": "factor/factors/directional_movement_index/average_directional_index_14_6",
     "analysis_path": "factor/analysis/average_directional_index_14_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_directional_index_rating_14_6": {
     "field_name": "average_directional_index_rating_14_6",
@@ -260,7 +260,7 @@
     "function": "compute_average_directional_index_rating_14_6",
     "factor_path": "factor/factors/directional_movement_index/average_directional_index_rating_14_6",
     "analysis_path": "factor/analysis/average_directional_index_rating_14_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_price_hlc": {
     "field_name": "average_price_hlc",
@@ -282,7 +282,7 @@
     "function": "compute_average_price_hlc",
     "factor_path": "factor/factors/average_price/average_price_hlc",
     "analysis_path": "factor/analysis/average_price_hlc",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_price_ohlc": {
     "field_name": "average_price_ohlc",
@@ -305,7 +305,7 @@
     "function": "compute_average_price_ohlc",
     "factor_path": "factor/factors/average_price/average_price_ohlc",
     "analysis_path": "factor/analysis/average_price_ohlc",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "balance_of_power": {
     "field_name": "balance_of_power",
@@ -328,7 +328,7 @@
     "function": "compute_balance_of_power",
     "factor_path": "factor/factors/balance_of_power/balance_of_power",
     "analysis_path": "factor/analysis/balance_of_power",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_true_range_14": {
     "field_name": "average_true_range_14",
@@ -352,7 +352,7 @@
     "function": "compute_average_true_range_14",
     "factor_path": "factor/factors/average_true_range/average_true_range_14",
     "analysis_path": "factor/analysis/average_true_range_14",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_true_range_20": {
     "field_name": "average_true_range_20",
@@ -376,7 +376,7 @@
     "function": "compute_average_true_range_20",
     "factor_path": "factor/factors/average_true_range/average_true_range_20",
     "analysis_path": "factor/analysis/average_true_range_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_true_range_6": {
     "field_name": "average_true_range_6",
@@ -400,7 +400,7 @@
     "function": "compute_average_true_range_6",
     "factor_path": "factor/factors/average_true_range/average_true_range_6",
     "analysis_path": "factor/analysis/average_true_range_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_turnover_rate_10": {
     "field_name": "average_turnover_rate_10",
@@ -422,7 +422,7 @@
     "function": "compute_average_turnover_rate_10",
     "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_10",
     "analysis_path": "factor/analysis/average_turnover_rate_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_turnover_rate_120": {
     "field_name": "average_turnover_rate_120",
@@ -444,7 +444,7 @@
     "function": "compute_average_turnover_rate_120",
     "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_120",
     "analysis_path": "factor/analysis/average_turnover_rate_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_turnover_rate_20": {
     "field_name": "average_turnover_rate_20",
@@ -466,7 +466,7 @@
     "function": "compute_average_turnover_rate_20",
     "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_20",
     "analysis_path": "factor/analysis/average_turnover_rate_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_turnover_rate_240": {
     "field_name": "average_turnover_rate_240",
@@ -488,7 +488,7 @@
     "function": "compute_average_turnover_rate_240",
     "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_240",
     "analysis_path": "factor/analysis/average_turnover_rate_240",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_turnover_rate_5": {
     "field_name": "average_turnover_rate_5",
@@ -510,7 +510,7 @@
     "function": "compute_average_turnover_rate_5",
     "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_5",
     "analysis_path": "factor/analysis/average_turnover_rate_5",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "average_turnover_rate_60": {
     "field_name": "average_turnover_rate_60",
@@ -532,7 +532,7 @@
     "function": "compute_average_turnover_rate_60",
     "factor_path": "factor/factors/average_turnover_rate/average_turnover_rate_60",
     "analysis_path": "factor/analysis/average_turnover_rate_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bear_power_13": {
     "field_name": "bear_power_13",
@@ -555,7 +555,7 @@
     "function": "compute_bear_power_13",
     "factor_path": "factor/factors/bull_power/bear_power_13",
     "analysis_path": "factor/analysis/bear_power_13",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bias_ratio_12": {
     "field_name": "bias_ratio_12",
@@ -577,7 +577,7 @@
     "function": "compute_bias_ratio_12",
     "factor_path": "factor/factors/bias_ratio/bias_ratio_12",
     "analysis_path": "factor/analysis/bias_ratio_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bias_ratio_24": {
     "field_name": "bias_ratio_24",
@@ -599,7 +599,7 @@
     "function": "compute_bias_ratio_24",
     "factor_path": "factor/factors/bias_ratio/bias_ratio_24",
     "analysis_path": "factor/analysis/bias_ratio_24",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bias_ratio_6": {
     "field_name": "bias_ratio_6",
@@ -621,7 +621,7 @@
     "function": "compute_bias_ratio_6",
     "factor_path": "factor/factors/bias_ratio/bias_ratio_6",
     "analysis_path": "factor/analysis/bias_ratio_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bias_ratio_60": {
     "field_name": "bias_ratio_60",
@@ -643,7 +643,7 @@
     "function": "compute_bias_ratio_60",
     "factor_path": "factor/factors/bias_ratio/bias_ratio_60",
     "analysis_path": "factor/analysis/bias_ratio_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bollinger_lower_band_20_2": {
     "field_name": "bollinger_lower_band_20_2",
@@ -666,7 +666,7 @@
     "function": "compute_bollinger_lower_band_20_2",
     "factor_path": "factor/factors/bollinger_bands/bollinger_lower_band_20_2",
     "analysis_path": "factor/analysis/bollinger_lower_band_20_2",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bollinger_middle_band_20_2": {
     "field_name": "bollinger_middle_band_20_2",
@@ -689,7 +689,7 @@
     "function": "compute_bollinger_middle_band_20_2",
     "factor_path": "factor/factors/bollinger_bands/bollinger_middle_band_20_2",
     "analysis_path": "factor/analysis/bollinger_middle_band_20_2",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bollinger_upper_band_20_2": {
     "field_name": "bollinger_upper_band_20_2",
@@ -712,7 +712,7 @@
     "function": "compute_bollinger_upper_band_20_2",
     "factor_path": "factor/factors/bollinger_bands/bollinger_upper_band_20_2",
     "analysis_path": "factor/analysis/bollinger_upper_band_20_2",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bull_and_bear_index_3_6_12_21": {
     "field_name": "bull_and_bear_index_3_6_12_21",
@@ -737,7 +737,7 @@
     "function": "compute_bull_and_bear_index_3_6_12_21",
     "factor_path": "factor/factors/bull_and_bear_index/bull_and_bear_index_3_6_12_21",
     "analysis_path": "factor/analysis/bull_and_bear_index_3_6_12_21",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bull_and_bear_index_momentum_3_6_12_24": {
     "field_name": "bull_and_bear_index_momentum_3_6_12_24",
@@ -762,7 +762,7 @@
     "function": "compute_bull_and_bear_index_momentum_3_6_12_24",
     "factor_path": "factor/factors/bull_and_bear_index/bull_and_bear_index_momentum_3_6_12_24",
     "analysis_path": "factor/analysis/bull_and_bear_index_momentum_3_6_12_24",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "bull_power_13": {
     "field_name": "bull_power_13",
@@ -785,7 +785,29 @@
     "function": "compute_bull_power_13",
     "factor_path": "factor/factors/bull_power/bull_power_13",
     "analysis_path": "factor/analysis/bull_power_13",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
+  },
+  "chande_momentum_oscillator_14": {
+    "field_name": "chande_momentum_oscillator_14",
+    "display_name": "钱德动量摆动指标CMO",
+    "display_label": "钱德动量摆动指标CMO_14",
+    "parameters": {
+      "N": 14
+    },
+    "parameter_text": "N=14",
+    "formula": "CMO14(i,t) = 100 * (SU(i,t,14) - SD(i,t,14)) / (SU(i,t,14) + SD(i,t,14))",
+    "category": "chande_momentum_oscillator",
+    "required_fields": [
+      "close_hfq"
+    ],
+    "output_columns": [
+      "chande_momentum_oscillator_14"
+    ],
+    "module": "src.domain.factor_formulas.chande_momentum_oscillator.chande_momentum_oscillator_14",
+    "function": "compute_chande_momentum_oscillator_14",
+    "factor_path": "factor/factors/chande_momentum_oscillator/chande_momentum_oscillator_14",
+    "analysis_path": "factor/analysis/chande_momentum_oscillator_14",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "commodity_channel_index_10": {
     "field_name": "commodity_channel_index_10",
@@ -809,7 +831,7 @@
     "function": "compute_commodity_channel_index_10",
     "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_10",
     "analysis_path": "factor/analysis/commodity_channel_index_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "commodity_channel_index_120": {
     "field_name": "commodity_channel_index_120",
@@ -833,7 +855,7 @@
     "function": "compute_commodity_channel_index_120",
     "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_120",
     "analysis_path": "factor/analysis/commodity_channel_index_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "commodity_channel_index_14": {
     "field_name": "commodity_channel_index_14",
@@ -857,7 +879,7 @@
     "function": "compute_commodity_channel_index_14",
     "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_14",
     "analysis_path": "factor/analysis/commodity_channel_index_14",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "commodity_channel_index_20": {
     "field_name": "commodity_channel_index_20",
@@ -881,7 +903,7 @@
     "function": "compute_commodity_channel_index_20",
     "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_20",
     "analysis_path": "factor/analysis/commodity_channel_index_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "commodity_channel_index_60": {
     "field_name": "commodity_channel_index_60",
@@ -905,7 +927,7 @@
     "function": "compute_commodity_channel_index_60",
     "factor_path": "factor/factors/commodity_channel_index/commodity_channel_index_60",
     "analysis_path": "factor/analysis/commodity_channel_index_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "consecutive_down_days": {
     "field_name": "consecutive_down_days",
@@ -925,7 +947,7 @@
     "function": "compute_consecutive_down_days",
     "factor_path": "factor/factors/consecutive_days/consecutive_down_days",
     "analysis_path": "factor/analysis/consecutive_down_days",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "consecutive_up_days": {
     "field_name": "consecutive_up_days",
@@ -945,7 +967,7 @@
     "function": "compute_consecutive_up_days",
     "factor_path": "factor/factors/consecutive_days/consecutive_up_days",
     "analysis_path": "factor/analysis/consecutive_up_days",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "detrended_price_oscillator_20_10": {
     "field_name": "detrended_price_oscillator_20_10",
@@ -968,7 +990,7 @@
     "function": "compute_detrended_price_oscillator_20_10",
     "factor_path": "factor/factors/detrended_price_oscillator/detrended_price_oscillator_20_10",
     "analysis_path": "factor/analysis/detrended_price_oscillator_20_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "detrended_price_oscillator_average_20_10_6": {
     "field_name": "detrended_price_oscillator_average_20_10_6",
@@ -992,7 +1014,7 @@
     "function": "compute_detrended_price_oscillator_average_20_10_6",
     "factor_path": "factor/factors/detrended_price_oscillator/detrended_price_oscillator_average_20_10_6",
     "analysis_path": "factor/analysis/detrended_price_oscillator_average_20_10_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "directional_movement_negative_indicator_14": {
     "field_name": "directional_movement_negative_indicator_14",
@@ -1016,7 +1038,7 @@
     "function": "compute_directional_movement_negative_indicator_14",
     "factor_path": "factor/factors/directional_movement_index/directional_movement_negative_indicator_14",
     "analysis_path": "factor/analysis/directional_movement_negative_indicator_14",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "directional_movement_positive_indicator_14": {
     "field_name": "directional_movement_positive_indicator_14",
@@ -1040,7 +1062,7 @@
     "function": "compute_directional_movement_positive_indicator_14",
     "factor_path": "factor/factors/directional_movement_index/directional_movement_positive_indicator_14",
     "analysis_path": "factor/analysis/directional_movement_positive_indicator_14",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "donchian_channel_lower_band_20": {
     "field_name": "donchian_channel_lower_band_20",
@@ -1063,7 +1085,7 @@
     "function": "compute_donchian_channel_lower_band_20",
     "factor_path": "factor/factors/donchian_channel/donchian_channel_lower_band_20",
     "analysis_path": "factor/analysis/donchian_channel_lower_band_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "donchian_channel_middle_band_20": {
     "field_name": "donchian_channel_middle_band_20",
@@ -1086,7 +1108,7 @@
     "function": "compute_donchian_channel_middle_band_20",
     "factor_path": "factor/factors/donchian_channel/donchian_channel_middle_band_20",
     "analysis_path": "factor/analysis/donchian_channel_middle_band_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "donchian_channel_upper_band_20": {
     "field_name": "donchian_channel_upper_band_20",
@@ -1109,7 +1131,7 @@
     "function": "compute_donchian_channel_upper_band_20",
     "factor_path": "factor/factors/donchian_channel/donchian_channel_upper_band_20",
     "analysis_path": "factor/analysis/donchian_channel_upper_band_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "ease_of_movement_average_14_9": {
     "field_name": "ease_of_movement_average_14_9",
@@ -1134,7 +1156,7 @@
     "function": "compute_ease_of_movement_average_14_9",
     "factor_path": "factor/factors/ease_of_movement_value/ease_of_movement_average_14_9",
     "analysis_path": "factor/analysis/ease_of_movement_average_14_9",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "ease_of_movement_value_14": {
     "field_name": "ease_of_movement_value_14",
@@ -1158,7 +1180,7 @@
     "function": "compute_ease_of_movement_value_14",
     "factor_path": "factor/factors/ease_of_movement_value/ease_of_movement_value_14",
     "analysis_path": "factor/analysis/ease_of_movement_value_14",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_average_12": {
     "field_name": "exponential_average_12",
@@ -1180,7 +1202,7 @@
     "function": "compute_exponential_average_12",
     "factor_path": "factor/factors/exponential_average/exponential_average_12",
     "analysis_path": "factor/analysis/exponential_average_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_average_50": {
     "field_name": "exponential_average_50",
@@ -1202,7 +1224,7 @@
     "function": "compute_exponential_average_50",
     "factor_path": "factor/factors/exponential_average/exponential_average_50",
     "analysis_path": "factor/analysis/exponential_average_50",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_moving_average_10": {
     "field_name": "exponential_moving_average_10",
@@ -1224,7 +1246,7 @@
     "function": "compute_exponential_moving_average_10",
     "factor_path": "factor/factors/exponential_moving_average/exponential_moving_average_10",
     "analysis_path": "factor/analysis/exponential_moving_average_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_moving_average_20": {
     "field_name": "exponential_moving_average_20",
@@ -1246,7 +1268,7 @@
     "function": "compute_exponential_moving_average_20",
     "factor_path": "factor/factors/exponential_moving_average/exponential_moving_average_20",
     "analysis_path": "factor/analysis/exponential_moving_average_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_moving_average_250": {
     "field_name": "exponential_moving_average_250",
@@ -1268,7 +1290,7 @@
     "function": "compute_exponential_moving_average_250",
     "factor_path": "factor/factors/exponential_moving_average/exponential_moving_average_250",
     "analysis_path": "factor/analysis/exponential_moving_average_250",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_moving_average_30": {
     "field_name": "exponential_moving_average_30",
@@ -1290,7 +1312,7 @@
     "function": "compute_exponential_moving_average_30",
     "factor_path": "factor/factors/exponential_moving_average/exponential_moving_average_30",
     "analysis_path": "factor/analysis/exponential_moving_average_30",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_moving_average_5": {
     "field_name": "exponential_moving_average_5",
@@ -1312,7 +1334,7 @@
     "function": "compute_exponential_moving_average_5",
     "factor_path": "factor/factors/exponential_moving_average/exponential_moving_average_5",
     "analysis_path": "factor/analysis/exponential_moving_average_5",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_moving_average_60": {
     "field_name": "exponential_moving_average_60",
@@ -1334,7 +1356,7 @@
     "function": "compute_exponential_moving_average_60",
     "factor_path": "factor/factors/exponential_moving_average/exponential_moving_average_60",
     "analysis_path": "factor/analysis/exponential_moving_average_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "exponential_moving_average_90": {
     "field_name": "exponential_moving_average_90",
@@ -1356,7 +1378,7 @@
     "function": "compute_exponential_moving_average_90",
     "factor_path": "factor/factors/exponential_moving_average/exponential_moving_average_90",
     "analysis_path": "factor/analysis/exponential_moving_average_90",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "keltner_channel_lower_band_20_10": {
     "field_name": "keltner_channel_lower_band_20_10",
@@ -1381,7 +1403,7 @@
     "function": "compute_keltner_channel_lower_band_20_10",
     "factor_path": "factor/factors/keltner_channel/keltner_channel_lower_band_20_10",
     "analysis_path": "factor/analysis/keltner_channel_lower_band_20_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "keltner_channel_middle_band_20_10": {
     "field_name": "keltner_channel_middle_band_20_10",
@@ -1406,7 +1428,7 @@
     "function": "compute_keltner_channel_middle_band_20_10",
     "factor_path": "factor/factors/keltner_channel/keltner_channel_middle_band_20_10",
     "analysis_path": "factor/analysis/keltner_channel_middle_band_20_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "keltner_channel_upper_band_20_10": {
     "field_name": "keltner_channel_upper_band_20_10",
@@ -1431,7 +1453,7 @@
     "function": "compute_keltner_channel_upper_band_20_10",
     "factor_path": "factor/factors/keltner_channel/keltner_channel_upper_band_20_10",
     "analysis_path": "factor/analysis/keltner_channel_upper_band_20_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "mass_index_9_25": {
     "field_name": "mass_index_9_25",
@@ -1455,7 +1477,7 @@
     "function": "compute_mass_index_9_25",
     "factor_path": "factor/factors/mass_index/mass_index_9_25",
     "analysis_path": "factor/analysis/mass_index_9_25",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "mass_index_average_9_25_6": {
     "field_name": "mass_index_average_9_25_6",
@@ -1480,7 +1502,7 @@
     "function": "compute_mass_index_average_9_25_6",
     "factor_path": "factor/factors/mass_index/mass_index_average_9_25_6",
     "analysis_path": "factor/analysis/mass_index_average_9_25_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "momentum_12": {
     "field_name": "momentum_12",
@@ -1502,7 +1524,7 @@
     "function": "compute_momentum_12",
     "factor_path": "factor/factors/momentum/momentum_12",
     "analysis_path": "factor/analysis/momentum_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "momentum_average_12_6": {
     "field_name": "momentum_average_12_6",
@@ -1525,7 +1547,7 @@
     "function": "compute_momentum_average_12_6",
     "factor_path": "factor/factors/momentum/momentum_average_12_6",
     "analysis_path": "factor/analysis/momentum_average_12_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "money_flow_20": {
     "field_name": "money_flow_20",
@@ -1550,7 +1572,7 @@
     "function": "compute_money_flow_20",
     "factor_path": "factor/factors/money_flow/money_flow_20",
     "analysis_path": "factor/analysis/money_flow_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "money_flow_index_14": {
     "field_name": "money_flow_index_14",
@@ -1575,7 +1597,7 @@
     "function": "compute_money_flow_index_14",
     "factor_path": "factor/factors/money_flow_index/money_flow_index_14",
     "analysis_path": "factor/analysis/money_flow_index_14",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "monthly_price_average_deviation_20": {
     "field_name": "monthly_price_average_deviation_20",
@@ -1597,7 +1619,7 @@
     "function": "compute_monthly_price_average_deviation_20",
     "factor_path": "factor/factors/monthly_price_average_deviation/monthly_price_average_deviation_20",
     "analysis_path": "factor/analysis/monthly_price_average_deviation_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "monthly_return_rank_score_20": {
     "field_name": "monthly_return_rank_score_20",
@@ -1619,7 +1641,7 @@
     "function": "compute_monthly_return_rank_score_20",
     "factor_path": "factor/factors/monthly_return_rank_score/monthly_return_rank_score_20",
     "analysis_path": "factor/analysis/monthly_return_rank_score_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "moving_average_convergence_divergence_difference_line_12_26_9": {
     "field_name": "moving_average_convergence_divergence_difference_line_12_26_9",
@@ -1643,7 +1665,7 @@
     "function": "compute_moving_average_convergence_divergence_difference_line_12_26_9",
     "factor_path": "factor/factors/moving_average_convergence_divergence/moving_average_convergence_divergence_difference_line_12_26_9",
     "analysis_path": "factor/analysis/moving_average_convergence_divergence_difference_line_12_26_9",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "moving_average_convergence_divergence_histogram_12_26_9": {
     "field_name": "moving_average_convergence_divergence_histogram_12_26_9",
@@ -1667,7 +1689,7 @@
     "function": "compute_moving_average_convergence_divergence_histogram_12_26_9",
     "factor_path": "factor/factors/moving_average_convergence_divergence/moving_average_convergence_divergence_histogram_12_26_9",
     "analysis_path": "factor/analysis/moving_average_convergence_divergence_histogram_12_26_9",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "moving_average_convergence_divergence_signal_line_12_26_9": {
     "field_name": "moving_average_convergence_divergence_signal_line_12_26_9",
@@ -1691,7 +1713,7 @@
     "function": "compute_moving_average_convergence_divergence_signal_line_12_26_9",
     "factor_path": "factor/factors/moving_average_convergence_divergence/moving_average_convergence_divergence_signal_line_12_26_9",
     "analysis_path": "factor/analysis/moving_average_convergence_divergence_signal_line_12_26_9",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "on_balance_volume": {
     "field_name": "on_balance_volume",
@@ -1712,7 +1734,7 @@
     "function": "compute_on_balance_volume",
     "factor_path": "factor/factors/on_balance_volume/on_balance_volume",
     "analysis_path": "factor/analysis/on_balance_volume",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "parallel_line_difference_10_50": {
     "field_name": "parallel_line_difference_10_50",
@@ -1735,7 +1757,7 @@
     "function": "compute_parallel_line_difference_10_50",
     "factor_path": "factor/factors/parallel_line_difference/parallel_line_difference_10_50",
     "analysis_path": "factor/analysis/parallel_line_difference_10_50",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "parallel_line_difference_average_10_50_10": {
     "field_name": "parallel_line_difference_average_10_50_10",
@@ -1759,7 +1781,7 @@
     "function": "compute_parallel_line_difference_average_10_50_10",
     "factor_path": "factor/factors/parallel_line_difference/parallel_line_difference_average_10_50_10",
     "analysis_path": "factor/analysis/parallel_line_difference_average_10_50_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "popularity_index_ar_26": {
     "field_name": "popularity_index_ar_26",
@@ -1784,7 +1806,7 @@
     "function": "compute_popularity_index_ar_26",
     "factor_path": "factor/factors/popularity_willingness_index/popularity_index_ar_26",
     "analysis_path": "factor/analysis/popularity_index_ar_26",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "popularity_willingness_difference_26": {
     "field_name": "popularity_willingness_difference_26",
@@ -1809,7 +1831,7 @@
     "function": "compute_popularity_willingness_difference_26",
     "factor_path": "factor/factors/popularity_willingness_index/popularity_willingness_difference_26",
     "analysis_path": "factor/analysis/popularity_willingness_difference_26",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "price_linear_regression_coefficient_12": {
     "field_name": "price_linear_regression_coefficient_12",
@@ -1831,7 +1853,7 @@
     "function": "compute_price_linear_regression_coefficient_12",
     "factor_path": "factor/factors/price_linear_regression_coefficient/price_linear_regression_coefficient_12",
     "analysis_path": "factor/analysis/price_linear_regression_coefficient_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "price_linear_regression_coefficient_24": {
     "field_name": "price_linear_regression_coefficient_24",
@@ -1853,7 +1875,7 @@
     "function": "compute_price_linear_regression_coefficient_24",
     "factor_path": "factor/factors/price_linear_regression_coefficient/price_linear_regression_coefficient_24",
     "analysis_path": "factor/analysis/price_linear_regression_coefficient_24",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "price_linear_regression_coefficient_6": {
     "field_name": "price_linear_regression_coefficient_6",
@@ -1875,7 +1897,7 @@
     "function": "compute_price_linear_regression_coefficient_6",
     "factor_path": "factor/factors/price_linear_regression_coefficient/price_linear_regression_coefficient_6",
     "analysis_path": "factor/analysis/price_linear_regression_coefficient_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "price_momentum_index_20": {
     "field_name": "price_momentum_index_20",
@@ -1898,7 +1920,7 @@
     "function": "compute_price_momentum_index_20",
     "factor_path": "factor/factors/price_momentum_index/price_momentum_index_20",
     "analysis_path": "factor/analysis/price_momentum_index_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "psychological_line_12": {
     "field_name": "psychological_line_12",
@@ -1920,7 +1942,7 @@
     "function": "compute_psychological_line_12",
     "factor_path": "factor/factors/psychological_line/psychological_line_12",
     "analysis_path": "factor/analysis/psychological_line_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "psychological_line_average_12_6": {
     "field_name": "psychological_line_average_12_6",
@@ -1943,7 +1965,7 @@
     "function": "compute_psychological_line_average_12_6",
     "factor_path": "factor/factors/psychological_line/psychological_line_average_12_6",
     "analysis_path": "factor/analysis/psychological_line_average_12_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "quarterly_price_average_deviation_60": {
     "field_name": "quarterly_price_average_deviation_60",
@@ -1965,7 +1987,7 @@
     "function": "compute_quarterly_price_average_deviation_60",
     "factor_path": "factor/factors/quarterly_price_average_deviation/quarterly_price_average_deviation_60",
     "analysis_path": "factor/analysis/quarterly_price_average_deviation_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "rate_of_change_12": {
     "field_name": "rate_of_change_12",
@@ -1987,7 +2009,7 @@
     "function": "compute_rate_of_change_12",
     "factor_path": "factor/factors/rate_of_change/rate_of_change_12",
     "analysis_path": "factor/analysis/rate_of_change_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "rate_of_change_120": {
     "field_name": "rate_of_change_120",
@@ -2009,7 +2031,7 @@
     "function": "compute_rate_of_change_120",
     "factor_path": "factor/factors/rate_of_change/rate_of_change_120",
     "analysis_path": "factor/analysis/rate_of_change_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "rate_of_change_20": {
     "field_name": "rate_of_change_20",
@@ -2031,7 +2053,7 @@
     "function": "compute_rate_of_change_20",
     "factor_path": "factor/factors/rate_of_change/rate_of_change_20",
     "analysis_path": "factor/analysis/rate_of_change_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "rate_of_change_6": {
     "field_name": "rate_of_change_6",
@@ -2053,7 +2075,7 @@
     "function": "compute_rate_of_change_6",
     "factor_path": "factor/factors/rate_of_change/rate_of_change_6",
     "analysis_path": "factor/analysis/rate_of_change_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "rate_of_change_60": {
     "field_name": "rate_of_change_60",
@@ -2075,7 +2097,7 @@
     "function": "compute_rate_of_change_60",
     "factor_path": "factor/factors/rate_of_change/rate_of_change_60",
     "analysis_path": "factor/analysis/rate_of_change_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "rate_of_change_average_12_6": {
     "field_name": "rate_of_change_average_12_6",
@@ -2098,7 +2120,7 @@
     "function": "compute_rate_of_change_average_12_6",
     "factor_path": "factor/factors/rate_of_change/rate_of_change_average_12_6",
     "analysis_path": "factor/analysis/rate_of_change_average_12_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "relative_strength_index_12": {
     "field_name": "relative_strength_index_12",
@@ -2120,7 +2142,7 @@
     "function": "compute_relative_strength_index_12",
     "factor_path": "factor/factors/relative_strength_index/relative_strength_index_12",
     "analysis_path": "factor/analysis/relative_strength_index_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "relative_strength_index_24": {
     "field_name": "relative_strength_index_24",
@@ -2142,7 +2164,7 @@
     "function": "compute_relative_strength_index_24",
     "factor_path": "factor/factors/relative_strength_index/relative_strength_index_24",
     "analysis_path": "factor/analysis/relative_strength_index_24",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "relative_strength_index_6": {
     "field_name": "relative_strength_index_6",
@@ -2164,7 +2186,7 @@
     "function": "compute_relative_strength_index_6",
     "factor_path": "factor/factors/relative_strength_index/relative_strength_index_6",
     "analysis_path": "factor/analysis/relative_strength_index_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_kurtosis_120": {
     "field_name": "return_kurtosis_120",
@@ -2186,7 +2208,7 @@
     "function": "compute_return_kurtosis_120",
     "factor_path": "factor/factors/return_kurtosis/return_kurtosis_120",
     "analysis_path": "factor/analysis/return_kurtosis_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_kurtosis_20": {
     "field_name": "return_kurtosis_20",
@@ -2208,7 +2230,7 @@
     "function": "compute_return_kurtosis_20",
     "factor_path": "factor/factors/return_kurtosis/return_kurtosis_20",
     "analysis_path": "factor/analysis/return_kurtosis_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_kurtosis_60": {
     "field_name": "return_kurtosis_60",
@@ -2230,7 +2252,7 @@
     "function": "compute_return_kurtosis_60",
     "factor_path": "factor/factors/return_kurtosis/return_kurtosis_60",
     "analysis_path": "factor/analysis/return_kurtosis_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_skewness_120": {
     "field_name": "return_skewness_120",
@@ -2252,7 +2274,7 @@
     "function": "compute_return_skewness_120",
     "factor_path": "factor/factors/return_skewness/return_skewness_120",
     "analysis_path": "factor/analysis/return_skewness_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_skewness_20": {
     "field_name": "return_skewness_20",
@@ -2274,7 +2296,7 @@
     "function": "compute_return_skewness_20",
     "factor_path": "factor/factors/return_skewness/return_skewness_20",
     "analysis_path": "factor/analysis/return_skewness_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_skewness_60": {
     "field_name": "return_skewness_60",
@@ -2296,7 +2318,7 @@
     "function": "compute_return_skewness_60",
     "factor_path": "factor/factors/return_skewness/return_skewness_60",
     "analysis_path": "factor/analysis/return_skewness_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_variance_120": {
     "field_name": "return_variance_120",
@@ -2318,7 +2340,7 @@
     "function": "compute_return_variance_120",
     "factor_path": "factor/factors/return_variance/return_variance_120",
     "analysis_path": "factor/analysis/return_variance_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_variance_20": {
     "field_name": "return_variance_20",
@@ -2340,7 +2362,7 @@
     "function": "compute_return_variance_20",
     "factor_path": "factor/factors/return_variance/return_variance_20",
     "analysis_path": "factor/analysis/return_variance_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "return_variance_60": {
     "field_name": "return_variance_60",
@@ -2362,7 +2384,7 @@
     "function": "compute_return_variance_60",
     "factor_path": "factor/factors/return_variance/return_variance_60",
     "analysis_path": "factor/analysis/return_variance_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "simple_moving_average_10": {
     "field_name": "simple_moving_average_10",
@@ -2384,7 +2406,7 @@
     "function": "compute_simple_moving_average_10",
     "factor_path": "factor/factors/simple_moving_average/simple_moving_average_10",
     "analysis_path": "factor/analysis/simple_moving_average_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "simple_moving_average_20": {
     "field_name": "simple_moving_average_20",
@@ -2406,7 +2428,7 @@
     "function": "compute_simple_moving_average_20",
     "factor_path": "factor/factors/simple_moving_average/simple_moving_average_20",
     "analysis_path": "factor/analysis/simple_moving_average_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "simple_moving_average_250": {
     "field_name": "simple_moving_average_250",
@@ -2428,7 +2450,7 @@
     "function": "compute_simple_moving_average_250",
     "factor_path": "factor/factors/simple_moving_average/simple_moving_average_250",
     "analysis_path": "factor/analysis/simple_moving_average_250",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "simple_moving_average_30": {
     "field_name": "simple_moving_average_30",
@@ -2450,7 +2472,7 @@
     "function": "compute_simple_moving_average_30",
     "factor_path": "factor/factors/simple_moving_average/simple_moving_average_30",
     "analysis_path": "factor/analysis/simple_moving_average_30",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "simple_moving_average_5": {
     "field_name": "simple_moving_average_5",
@@ -2472,7 +2494,7 @@
     "function": "compute_simple_moving_average_5",
     "factor_path": "factor/factors/simple_moving_average/simple_moving_average_5",
     "analysis_path": "factor/analysis/simple_moving_average_5",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "simple_moving_average_60": {
     "field_name": "simple_moving_average_60",
@@ -2494,7 +2516,7 @@
     "function": "compute_simple_moving_average_60",
     "factor_path": "factor/factors/simple_moving_average/simple_moving_average_60",
     "analysis_path": "factor/analysis/simple_moving_average_60",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "simple_moving_average_90": {
     "field_name": "simple_moving_average_90",
@@ -2516,7 +2538,7 @@
     "function": "compute_simple_moving_average_90",
     "factor_path": "factor/factors/simple_moving_average/simple_moving_average_90",
     "analysis_path": "factor/analysis/simple_moving_average_90",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "single_day_volume_price_trend": {
     "field_name": "single_day_volume_price_trend",
@@ -2537,7 +2559,7 @@
     "function": "compute_single_day_volume_price_trend",
     "factor_path": "factor/factors/single_day_volume_price_trend/single_day_volume_price_trend",
     "analysis_path": "factor/analysis/single_day_volume_price_trend",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "single_day_volume_price_trend_average_12": {
     "field_name": "single_day_volume_price_trend_average_12",
@@ -2560,7 +2582,7 @@
     "function": "compute_single_day_volume_price_trend_average_12",
     "factor_path": "factor/factors/single_day_volume_price_trend/single_day_volume_price_trend_average_12",
     "analysis_path": "factor/analysis/single_day_volume_price_trend_average_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "single_day_volume_price_trend_average_6": {
     "field_name": "single_day_volume_price_trend_average_6",
@@ -2583,7 +2605,7 @@
     "function": "compute_single_day_volume_price_trend_average_6",
     "factor_path": "factor/factors/single_day_volume_price_trend/single_day_volume_price_trend_average_6",
     "analysis_path": "factor/analysis/single_day_volume_price_trend_average_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "stochastic_d_line_9_3_3": {
     "field_name": "stochastic_d_line_9_3_3",
@@ -2609,7 +2631,7 @@
     "function": "compute_stochastic_d_line_9_3_3",
     "factor_path": "factor/factors/stochastic_oscillator/stochastic_d_line_9_3_3",
     "analysis_path": "factor/analysis/stochastic_d_line_9_3_3",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "stochastic_j_line_9_3_3": {
     "field_name": "stochastic_j_line_9_3_3",
@@ -2635,7 +2657,7 @@
     "function": "compute_stochastic_j_line_9_3_3",
     "factor_path": "factor/factors/stochastic_oscillator/stochastic_j_line_9_3_3",
     "analysis_path": "factor/analysis/stochastic_j_line_9_3_3",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "stochastic_k_line_9_3_3": {
     "field_name": "stochastic_k_line_9_3_3",
@@ -2661,7 +2683,7 @@
     "function": "compute_stochastic_k_line_9_3_3",
     "factor_path": "factor/factors/stochastic_oscillator/stochastic_k_line_9_3_3",
     "analysis_path": "factor/analysis/stochastic_k_line_9_3_3",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "triple_exponential_oscillator_12": {
     "field_name": "triple_exponential_oscillator_12",
@@ -2683,7 +2705,7 @@
     "function": "compute_triple_exponential_oscillator_12",
     "factor_path": "factor/factors/triple_exponential_oscillator/triple_exponential_oscillator_12",
     "analysis_path": "factor/analysis/triple_exponential_oscillator_12",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "triple_exponential_oscillator_5_10_5": {
     "field_name": "triple_exponential_oscillator_5_10_5",
@@ -2707,7 +2729,7 @@
     "function": "compute_triple_exponential_oscillator_5_10_5",
     "factor_path": "factor/factors/triple_exponential_oscillator/triple_exponential_oscillator_5_10_5",
     "analysis_path": "factor/analysis/triple_exponential_oscillator_5_10_5",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "triple_exponential_oscillator_average_12_20": {
     "field_name": "triple_exponential_oscillator_average_12_20",
@@ -2730,7 +2752,7 @@
     "function": "compute_triple_exponential_oscillator_average_12_20",
     "factor_path": "factor/factors/triple_exponential_oscillator/triple_exponential_oscillator_average_12_20",
     "analysis_path": "factor/analysis/triple_exponential_oscillator_average_12_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "turnover_rate_ratio_10_120": {
     "field_name": "turnover_rate_ratio_10_120",
@@ -2753,7 +2775,7 @@
     "function": "compute_turnover_rate_ratio_10_120",
     "factor_path": "factor/factors/turnover_rate_ratio/turnover_rate_ratio_10_120",
     "analysis_path": "factor/analysis/turnover_rate_ratio_10_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "turnover_rate_ratio_20_120": {
     "field_name": "turnover_rate_ratio_20_120",
@@ -2776,7 +2798,7 @@
     "function": "compute_turnover_rate_ratio_20_120",
     "factor_path": "factor/factors/turnover_rate_ratio/turnover_rate_ratio_20_120",
     "analysis_path": "factor/analysis/turnover_rate_ratio_20_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "turnover_rate_ratio_60_120": {
     "field_name": "turnover_rate_ratio_60_120",
@@ -2799,7 +2821,7 @@
     "function": "compute_turnover_rate_ratio_60_120",
     "factor_path": "factor/factors/turnover_rate_ratio/turnover_rate_ratio_60_120",
     "analysis_path": "factor/analysis/turnover_rate_ratio_60_120",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "turnover_value_standard_deviation_20": {
     "field_name": "turnover_value_standard_deviation_20",
@@ -2821,7 +2843,7 @@
     "function": "compute_turnover_value_standard_deviation_20",
     "factor_path": "factor/factors/turnover_value_standard_deviation/turnover_value_standard_deviation_20",
     "analysis_path": "factor/analysis/turnover_value_standard_deviation_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "turnover_value_standard_deviation_6": {
     "field_name": "turnover_value_standard_deviation_6",
@@ -2843,7 +2865,7 @@
     "function": "compute_turnover_value_standard_deviation_6",
     "factor_path": "factor/factors/turnover_value_standard_deviation/turnover_value_standard_deviation_6",
     "analysis_path": "factor/analysis/turnover_value_standard_deviation_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "volume_ratio_26": {
     "field_name": "volume_ratio_26",
@@ -2866,7 +2888,7 @@
     "function": "compute_volume_ratio_26",
     "factor_path": "factor/factors/volume_ratio/volume_ratio_26",
     "analysis_path": "factor/analysis/volume_ratio_26",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "volume_return_interaction_20": {
     "field_name": "volume_return_interaction_20",
@@ -2889,7 +2911,7 @@
     "function": "compute_volume_return_interaction_20",
     "factor_path": "factor/factors/volume_return_interaction/volume_return_interaction_20",
     "analysis_path": "factor/analysis/volume_return_interaction_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "volume_standard_deviation_10": {
     "field_name": "volume_standard_deviation_10",
@@ -2911,7 +2933,7 @@
     "function": "compute_volume_standard_deviation_10",
     "factor_path": "factor/factors/volume_standard_deviation/volume_standard_deviation_10",
     "analysis_path": "factor/analysis/volume_standard_deviation_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "volume_standard_deviation_20": {
     "field_name": "volume_standard_deviation_20",
@@ -2933,7 +2955,7 @@
     "function": "compute_volume_standard_deviation_20",
     "factor_path": "factor/factors/volume_standard_deviation/volume_standard_deviation_20",
     "analysis_path": "factor/analysis/volume_standard_deviation_20",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "williams_percent_range_10": {
     "field_name": "williams_percent_range_10",
@@ -2957,7 +2979,7 @@
     "function": "compute_williams_percent_range_10",
     "factor_path": "factor/factors/williams_percent_range/williams_percent_range_10",
     "analysis_path": "factor/analysis/williams_percent_range_10",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "williams_percent_range_6": {
     "field_name": "williams_percent_range_6",
@@ -2981,7 +3003,7 @@
     "function": "compute_williams_percent_range_6",
     "factor_path": "factor/factors/williams_percent_range/williams_percent_range_6",
     "analysis_path": "factor/analysis/williams_percent_range_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "williams_variable_accumulation_distribution_6": {
     "field_name": "williams_variable_accumulation_distribution_6",
@@ -3007,7 +3029,7 @@
     "function": "compute_williams_variable_accumulation_distribution_6",
     "factor_path": "factor/factors/williams_variable_accumulation_distribution/williams_variable_accumulation_distribution_6",
     "analysis_path": "factor/analysis/williams_variable_accumulation_distribution_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "williams_variable_accumulation_distribution_average_6_6": {
     "field_name": "williams_variable_accumulation_distribution_average_6_6",
@@ -3034,7 +3056,7 @@
     "function": "compute_williams_variable_accumulation_distribution_average_6_6",
     "factor_path": "factor/factors/williams_variable_accumulation_distribution/williams_variable_accumulation_distribution_average_6_6",
     "analysis_path": "factor/analysis/williams_variable_accumulation_distribution_average_6_6",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "willingness_index_br_26": {
     "field_name": "willingness_index_br_26",
@@ -3059,7 +3081,7 @@
     "function": "compute_willingness_index_br_26",
     "factor_path": "factor/factors/popularity_willingness_index/willingness_index_br_26",
     "analysis_path": "factor/analysis/willingness_index_br_26",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "xue_si_channel_ii_line_1_102_7": {
     "field_name": "xue_si_channel_ii_line_1_102_7",
@@ -3084,7 +3106,7 @@
     "function": "compute_xue_si_channel_ii_line_1_102_7",
     "factor_path": "factor/factors/xue_si_channel_ii/xue_si_channel_ii_line_1_102_7",
     "analysis_path": "factor/analysis/xue_si_channel_ii_line_1_102_7",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "xue_si_channel_ii_line_2_102_7": {
     "field_name": "xue_si_channel_ii_line_2_102_7",
@@ -3109,7 +3131,7 @@
     "function": "compute_xue_si_channel_ii_line_2_102_7",
     "factor_path": "factor/factors/xue_si_channel_ii/xue_si_channel_ii_line_2_102_7",
     "analysis_path": "factor/analysis/xue_si_channel_ii_line_2_102_7",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "xue_si_channel_ii_line_3_102_7": {
     "field_name": "xue_si_channel_ii_line_3_102_7",
@@ -3134,7 +3156,7 @@
     "function": "compute_xue_si_channel_ii_line_3_102_7",
     "factor_path": "factor/factors/xue_si_channel_ii/xue_si_channel_ii_line_3_102_7",
     "analysis_path": "factor/analysis/xue_si_channel_ii_line_3_102_7",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   },
   "xue_si_channel_ii_line_4_102_7": {
     "field_name": "xue_si_channel_ii_line_4_102_7",
@@ -3159,6 +3181,6 @@
     "function": "compute_xue_si_channel_ii_line_4_102_7",
     "factor_path": "factor/factors/xue_si_channel_ii/xue_si_channel_ii_line_4_102_7",
     "analysis_path": "factor/analysis/xue_si_channel_ii_line_4_102_7",
-    "source": "quant/src/domain/factor_catalog/registry.py"
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/factor_catalog/legacy_registry_snapshot.py"
   }
 }

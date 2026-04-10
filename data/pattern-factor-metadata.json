@@ -2,9 +2,1513 @@
   "cdl2crows": {
     "field_name": "cdl2crows",
     "display_name": "两只乌鸦Two Crows",
-    "display_label": "两只乌鸦Two Crows",
+    "display_label": "两只乌鸦Two Crows_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
     "formula": "Pattern(i,t) = -1 if Three-candle Two Crows bearish reversal is detected on day t, else 0",
     "category": "two_crows",
-    "source": "quant/src/domain/pattern_factor_catalog/registry.py"
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdl2crows"
+    ],
+    "module": "src.domain.pattern_factor_formulas.two_crows.cdl2crows",
+    "function": "compute_cdl2crows",
+    "factor_path": "factor/factors/two_crows/cdl2crows",
+    "analysis_path": "factor/analysis/cdl2crows",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdl3blackcrows": {
+    "field_name": "cdl3blackcrows",
+    "display_name": "三只乌鸦Three Black Crows",
+    "display_label": "三只乌鸦Three Black Crows_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if Three Black Crows bearish reversal is detected on day t, else 0",
+    "category": "three_black_crows",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdl3blackcrows"
+    ],
+    "module": "src.domain.pattern_factor_formulas.three_black_crows.cdl3blackcrows",
+    "function": "compute_cdl3blackcrows",
+    "factor_path": "factor/factors/three_black_crows/cdl3blackcrows",
+    "analysis_path": "factor/analysis/cdl3blackcrows",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdl3inside": {
+    "field_name": "cdl3inside",
+    "display_name": "三内部上涨下跌Three Inside Up/Down",
+    "display_label": "三内部上涨下跌Three Inside Up/Down_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Three Inside Up, -1 for bearish Three Inside Down, else 0",
+    "category": "three_inside",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdl3inside"
+    ],
+    "module": "src.domain.pattern_factor_formulas.three_inside.cdl3inside",
+    "function": "compute_cdl3inside",
+    "factor_path": "factor/factors/three_inside/cdl3inside",
+    "analysis_path": "factor/analysis/cdl3inside",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdl3linestrike": {
+    "field_name": "cdl3linestrike",
+    "display_name": "三线打击Three-Line Strike",
+    "display_label": "三线打击Three-Line Strike_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Three-Line Strike, -1 for bearish Three-Line Strike, else 0",
+    "category": "three_line_strike",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdl3linestrike"
+    ],
+    "module": "src.domain.pattern_factor_formulas.three_line_strike.cdl3linestrike",
+    "function": "compute_cdl3linestrike",
+    "factor_path": "factor/factors/three_line_strike/cdl3linestrike",
+    "analysis_path": "factor/analysis/cdl3linestrike",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdl3starsinsouth": {
+    "field_name": "cdl3starsinsouth",
+    "display_name": "南方三星Three Stars In The South",
+    "display_label": "南方三星Three Stars In The South_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Three Stars In The South is detected on day t, else 0",
+    "category": "three_stars_in_the_south",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdl3starsinsouth"
+    ],
+    "module": "src.domain.pattern_factor_formulas.three_stars_in_the_south.cdl3starsinsouth",
+    "function": "compute_cdl3starsinsouth",
+    "factor_path": "factor/factors/three_stars_in_the_south/cdl3starsinsouth",
+    "analysis_path": "factor/analysis/cdl3starsinsouth",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdl3whitesoldiers": {
+    "field_name": "cdl3whitesoldiers",
+    "display_name": "三白兵Three Advancing White Soldiers",
+    "display_label": "三白兵Three Advancing White Soldiers_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Three Advancing White Soldiers is detected on day t, else 0",
+    "category": "three_white_soldiers",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdl3whitesoldiers"
+    ],
+    "module": "src.domain.pattern_factor_formulas.three_white_soldiers.cdl3whitesoldiers",
+    "function": "compute_cdl3whitesoldiers",
+    "factor_path": "factor/factors/three_white_soldiers/cdl3whitesoldiers",
+    "analysis_path": "factor/analysis/cdl3whitesoldiers",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlabandonedbaby": {
+    "field_name": "cdlabandonedbaby",
+    "display_name": "弃婴Abandoned Baby",
+    "display_label": "弃婴Abandoned Baby_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Abandoned Baby, -1 for bearish Abandoned Baby, else 0",
+    "category": "abandoned_baby",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlabandonedbaby"
+    ],
+    "module": "src.domain.pattern_factor_formulas.abandoned_baby.cdlabandonedbaby",
+    "function": "compute_cdlabandonedbaby",
+    "factor_path": "factor/factors/abandoned_baby/cdlabandonedbaby",
+    "analysis_path": "factor/analysis/cdlabandonedbaby",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdladvanceblock": {
+    "field_name": "cdladvanceblock",
+    "display_name": "推进受阻Advance Block",
+    "display_label": "推进受阻Advance Block_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish Advance Block is detected on day t, else 0",
+    "category": "advance_block",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdladvanceblock"
+    ],
+    "module": "src.domain.pattern_factor_formulas.advance_block.cdladvanceblock",
+    "function": "compute_cdladvanceblock",
+    "factor_path": "factor/factors/advance_block/cdladvanceblock",
+    "analysis_path": "factor/analysis/cdladvanceblock",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlbelthold": {
+    "field_name": "cdlbelthold",
+    "display_name": "捉腰带线Belt-hold",
+    "display_label": "捉腰带线Belt-hold_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Belt-hold, -1 for bearish Belt-hold, else 0",
+    "category": "belt_hold",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlbelthold"
+    ],
+    "module": "src.domain.pattern_factor_formulas.belt_hold.cdlbelthold",
+    "function": "compute_cdlbelthold",
+    "factor_path": "factor/factors/belt_hold/cdlbelthold",
+    "analysis_path": "factor/analysis/cdlbelthold",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlbreakaway": {
+    "field_name": "cdlbreakaway",
+    "display_name": "脱离Breakaway",
+    "display_label": "脱离Breakaway_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Breakaway, -1 for bearish Breakaway, else 0",
+    "category": "breakaway",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlbreakaway"
+    ],
+    "module": "src.domain.pattern_factor_formulas.breakaway.cdlbreakaway",
+    "function": "compute_cdlbreakaway",
+    "factor_path": "factor/factors/breakaway/cdlbreakaway",
+    "analysis_path": "factor/analysis/cdlbreakaway",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlclosingmarubozu": {
+    "field_name": "cdlclosingmarubozu",
+    "display_name": "收盘光头光脚Closing Marubozu",
+    "display_label": "收盘光头光脚Closing Marubozu_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Closing Marubozu, -1 for bearish Closing Marubozu, else 0",
+    "category": "closing_marubozu",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlclosingmarubozu"
+    ],
+    "module": "src.domain.pattern_factor_formulas.closing_marubozu.cdlclosingmarubozu",
+    "function": "compute_cdlclosingmarubozu",
+    "factor_path": "factor/factors/closing_marubozu/cdlclosingmarubozu",
+    "analysis_path": "factor/analysis/cdlclosingmarubozu",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlconcealbabyswallow": {
+    "field_name": "cdlconcealbabyswallow",
+    "display_name": "隐藏吞没婴儿Concealing Baby Swallow",
+    "display_label": "隐藏吞没婴儿Concealing Baby Swallow_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Concealing Baby Swallow is detected on day t, else 0",
+    "category": "concealing_baby_swallow",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlconcealbabyswallow"
+    ],
+    "module": "src.domain.pattern_factor_formulas.concealing_baby_swallow.cdlconcealbabyswallow",
+    "function": "compute_cdlconcealbabyswallow",
+    "factor_path": "factor/factors/concealing_baby_swallow/cdlconcealbabyswallow",
+    "analysis_path": "factor/analysis/cdlconcealbabyswallow",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlcounterattack": {
+    "field_name": "cdlcounterattack",
+    "display_name": "反击线Counterattack",
+    "display_label": "反击线Counterattack_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Counterattack, -1 for bearish Counterattack, else 0",
+    "category": "counterattack",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlcounterattack"
+    ],
+    "module": "src.domain.pattern_factor_formulas.counterattack.cdlcounterattack",
+    "function": "compute_cdlcounterattack",
+    "factor_path": "factor/factors/counterattack/cdlcounterattack",
+    "analysis_path": "factor/analysis/cdlcounterattack",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdldarkcloudcover": {
+    "field_name": "cdldarkcloudcover",
+    "display_name": "乌云盖顶Dark Cloud Cover",
+    "display_label": "乌云盖顶Dark Cloud Cover_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish Dark Cloud Cover is detected on day t, else 0",
+    "category": "dark_cloud_cover",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdldarkcloudcover"
+    ],
+    "module": "src.domain.pattern_factor_formulas.dark_cloud_cover.cdldarkcloudcover",
+    "function": "compute_cdldarkcloudcover",
+    "factor_path": "factor/factors/dark_cloud_cover/cdldarkcloudcover",
+    "analysis_path": "factor/analysis/cdldarkcloudcover",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdldoji": {
+    "field_name": "cdldoji",
+    "display_name": "十字Doji",
+    "display_label": "十字Doji_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if Doji is detected on day t, else 0",
+    "category": "doji",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdldoji"
+    ],
+    "module": "src.domain.pattern_factor_formulas.doji.cdldoji",
+    "function": "compute_cdldoji",
+    "factor_path": "factor/factors/doji/cdldoji",
+    "analysis_path": "factor/analysis/cdldoji",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdldojistar": {
+    "field_name": "cdldojistar",
+    "display_name": "十字星Doji Star",
+    "display_label": "十字星Doji Star_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Doji Star, -1 for bearish Doji Star, else 0",
+    "category": "doji_star",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdldojistar"
+    ],
+    "module": "src.domain.pattern_factor_formulas.doji_star.cdldojistar",
+    "function": "compute_cdldojistar",
+    "factor_path": "factor/factors/doji_star/cdldojistar",
+    "analysis_path": "factor/analysis/cdldojistar",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdldragonflydoji": {
+    "field_name": "cdldragonflydoji",
+    "display_name": "蜻蜓十字Dragonfly Doji",
+    "display_label": "蜻蜓十字Dragonfly Doji_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if Dragonfly Doji is detected on day t, else 0",
+    "category": "dragonfly_doji",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdldragonflydoji"
+    ],
+    "module": "src.domain.pattern_factor_formulas.dragonfly_doji.cdldragonflydoji",
+    "function": "compute_cdldragonflydoji",
+    "factor_path": "factor/factors/dragonfly_doji/cdldragonflydoji",
+    "analysis_path": "factor/analysis/cdldragonflydoji",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlengulfing": {
+    "field_name": "cdlengulfing",
+    "display_name": "吞没形态Engulfing",
+    "display_label": "吞没形态Engulfing_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Engulfing, -1 for bearish Engulfing, else 0",
+    "category": "engulfing",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlengulfing"
+    ],
+    "module": "src.domain.pattern_factor_formulas.engulfing.cdlengulfing",
+    "function": "compute_cdlengulfing",
+    "factor_path": "factor/factors/engulfing/cdlengulfing",
+    "analysis_path": "factor/analysis/cdlengulfing",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdleveningdojistar": {
+    "field_name": "cdleveningdojistar",
+    "display_name": "黄昏十字星Evening Doji Star",
+    "display_label": "黄昏十字星Evening Doji Star_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if Evening Doji Star is detected on day t, else 0",
+    "category": "evening_doji_star",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdleveningdojistar"
+    ],
+    "module": "src.domain.pattern_factor_formulas.evening_doji_star.cdleveningdojistar",
+    "function": "compute_cdleveningdojistar",
+    "factor_path": "factor/factors/evening_doji_star/cdleveningdojistar",
+    "analysis_path": "factor/analysis/cdleveningdojistar",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdleveningstar": {
+    "field_name": "cdleveningstar",
+    "display_name": "黄昏星Evening Star",
+    "display_label": "黄昏星Evening Star_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if Evening Star is detected on day t, else 0",
+    "category": "evening_star",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdleveningstar"
+    ],
+    "module": "src.domain.pattern_factor_formulas.evening_star.cdleveningstar",
+    "function": "compute_cdleveningstar",
+    "factor_path": "factor/factors/evening_star/cdleveningstar",
+    "analysis_path": "factor/analysis/cdleveningstar",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlgapsidesidewhite": {
+    "field_name": "cdlgapsidesidewhite",
+    "display_name": "并列白线Gap Side-by-Side White",
+    "display_label": "并列白线Gap Side-by-Side White_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish gap side-by-side white lines, -1 for bearish variant, else 0",
+    "category": "gap_side_by_side_white_lines",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlgapsidesidewhite"
+    ],
+    "module": "src.domain.pattern_factor_formulas.gap_side_by_side_white_lines.cdlgapsidesidewhite",
+    "function": "compute_cdlgapsidesidewhite",
+    "factor_path": "factor/factors/gap_side_by_side_white_lines/cdlgapsidesidewhite",
+    "analysis_path": "factor/analysis/cdlgapsidesidewhite",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlgravestonedoji": {
+    "field_name": "cdlgravestonedoji",
+    "display_name": "墓碑十字Gravestone Doji",
+    "display_label": "墓碑十字Gravestone Doji_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if Gravestone Doji is detected on day t, else 0",
+    "category": "gravestone_doji",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlgravestonedoji"
+    ],
+    "module": "src.domain.pattern_factor_formulas.gravestone_doji.cdlgravestonedoji",
+    "function": "compute_cdlgravestonedoji",
+    "factor_path": "factor/factors/gravestone_doji/cdlgravestonedoji",
+    "analysis_path": "factor/analysis/cdlgravestonedoji",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlhammer": {
+    "field_name": "cdlhammer",
+    "display_name": "锤头线Hammer",
+    "display_label": "锤头线Hammer_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if Hammer is detected on day t, else 0",
+    "category": "hammer",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlhammer"
+    ],
+    "module": "src.domain.pattern_factor_formulas.hammer.cdlhammer",
+    "function": "compute_cdlhammer",
+    "factor_path": "factor/factors/hammer/cdlhammer",
+    "analysis_path": "factor/analysis/cdlhammer",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlhangingman": {
+    "field_name": "cdlhangingman",
+    "display_name": "上吊线Hanging Man",
+    "display_label": "上吊线Hanging Man_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if Hanging Man is detected on day t, else 0",
+    "category": "hanging_man",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlhangingman"
+    ],
+    "module": "src.domain.pattern_factor_formulas.hanging_man.cdlhangingman",
+    "function": "compute_cdlhangingman",
+    "factor_path": "factor/factors/hanging_man/cdlhangingman",
+    "analysis_path": "factor/analysis/cdlhangingman",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlharami": {
+    "field_name": "cdlharami",
+    "display_name": "母子线Harami",
+    "display_label": "母子线Harami_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Harami, -1 for bearish Harami, else 0",
+    "category": "harami",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlharami"
+    ],
+    "module": "src.domain.pattern_factor_formulas.harami.cdlharami",
+    "function": "compute_cdlharami",
+    "factor_path": "factor/factors/harami/cdlharami",
+    "analysis_path": "factor/analysis/cdlharami",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlharamicross": {
+    "field_name": "cdlharamicross",
+    "display_name": "十字孕线Harami Cross",
+    "display_label": "十字孕线Harami Cross_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Harami Cross, -1 for bearish Harami Cross, else 0",
+    "category": "harami_cross",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlharamicross"
+    ],
+    "module": "src.domain.pattern_factor_formulas.harami_cross.cdlharamicross",
+    "function": "compute_cdlharamicross",
+    "factor_path": "factor/factors/harami_cross/cdlharamicross",
+    "analysis_path": "factor/analysis/cdlharamicross",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlhighwave": {
+    "field_name": "cdlhighwave",
+    "display_name": "风高浪大线High-Wave",
+    "display_label": "风高浪大线High-Wave_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if High-Wave Candle is detected on day t, else 0",
+    "category": "high_wave",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlhighwave"
+    ],
+    "module": "src.domain.pattern_factor_formulas.high_wave.cdlhighwave",
+    "function": "compute_cdlhighwave",
+    "factor_path": "factor/factors/high_wave/cdlhighwave",
+    "analysis_path": "factor/analysis/cdlhighwave",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlhikkake": {
+    "field_name": "cdlhikkake",
+    "display_name": "陷阱形态Hikkake",
+    "display_label": "陷阱形态Hikkake_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Hikkake, -1 for bearish Hikkake, else 0",
+    "category": "hikkake",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlhikkake"
+    ],
+    "module": "src.domain.pattern_factor_formulas.hikkake.cdlhikkake",
+    "function": "compute_cdlhikkake",
+    "factor_path": "factor/factors/hikkake/cdlhikkake",
+    "analysis_path": "factor/analysis/cdlhikkake",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlhikkakemod": {
+    "field_name": "cdlhikkakemod",
+    "display_name": "改良陷阱形态Modified Hikkake",
+    "display_label": "改良陷阱形态Modified Hikkake_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Modified Hikkake, -1 for bearish Modified Hikkake, else 0",
+    "category": "hikkake_modified",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlhikkakemod"
+    ],
+    "module": "src.domain.pattern_factor_formulas.hikkake_modified.cdlhikkakemod",
+    "function": "compute_cdlhikkakemod",
+    "factor_path": "factor/factors/hikkake_modified/cdlhikkakemod",
+    "analysis_path": "factor/analysis/cdlhikkakemod",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlhomingpigeon": {
+    "field_name": "cdlhomingpigeon",
+    "display_name": "归巢鸽Homing Pigeon",
+    "display_label": "归巢鸽Homing Pigeon_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Homing Pigeon is detected on day t, else 0",
+    "category": "homing_pigeon",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlhomingpigeon"
+    ],
+    "module": "src.domain.pattern_factor_formulas.homing_pigeon.cdlhomingpigeon",
+    "function": "compute_cdlhomingpigeon",
+    "factor_path": "factor/factors/homing_pigeon/cdlhomingpigeon",
+    "analysis_path": "factor/analysis/cdlhomingpigeon",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlidentical3crows": {
+    "field_name": "cdlidentical3crows",
+    "display_name": "三胞胎乌鸦Identical Three Crows",
+    "display_label": "三胞胎乌鸦Identical Three Crows_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish Identical Three Crows is detected on day t, else 0",
+    "category": "identical_three_crows",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlidentical3crows"
+    ],
+    "module": "src.domain.pattern_factor_formulas.identical_three_crows.cdlidentical3crows",
+    "function": "compute_cdlidentical3crows",
+    "factor_path": "factor/factors/identical_three_crows/cdlidentical3crows",
+    "analysis_path": "factor/analysis/cdlidentical3crows",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlinneck": {
+    "field_name": "cdlinneck",
+    "display_name": "颈内线In-Neck",
+    "display_label": "颈内线In-Neck_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish In-Neck Pattern is detected on day t, else 0",
+    "category": "in_neck",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlinneck"
+    ],
+    "module": "src.domain.pattern_factor_formulas.in_neck.cdlinneck",
+    "function": "compute_cdlinneck",
+    "factor_path": "factor/factors/in_neck/cdlinneck",
+    "analysis_path": "factor/analysis/cdlinneck",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlinvertedhammer": {
+    "field_name": "cdlinvertedhammer",
+    "display_name": "倒锤头Inverted Hammer",
+    "display_label": "倒锤头Inverted Hammer_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Inverted Hammer is detected on day t, else 0",
+    "category": "inverted_hammer",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlinvertedhammer"
+    ],
+    "module": "src.domain.pattern_factor_formulas.inverted_hammer.cdlinvertedhammer",
+    "function": "compute_cdlinvertedhammer",
+    "factor_path": "factor/factors/inverted_hammer/cdlinvertedhammer",
+    "analysis_path": "factor/analysis/cdlinvertedhammer",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlkicking": {
+    "field_name": "cdlkicking",
+    "display_name": "反冲形态Kicking",
+    "display_label": "反冲形态Kicking_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Kicking, -1 for bearish Kicking, else 0",
+    "category": "kicking",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlkicking"
+    ],
+    "module": "src.domain.pattern_factor_formulas.kicking.cdlkicking",
+    "function": "compute_cdlkicking",
+    "factor_path": "factor/factors/kicking/cdlkicking",
+    "analysis_path": "factor/analysis/cdlkicking",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlkickingbylength": {
+    "field_name": "cdlkickingbylength",
+    "display_name": "长实体反冲Kicking by Length",
+    "display_label": "长实体反冲Kicking by Length_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Kicking by Length, -1 for bearish Kicking by Length, else 0",
+    "category": "kicking_by_length",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlkickingbylength"
+    ],
+    "module": "src.domain.pattern_factor_formulas.kicking_by_length.cdlkickingbylength",
+    "function": "compute_cdlkickingbylength",
+    "factor_path": "factor/factors/kicking_by_length/cdlkickingbylength",
+    "analysis_path": "factor/analysis/cdlkickingbylength",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlladderbottom": {
+    "field_name": "cdlladderbottom",
+    "display_name": "梯底Ladder Bottom",
+    "display_label": "梯底Ladder Bottom_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Ladder Bottom is detected on day t, else 0",
+    "category": "ladder_bottom",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlladderbottom"
+    ],
+    "module": "src.domain.pattern_factor_formulas.ladder_bottom.cdlladderbottom",
+    "function": "compute_cdlladderbottom",
+    "factor_path": "factor/factors/ladder_bottom/cdlladderbottom",
+    "analysis_path": "factor/analysis/cdlladderbottom",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdllongleggeddoji": {
+    "field_name": "cdllongleggeddoji",
+    "display_name": "长脚十字Long Legged Doji",
+    "display_label": "长脚十字Long Legged Doji_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if Long Legged Doji is detected on day t, else 0",
+    "category": "long_legged_doji",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdllongleggeddoji"
+    ],
+    "module": "src.domain.pattern_factor_formulas.long_legged_doji.cdllongleggeddoji",
+    "function": "compute_cdllongleggeddoji",
+    "factor_path": "factor/factors/long_legged_doji/cdllongleggeddoji",
+    "analysis_path": "factor/analysis/cdllongleggeddoji",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdllongline": {
+    "field_name": "cdllongline",
+    "display_name": "长蜡烛线Long Line",
+    "display_label": "长蜡烛线Long Line_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Long Line, -1 for bearish Long Line, else 0",
+    "category": "long_line",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdllongline"
+    ],
+    "module": "src.domain.pattern_factor_formulas.long_line.cdllongline",
+    "function": "compute_cdllongline",
+    "factor_path": "factor/factors/long_line/cdllongline",
+    "analysis_path": "factor/analysis/cdllongline",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlmarubozu": {
+    "field_name": "cdlmarubozu",
+    "display_name": "光头光脚Marubozu",
+    "display_label": "光头光脚Marubozu_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Marubozu, -1 for bearish Marubozu, else 0",
+    "category": "marubozu",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlmarubozu"
+    ],
+    "module": "src.domain.pattern_factor_formulas.marubozu.cdlmarubozu",
+    "function": "compute_cdlmarubozu",
+    "factor_path": "factor/factors/marubozu/cdlmarubozu",
+    "analysis_path": "factor/analysis/cdlmarubozu",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlmatchinglow": {
+    "field_name": "cdlmatchinglow",
+    "display_name": "相同低点Matching Low",
+    "display_label": "相同低点Matching Low_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Matching Low is detected on day t, else 0",
+    "category": "matching_low",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlmatchinglow"
+    ],
+    "module": "src.domain.pattern_factor_formulas.matching_low.cdlmatchinglow",
+    "function": "compute_cdlmatchinglow",
+    "factor_path": "factor/factors/matching_low/cdlmatchinglow",
+    "analysis_path": "factor/analysis/cdlmatchinglow",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlmathold": {
+    "field_name": "cdlmathold",
+    "display_name": "铺垫Mat Hold",
+    "display_label": "铺垫Mat Hold_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Mat Hold is detected on day t, else 0",
+    "category": "mat_hold",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlmathold"
+    ],
+    "module": "src.domain.pattern_factor_formulas.mat_hold.cdlmathold",
+    "function": "compute_cdlmathold",
+    "factor_path": "factor/factors/mat_hold/cdlmathold",
+    "analysis_path": "factor/analysis/cdlmathold",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlmorningdojistar": {
+    "field_name": "cdlmorningdojistar",
+    "display_name": "晨十字星Morning Doji Star",
+    "display_label": "晨十字星Morning Doji Star_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Morning Doji Star is detected on day t, else 0",
+    "category": "morning_doji_star",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlmorningdojistar"
+    ],
+    "module": "src.domain.pattern_factor_formulas.morning_doji_star.cdlmorningdojistar",
+    "function": "compute_cdlmorningdojistar",
+    "factor_path": "factor/factors/morning_doji_star/cdlmorningdojistar",
+    "analysis_path": "factor/analysis/cdlmorningdojistar",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlmorningstar": {
+    "field_name": "cdlmorningstar",
+    "display_name": "晨星Morning Star",
+    "display_label": "晨星Morning Star_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Morning Star is detected on day t, else 0",
+    "category": "morning_star",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlmorningstar"
+    ],
+    "module": "src.domain.pattern_factor_formulas.morning_star.cdlmorningstar",
+    "function": "compute_cdlmorningstar",
+    "factor_path": "factor/factors/morning_star/cdlmorningstar",
+    "analysis_path": "factor/analysis/cdlmorningstar",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlonneck": {
+    "field_name": "cdlonneck",
+    "display_name": "颈上线On-Neck",
+    "display_label": "颈上线On-Neck_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish On-Neck Pattern is detected on day t, else 0",
+    "category": "on_neck",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlonneck"
+    ],
+    "module": "src.domain.pattern_factor_formulas.on_neck.cdlonneck",
+    "function": "compute_cdlonneck",
+    "factor_path": "factor/factors/on_neck/cdlonneck",
+    "analysis_path": "factor/analysis/cdlonneck",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlpiercing": {
+    "field_name": "cdlpiercing",
+    "display_name": "刺透形态Piercing",
+    "display_label": "刺透形态Piercing_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Piercing Pattern is detected on day t, else 0",
+    "category": "piercing",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlpiercing"
+    ],
+    "module": "src.domain.pattern_factor_formulas.piercing.cdlpiercing",
+    "function": "compute_cdlpiercing",
+    "factor_path": "factor/factors/piercing/cdlpiercing",
+    "analysis_path": "factor/analysis/cdlpiercing",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlrickshawman": {
+    "field_name": "cdlrickshawman",
+    "display_name": "黄包车夫Rickshaw Man",
+    "display_label": "黄包车夫Rickshaw Man_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if Rickshaw Man is detected on day t, else 0",
+    "category": "rickshaw_man",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlrickshawman"
+    ],
+    "module": "src.domain.pattern_factor_formulas.rickshaw_man.cdlrickshawman",
+    "function": "compute_cdlrickshawman",
+    "factor_path": "factor/factors/rickshaw_man/cdlrickshawman",
+    "analysis_path": "factor/analysis/cdlrickshawman",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlrisefall3methods": {
+    "field_name": "cdlrisefall3methods",
+    "display_name": "上升下降三法Rising/Falling Three Methods",
+    "display_label": "上升下降三法Rising/Falling Three Methods_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Rising Three Methods, -1 for bearish Falling Three Methods, else 0",
+    "category": "rising_falling_three_methods",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlrisefall3methods"
+    ],
+    "module": "src.domain.pattern_factor_formulas.rising_falling_three_methods.cdlrisefall3methods",
+    "function": "compute_cdlrisefall3methods",
+    "factor_path": "factor/factors/rising_falling_three_methods/cdlrisefall3methods",
+    "analysis_path": "factor/analysis/cdlrisefall3methods",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlseparatinglines": {
+    "field_name": "cdlseparatinglines",
+    "display_name": "分离线Separating Lines",
+    "display_label": "分离线Separating Lines_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Separating Lines, -1 for bearish Separating Lines, else 0",
+    "category": "separating_lines",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlseparatinglines"
+    ],
+    "module": "src.domain.pattern_factor_formulas.separating_lines.cdlseparatinglines",
+    "function": "compute_cdlseparatinglines",
+    "factor_path": "factor/factors/separating_lines/cdlseparatinglines",
+    "analysis_path": "factor/analysis/cdlseparatinglines",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlshootingstar": {
+    "field_name": "cdlshootingstar",
+    "display_name": "流星线Shooting Star",
+    "display_label": "流星线Shooting Star_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if Shooting Star is detected on day t, else 0",
+    "category": "shooting_star",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlshootingstar"
+    ],
+    "module": "src.domain.pattern_factor_formulas.shooting_star.cdlshootingstar",
+    "function": "compute_cdlshootingstar",
+    "factor_path": "factor/factors/shooting_star/cdlshootingstar",
+    "analysis_path": "factor/analysis/cdlshootingstar",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlshortline": {
+    "field_name": "cdlshortline",
+    "display_name": "短蜡烛线Short Line",
+    "display_label": "短蜡烛线Short Line_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Short Line, -1 for bearish Short Line, else 0",
+    "category": "short_line",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlshortline"
+    ],
+    "module": "src.domain.pattern_factor_formulas.short_line.cdlshortline",
+    "function": "compute_cdlshortline",
+    "factor_path": "factor/factors/short_line/cdlshortline",
+    "analysis_path": "factor/analysis/cdlshortline",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlspinningtop": {
+    "field_name": "cdlspinningtop",
+    "display_name": "纺锤线Spinning Top",
+    "display_label": "纺锤线Spinning Top_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Spinning Top, -1 for bearish Spinning Top, else 0",
+    "category": "spinning_top",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlspinningtop"
+    ],
+    "module": "src.domain.pattern_factor_formulas.spinning_top.cdlspinningtop",
+    "function": "compute_cdlspinningtop",
+    "factor_path": "factor/factors/spinning_top/cdlspinningtop",
+    "analysis_path": "factor/analysis/cdlspinningtop",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlstalledpattern": {
+    "field_name": "cdlstalledpattern",
+    "display_name": "停顿形态Stalled Pattern",
+    "display_label": "停顿形态Stalled Pattern_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish Stalled Pattern is detected on day t, else 0",
+    "category": "stalled_pattern",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlstalledpattern"
+    ],
+    "module": "src.domain.pattern_factor_formulas.stalled_pattern.cdlstalledpattern",
+    "function": "compute_cdlstalledpattern",
+    "factor_path": "factor/factors/stalled_pattern/cdlstalledpattern",
+    "analysis_path": "factor/analysis/cdlstalledpattern",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlsticksandwich": {
+    "field_name": "cdlsticksandwich",
+    "display_name": "条形三明治Stick Sandwich",
+    "display_label": "条形三明治Stick Sandwich_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Stick Sandwich is detected on day t, else 0",
+    "category": "stick_sandwich",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlsticksandwich"
+    ],
+    "module": "src.domain.pattern_factor_formulas.stick_sandwich.cdlsticksandwich",
+    "function": "compute_cdlsticksandwich",
+    "factor_path": "factor/factors/stick_sandwich/cdlsticksandwich",
+    "analysis_path": "factor/analysis/cdlsticksandwich",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdltakuri": {
+    "field_name": "cdltakuri",
+    "display_name": "探水竿Takuri",
+    "display_label": "探水竿Takuri_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if Takuri is detected on day t, else 0",
+    "category": "takuri",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdltakuri"
+    ],
+    "module": "src.domain.pattern_factor_formulas.takuri.cdltakuri",
+    "function": "compute_cdltakuri",
+    "factor_path": "factor/factors/takuri/cdltakuri",
+    "analysis_path": "factor/analysis/cdltakuri",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdltasukigap": {
+    "field_name": "cdltasukigap",
+    "display_name": "跳空并列阴阳线Tasuki Gap",
+    "display_label": "跳空并列阴阳线Tasuki Gap_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Tasuki Gap, -1 for bearish Tasuki Gap, else 0",
+    "category": "tasuki_gap",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdltasukigap"
+    ],
+    "module": "src.domain.pattern_factor_formulas.tasuki_gap.cdltasukigap",
+    "function": "compute_cdltasukigap",
+    "factor_path": "factor/factors/tasuki_gap/cdltasukigap",
+    "analysis_path": "factor/analysis/cdltasukigap",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlthrusting": {
+    "field_name": "cdlthrusting",
+    "display_name": "插入形态Thrusting",
+    "display_label": "插入形态Thrusting_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish Thrusting Pattern is detected on day t, else 0",
+    "category": "thrusting_pattern",
+    "required_fields": [
+      "open_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlthrusting"
+    ],
+    "module": "src.domain.pattern_factor_formulas.thrusting_pattern.cdlthrusting",
+    "function": "compute_cdlthrusting",
+    "factor_path": "factor/factors/thrusting_pattern/cdlthrusting",
+    "analysis_path": "factor/analysis/cdlthrusting",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdltristar": {
+    "field_name": "cdltristar",
+    "display_name": "三星形态Tristar",
+    "display_label": "三星形态Tristar_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish Tristar, -1 for bearish Tristar, else 0",
+    "category": "tristar",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdltristar"
+    ],
+    "module": "src.domain.pattern_factor_formulas.tristar.cdltristar",
+    "function": "compute_cdltristar",
+    "factor_path": "factor/factors/tristar/cdltristar",
+    "analysis_path": "factor/analysis/cdltristar",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlunique3river": {
+    "field_name": "cdlunique3river",
+    "display_name": "奇特三河床Unique 3 River",
+    "display_label": "奇特三河床Unique 3 River_1_kline_pattern",
+    "parameters": {
+      "signal_value": 1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 if bullish Unique 3 River is detected on day t, else 0",
+    "category": "unique_three_river",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlunique3river"
+    ],
+    "module": "src.domain.pattern_factor_formulas.unique_three_river.cdlunique3river",
+    "function": "compute_cdlunique3river",
+    "factor_path": "factor/factors/unique_three_river/cdlunique3river",
+    "analysis_path": "factor/analysis/cdlunique3river",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlupsidegap2crows": {
+    "field_name": "cdlupsidegap2crows",
+    "display_name": "向上跳空两只乌鸦Upside Gap Two Crows",
+    "display_label": "向上跳空两只乌鸦Upside Gap Two Crows_-1_kline_pattern",
+    "parameters": {
+      "signal_value": -1,
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=-1, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = -1 if bearish Upside Gap Two Crows is detected on day t, else 0",
+    "category": "upside_gap_two_crows",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlupsidegap2crows"
+    ],
+    "module": "src.domain.pattern_factor_formulas.upside_gap_two_crows.cdlupsidegap2crows",
+    "function": "compute_cdlupsidegap2crows",
+    "factor_path": "factor/factors/upside_gap_two_crows/cdlupsidegap2crows",
+    "analysis_path": "factor/analysis/cdlupsidegap2crows",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
+  },
+  "cdlxsidegap3methods": {
+    "field_name": "cdlxsidegap3methods",
+    "display_name": "跳空并列三法XSide Gap 3 Methods",
+    "display_label": "跳空并列三法XSide Gap 3 Methods_up_or_down_kline_pattern",
+    "parameters": {
+      "signal_value": "up_or_down",
+      "pattern_class": "kline_pattern"
+    },
+    "parameter_text": "signal_value=up_or_down, pattern_class=kline_pattern",
+    "formula": "Pattern(i,t) = 1 for bullish upside gap three methods, -1 for bearish downside gap three methods, else 0",
+    "category": "xside_gap_three_methods",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "cdlxsidegap3methods"
+    ],
+    "module": "src.domain.pattern_factor_formulas.xside_gap_three_methods.cdlxsidegap3methods",
+    "function": "compute_cdlxsidegap3methods",
+    "factor_path": "factor/factors/xside_gap_three_methods/cdlxsidegap3methods",
+    "analysis_path": "factor/analysis/cdlxsidegap3methods",
+    "source": "/Users/sheng/Documents/New project/quant/src/domain/pattern_factor_catalog/registry.py"
   }
 }
