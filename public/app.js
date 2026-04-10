@@ -239,19 +239,19 @@ function headerLabelHtml(target, key, label) {
   if (target !== "#candidate-factor-table") return escapeHtml(label);
 
   const wrappedLabels = {
-    ic_abs_gt_002_ratio: "IC绝对值<br>> 0.02比例",
-    ic_positive_ratio: "IC为正<br>比例",
-    long_short_gross_mean: "多空平均收益<br>（扣费前）",
-    long_short_mean: "多空<br>平均收益",
-    long_short_sharpe: "多空年化<br>夏普",
-    long_short_max_drawdown: "最大<br>回撤",
-    transaction_cost_mean: "平均<br>交易成本",
-    long_group_turnover: "最高组<br>换手",
-    short_group_turnover: "最低组<br>换手",
-    long_short_turnover: "多空<br>换手率",
-    avg_daily_sample_count: "日均有效<br>股票数",
-    min_daily_sample_count: "最小有效<br>股票数",
-    max_daily_sample_count: "最大有效<br>股票数",
+    ic_abs_gt_002_ratio: '|IC| > 0.02<br><span class="header-sub">比例</span>',
+    ic_positive_ratio: 'IC为正<br><span class="header-sub">比例</span>',
+    long_short_gross_mean: '多空平均收益<br><span class="header-sub">扣费前</span>',
+    long_short_mean: '多空平均<br><span class="header-sub">收益</span>',
+    long_short_sharpe: '多空年化<br><span class="header-sub">夏普</span>',
+    long_short_max_drawdown: '最大<br><span class="header-sub">回撤</span>',
+    transaction_cost_mean: '平均<br><span class="header-sub">交易成本</span>',
+    long_group_turnover: '最高组<br><span class="header-sub">换手</span>',
+    short_group_turnover: '最低组<br><span class="header-sub">换手</span>',
+    long_short_turnover: '多空<br><span class="header-sub">换手率</span>',
+    avg_daily_sample_count: '日均有效<br><span class="header-sub">股票数</span>',
+    min_daily_sample_count: '最小有效<br><span class="header-sub">股票数</span>',
+    max_daily_sample_count: '最大有效<br><span class="header-sub">股票数</span>',
   };
 
   return wrappedLabels[key] ?? escapeHtml(label);
@@ -312,7 +312,8 @@ function renderCandidateLibraryTable(rows = candidateLibraryRows) {
 
 function sortCandidateLibraryRows(rows) {
   return [...rows].sort((left, right) => (
-    String(left.factor_key ?? left.factor ?? "").localeCompare(
+    Number(left.horizon ?? 0) - Number(right.horizon ?? 0)
+    || String(left.factor_key ?? left.factor ?? "").localeCompare(
       String(right.factor_key ?? right.factor ?? ""),
       "en",
       { sensitivity: "base" }

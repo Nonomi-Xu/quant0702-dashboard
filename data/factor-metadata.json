@@ -1413,30 +1413,6 @@
     "analysis_path": "factor/analysis/momentum_12",
     "source": "quant/src/domain/factor_catalog/registry.py"
   },
-  "momentum_504_21_126": {
-    "field_name": "momentum_504_21_126",
-    "display_name": "动量因子Momentum",
-    "display_label": "动量因子Momentum_504_21_126",
-    "parameters": {
-      "N": 504,
-      "LAG": 21,
-      "HALFLIFE": 126
-    },
-    "parameter_text": "N=504, LAG=21, HALFLIFE=126",
-    "formula": "Momentum(i,t) = sum(w_k * ln(C(i,t-21-k)/C(i,t-22-k)), k=0..503), half_life=126",
-    "category": "momentum",
-    "required_fields": [
-      "close_hfq"
-    ],
-    "output_columns": [
-      "momentum_504_21_126"
-    ],
-    "module": "src.domain.factor_formulas.momentum.momentum_504_21_126",
-    "function": "compute_momentum_504_21_126",
-    "factor_path": "factor/factors/momentum/momentum_504_21_126",
-    "analysis_path": "factor/analysis/momentum_504_21_126",
-    "source": "quant/src/domain/factor_catalog/registry.py"
-  },
   "momentum_average_12_6": {
     "field_name": "momentum_average_12_6",
     "display_name": "动量指标平滑MTMMA",

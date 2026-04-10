@@ -441,12 +441,20 @@ body[data-view="detail"] #candidate-factor-library {
 
 .comparison-table.candidate-factor-table th:not(.summary-col-horizon):not(.summary-col-factor) {
   white-space: normal;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 .comparison-table.candidate-factor-table .sort-button {
+  display: inline-grid;
+  justify-items: start;
   white-space: normal;
-  line-height: 1.3;
+  line-height: 1.2;
+}
+
+.comparison-table.candidate-factor-table .header-sub {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .candidate-metadata-scroll {
