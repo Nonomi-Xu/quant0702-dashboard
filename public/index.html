@@ -9,17 +9,37 @@
   <body>
     <main class="shell">
       <nav class="top-nav" aria-label="因子功能导航">
-        <a class="top-nav-item active" href="#candidate-factor-library">候选因子看板</a>
+        <div class="top-nav-group active" data-nav-group="candidate-factor">
+          <button class="top-nav-item top-nav-trigger active" type="button">候选因子</button>
+          <div class="top-subnav" aria-label="候选因子子导航">
+            <button class="top-subnav-item" type="button" data-view-target="candidate-factor-library">因子库</button>
+            <button class="top-subnav-item active" type="button" data-view-target="candidate-factor-dashboard">因子看板</button>
+          </div>
+        </div>
         <a class="top-nav-item" href="#alpha-factor-library">Alpha因子库</a>
         <a class="top-nav-item" href="#factor-portfolio-test">因子组合测试</a>
         <a class="top-nav-item" href="#factor-filter-rules">因子筛选规则</a>
       </nav>
 
-      <section class="panel candidate-library-panel top-page" id="candidate-factor-library">
+      <section class="panel candidate-library-panel top-page hidden" id="candidate-factor-library">
+        <div class="panel-heading candidate-heading">
+          <div>
+            <h2>候选因子库</h2>
+            <span>按字段名字母排序展示字段名、中文名与数学公式</span>
+          </div>
+        </div>
+        <section class="candidate-library-inline">
+          <div class="table-scroll candidate-metadata-scroll">
+            <table class="comparison-table candidate-metadata-table" id="candidate-factor-metadata-table"></table>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel candidate-library-panel top-page" id="candidate-factor-dashboard">
         <div class="panel-heading candidate-heading">
           <div>
             <h2>候选因子看板</h2>
-            <span>在顶部选择栏查看候选因子库，并按调仓周期查看已完成评测的所有因子</span>
+            <span>按调仓周期查看已完成评测的所有因子</span>
           </div>
         </div>
         <div class="candidate-main">
@@ -46,15 +66,6 @@
               20天
             </label>
           </div>
-          <section class="candidate-library-inline">
-            <div class="candidate-aside-heading">
-              <h3>候选因子库</h3>
-              <span>按字段名字母排序展示字段名、中文名与数学公式</span>
-            </div>
-            <div class="table-scroll candidate-metadata-scroll">
-              <table class="comparison-table candidate-metadata-table" id="candidate-factor-metadata-table"></table>
-            </div>
-          </section>
           <div class="table-scroll candidate-table-scroll">
             <table class="comparison-table candidate-factor-table" id="candidate-factor-table"></table>
           </div>

@@ -121,10 +121,17 @@ function escapeHtml(value) {
 }
 
 function showCandidateLibrary() {
-  document.body.dataset.view = "candidate";
+  document.body.dataset.view = "candidate-library";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#candidate-factor-library").classList.remove("hidden");
+}
+
+function showCandidateDashboard() {
+  document.body.dataset.view = "candidate-dashboard";
+  document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelector("#candidate-factor-dashboard").classList.remove("hidden");
 }
 
 function showFactorDetail() {
@@ -138,6 +145,31 @@ function showFactorFilterRules() {
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#factor-filter-rules").classList.remove("hidden");
+}
+
+function setActiveTopNav(targetHref) {
+  document.querySelectorAll(".top-nav-item").forEach((navItem) => navItem.classList.remove("active"));
+  document.querySelectorAll(".top-nav-group").forEach((group) => group.classList.remove("active"));
+  if (!targetHref) return;
+
+  const directItem = document.querySelector(`.top-nav-item[href="${targetHref}"]`);
+  if (directItem) {
+    directItem.classList.add("active");
+    return;
+  }
+
+  const candidateGroup = document.querySelector('[data-nav-group="candidate-factor"]');
+  const candidateTrigger = candidateGroup?.querySelector(".top-nav-trigger");
+  if (candidateGroup && candidateTrigger) {
+    candidateGroup.classList.add("active");
+    candidateTrigger.classList.add("active");
+  }
+}
+
+function setActiveCandidateSubnav(targetView) {
+  document.querySelectorAll(".top-subnav-item").forEach((item) => {
+    item.classList.toggle("active", item.dataset.viewTarget === targetView);
+  });
 }
 
 function formatSummaryValue(key, value, digits = 4) {
@@ -668,14 +700,25 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
   });
 });
 
-document.querySelectorAll(".top-nav-item").forEach((item) => {
+document.querySelectorAll(".top-subnav-item").forEach((item) => {
+  item.addEventListener("click", () => {
+    const targetView = item.dataset.viewTarget;
+    setActiveTopNav("#candidate-factor-library");
+    setActiveCandidateSubnav(targetView);
+    if (targetView === "candidate-factor-library") {
+      showCandidateLibrary();
+    } else if (targetView === "candidate-factor-dashboard") {
+      showCandidateDashboard();
+    }
+  });
+});
+
+document.querySelectorAll('.top-nav-item[href]').forEach((item) => {
   item.addEventListener("click", (event) => {
     event.preventDefault();
-    document.querySelectorAll(".top-nav-item").forEach((navItem) => navItem.classList.remove("active"));
-    item.classList.add("active");
-    if (item.getAttribute("href") === "#candidate-factor-library") {
-      showCandidateLibrary();
-    } else if (item.getAttribute("href") === "#factor-filter-rules") {
+    const href = item.getAttribute("href");
+    setActiveTopNav(href);
+    if (href === "#factor-filter-rules") {
       showFactorFilterRules();
     }
   });
@@ -761,7 +804,9 @@ async function bootDashboard() {
   }
   await loadHorizonOptions(initialFactor);
   await loadCandidateLibrary();
-  showCandidateLibrary();
+  setActiveTopNav("#candidate-factor-library");
+  setActiveCandidateSubnav("candidate-factor-dashboard");
+  showCandidateDashboard();
 }
 
 document.querySelector("#factor-input").addEventListener("change", (event) => {

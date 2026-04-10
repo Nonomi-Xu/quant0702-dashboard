@@ -36,6 +36,10 @@ body {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
+  align-items: start;
+  position: relative;
+  z-index: 20;
+  overflow: visible;
   margin-bottom: 26px;
   padding: 8px;
   border: 1px solid var(--line);
@@ -45,18 +49,32 @@ body {
   backdrop-filter: blur(16px);
 }
 
+.top-nav-group {
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: -12px;
+  z-index: 21;
+}
+
 .top-nav-item {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 46px;
   padding: 10px 18px;
+  border: 0;
   border-radius: 999px;
   color: var(--muted);
+  background: transparent;
+  box-shadow: none;
   font-size: 15px;
   font-weight: 900;
   text-decoration: none;
   transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.top-nav-trigger {
+  width: 100%;
 }
 
 .top-nav-item:hover,
@@ -64,6 +82,50 @@ body {
   color: #fff8e8;
   background: linear-gradient(135deg, var(--pine), #246d50);
   transform: translateY(-1px);
+}
+
+.top-subnav {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 252, 243, 0.96);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 12;
+}
+
+.top-nav-group:hover .top-subnav,
+.top-nav-group:focus-within .top-subnav {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.top-subnav-item {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid rgba(22, 76, 55, 0.12);
+  border-radius: 16px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.top-subnav-item:hover,
+.top-subnav-item.active {
+  color: #fff8e8;
+  background: linear-gradient(135deg, var(--pine), #246d50);
 }
 
 .hero {
@@ -816,6 +878,14 @@ dd {
   .top-nav {
     grid-template-columns: 1fr;
     border-radius: 28px;
+  }
+
+  .top-subnav {
+    position: static;
+    margin-top: 8px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 
   .hero,
