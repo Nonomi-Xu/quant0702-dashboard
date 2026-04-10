@@ -87,7 +87,14 @@ const factorLabelMap = new Map();
 const tableSortState = {};
 let candidateLibraryRows = [];
 let candidateMetadataRows = [];
-const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
+const tableThreeDigitKeys = new Set([
+  "ic_mean",
+  "ic_ir",
+  "long_short_mean",
+  "long_short_sharpe",
+  "long_short_gross_mean",
+  "transaction_cost_mean",
+]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const costKpiKeys = new Set(["long_short_gross_mean", "transaction_cost_mean"]);
 const sampleKpiKeys = new Set(["avg_daily_sample_count", "min_daily_sample_count", "max_daily_sample_count"]);
@@ -819,8 +826,8 @@ async function bootDashboard() {
   await loadHorizonOptions(initialFactor);
   await loadCandidateLibrary();
   setActiveTopNav("#candidate-factor-library");
-  setActiveCandidateSubnav("candidate-factor-dashboard");
-  showCandidateDashboard();
+  setActiveCandidateSubnav("candidate-factor-library");
+  showCandidateLibrary();
 }
 
 document.querySelector("#factor-input").addEventListener("change", (event) => {
