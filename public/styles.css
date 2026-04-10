@@ -411,22 +411,22 @@ body[data-view="detail"] #candidate-factor-library {
 }
 
 .candidate-metadata-table {
-  min-width: 680px;
+  min-width: 620px;
 }
 
 .candidate-metadata-table th:first-child,
 .candidate-metadata-table td:first-child {
-  min-width: 180px;
+  min-width: 130px;
 }
 
 .candidate-metadata-table th:nth-child(2),
 .candidate-metadata-table td:nth-child(2) {
-  min-width: 130px;
+  min-width: 96px;
 }
 
 .candidate-metadata-table th:nth-child(3),
 .candidate-metadata-table td:nth-child(3) {
-  min-width: 320px;
+  min-width: 360px;
 }
 
 .formula-cell {
