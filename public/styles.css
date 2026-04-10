@@ -436,7 +436,17 @@ body[data-view="detail"] #candidate-factor-library {
 
 .comparison-table.candidate-factor-table th:not(:first-child):not(:nth-child(2)),
 .comparison-table.candidate-factor-table td:not(:first-child):not(:nth-child(2)) {
-  min-width: 104px;
+  min-width: 88px;
+}
+
+.comparison-table.candidate-factor-table th:not(.summary-col-horizon):not(.summary-col-factor) {
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.comparison-table.candidate-factor-table .sort-button {
+  white-space: normal;
+  line-height: 1.3;
 }
 
 .candidate-metadata-scroll {

@@ -235,6 +235,28 @@ function summaryColumnClass(key) {
   return `summary-col summary-col-${String(key).replace(/_/g, "-")}`;
 }
 
+function headerLabelHtml(target, key, label) {
+  if (target !== "#candidate-factor-table") return escapeHtml(label);
+
+  const wrappedLabels = {
+    ic_abs_gt_002_ratio: "IC绝对值<br>> 0.02比例",
+    ic_positive_ratio: "IC为正<br>比例",
+    long_short_gross_mean: "多空平均收益<br>（扣费前）",
+    long_short_mean: "多空<br>平均收益",
+    long_short_sharpe: "多空年化<br>夏普",
+    long_short_max_drawdown: "最大<br>回撤",
+    transaction_cost_mean: "平均<br>交易成本",
+    long_group_turnover: "最高组<br>换手",
+    short_group_turnover: "最低组<br>换手",
+    long_short_turnover: "多空<br>换手率",
+    avg_daily_sample_count: "日均有效<br>股票数",
+    min_daily_sample_count: "最小有效<br>股票数",
+    max_daily_sample_count: "最大有效<br>股票数",
+  };
+
+  return wrappedLabels[key] ?? escapeHtml(label);
+}
+
 function isCandidateRuleHit(key, value) {
   const number = Number(value);
   if (Number.isNaN(number)) return false;
@@ -250,14 +272,14 @@ function isCandidateRuleHit(key, value) {
 function renderTableHeader(target, key) {
   const label = key === "horizon" ? "调仓周期（天）" : summaryLabels[key] ?? key;
   const columnClass = summaryColumnClass(key);
-  if (key === "factor") return `<th class="${columnClass}">${escapeHtml(label)}</th>`;
+  if (key === "factor") return `<th class="${columnClass}">${headerLabelHtml(target, key, label)}</th>`;
 
   const state = tableSortState[target];
   const marker = state?.key === key ? (state.direction === "asc" ? " ↑" : " ↓") : "";
   return `
     <th class="${columnClass}">
       <button class="sort-button" type="button" data-table-target="${escapeHtml(target)}" data-sort-key="${escapeHtml(key)}">
-        ${escapeHtml(label)}${marker}
+        ${headerLabelHtml(target, key, label)}${escapeHtml(marker)}
       </button>
     </th>
   `;
@@ -352,6 +374,14 @@ function renderSummaryTable(target, rows) {
   const sortState = tableSortState[target];
   if (sortState?.key) {
     sortedRows.sort((left, right) => compareSummaryRows(left, right, sortState.key, sortState.direction));
+  } else if (target === "#candidate-factor-table") {
+    sortedRows.sort((left, right) => (
+      String(left.factor_key ?? left.factor ?? "").localeCompare(
+        String(right.factor_key ?? right.factor ?? ""),
+        "en",
+        { sensitivity: "base" }
+      )
+    ));
   }
 
   table.innerHTML = `

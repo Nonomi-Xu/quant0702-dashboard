@@ -1,4 +1,27 @@
 {
+  "accumulation_distribution_line": {
+    "field_name": "accumulation_distribution_line",
+    "display_name": "累积派发线ADL",
+    "display_label": "累积派发线ADL",
+    "parameters": {},
+    "parameter_text": "",
+    "formula": "ADL(i,t) = cumulative_sum((((C(i,t) - L(i,t)) - (H(i,t) - C(i,t))) / (H(i,t) - L(i,t))) * VOL(i,t))",
+    "category": "accumulation_distribution_line",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq",
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "accumulation_distribution_line"
+    ],
+    "module": "src.domain.factor_formulas.accumulation_distribution_line.accumulation_distribution_line",
+    "function": "compute_accumulation_distribution_line",
+    "factor_path": "factor/factors/accumulation_distribution_line/accumulation_distribution_line",
+    "analysis_path": "factor/analysis/accumulation_distribution_line",
+    "source": "quant/src/domain/factor_catalog/registry.py"
+  },
   "accumulation_swing_index_26": {
     "field_name": "accumulation_swing_index_26",
     "display_name": "ASI振动升降指标",
@@ -48,6 +71,32 @@
     "function": "compute_accumulation_swing_index_average_26_10",
     "factor_path": "factor/factors/accumulation_swing_index/accumulation_swing_index_average_26_10",
     "analysis_path": "factor/analysis/accumulation_swing_index_average_26_10",
+    "source": "quant/src/domain/factor_catalog/registry.py"
+  },
+  "chaikin_accumulation_distribution_oscillator_3_10": {
+    "field_name": "chaikin_accumulation_distribution_oscillator_3_10",
+    "display_name": "蔡金A/D振荡器ADOSC",
+    "display_label": "蔡金A/D振荡器ADOSC_3_10",
+    "parameters": {
+      "SHORT": 3,
+      "LONG": 10
+    },
+    "parameter_text": "SHORT=3, LONG=10",
+    "formula": "ADOSC(i,t) = EMA(ADL(i,t),3) - EMA(ADL(i,t),10)",
+    "category": "chaikin_accumulation_distribution_oscillator",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq",
+      "close_hfq",
+      "vol"
+    ],
+    "output_columns": [
+      "chaikin_accumulation_distribution_oscillator_3_10"
+    ],
+    "module": "src.domain.factor_formulas.chaikin_accumulation_distribution_oscillator.chaikin_accumulation_distribution_oscillator_3_10",
+    "function": "compute_chaikin_accumulation_distribution_oscillator_3_10",
+    "factor_path": "factor/factors/chaikin_accumulation_distribution_oscillator/chaikin_accumulation_distribution_oscillator_3_10",
+    "analysis_path": "factor/analysis/chaikin_accumulation_distribution_oscillator_3_10",
     "source": "quant/src/domain/factor_catalog/registry.py"
   },
   "annual_price_average_deviation_250": {
