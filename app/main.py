@@ -30,6 +30,13 @@ def list_factors() -> dict[str, object]:
     }
 
 
+@app.get("/api/factor-metadata")
+def list_factor_metadata() -> dict[str, object]:
+    return {
+        "metadata": store.read_factor_metadata(),
+    }
+
+
 @app.get("/api/factors/{factor}/horizons")
 def list_horizons(factor: str) -> dict[str, object]:
     return {

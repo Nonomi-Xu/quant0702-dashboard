@@ -235,6 +235,51 @@ body[data-view="detail"] #candidate-factor-library {
   margin-bottom: 24px;
 }
 
+.candidate-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.5fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.candidate-library-aside,
+.candidate-main {
+  min-width: 0;
+}
+
+.candidate-library-aside {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(22, 76, 55, 0.12), transparent 10rem),
+    rgba(255, 252, 243, 0.55);
+}
+
+.candidate-aside-heading {
+  display: grid;
+  gap: 6px;
+}
+
+.candidate-aside-heading h3 {
+  margin: 0;
+  color: var(--pine);
+  font-size: 18px;
+}
+
+.candidate-aside-heading span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.candidate-main {
+  display: grid;
+  gap: 16px;
+}
+
 .rules-panel {
   margin-bottom: 24px;
 }
@@ -303,6 +348,34 @@ body[data-view="detail"] #candidate-factor-library {
 
 .candidate-table-scroll {
   max-height: 520px;
+}
+
+.candidate-metadata-scroll {
+  max-height: 620px;
+}
+
+.candidate-metadata-table {
+  min-width: 760px;
+}
+
+.candidate-metadata-table th:first-child,
+.candidate-metadata-table td:first-child {
+  min-width: 240px;
+}
+
+.candidate-metadata-table th:nth-child(2),
+.candidate-metadata-table td:nth-child(2) {
+  min-width: 180px;
+}
+
+.candidate-metadata-table th:nth-child(3),
+.candidate-metadata-table td:nth-child(3) {
+  min-width: 340px;
+}
+
+.formula-cell {
+  font-family: "Menlo", "Consolas", monospace;
+  white-space: pre-wrap;
 }
 
 .comparison-panel {
@@ -753,6 +826,7 @@ dd {
     border-radius: 28px;
   }
 
+  .candidate-layout,
   .hero,
   .ic-chart-row,
   .secondary-grid,

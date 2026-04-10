@@ -86,6 +86,7 @@ const hiddenKpiKeys = new Set(["factor", "updated_at", "horizon"]);
 const factorLabelMap = new Map();
 const tableSortState = {};
 let candidateLibraryRows = [];
+let candidateMetadataRows = [];
 const tableThreeDigitKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_short_sharpe"]);
 const costKpiKeys = new Set(["long_short_gross_mean", "transaction_cost_mean"]);
@@ -225,6 +226,40 @@ function renderSummaryCell(target, key, row) {
 function renderCandidateLibraryTable(rows = candidateLibraryRows) {
   candidateLibraryRows = rows;
   renderSummaryTable("#candidate-factor-table", candidateLibraryRows);
+}
+
+function sortCandidateMetadataRows(rows) {
+  return [...rows].sort((left, right) => (
+    String(left.field_name ?? "").localeCompare(String(right.field_name ?? ""), "en", { sensitivity: "base" })
+  ));
+}
+
+function renderCandidateMetadataTable(rows = candidateMetadataRows) {
+  candidateMetadataRows = sortCandidateMetadataRows(rows);
+  const table = document.querySelector("#candidate-factor-metadata-table");
+  if (!candidateMetadataRows.length) {
+    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无候选因子元信息</td></tr></tbody>`;
+    return;
+  }
+
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>字段名</th>
+        <th>中文名</th>
+        <th>数学公式</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${candidateMetadataRows.map((row) => `
+        <tr>
+          <td>${escapeHtml(row.field_name ?? "-")}</td>
+          <td>${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}</td>
+          <td class="formula-cell">${escapeHtml(row.formula ?? "-")}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
 }
 
 function renderSummaryTable(target, rows) {
@@ -665,6 +700,28 @@ async function loadFactorOptions() {
   return factors;
 }
 
+async function loadCandidateMetadata(factors = []) {
+  const response = await fetch("/api/factor-metadata");
+  if (!response.ok) {
+    renderCandidateMetadataTable([]);
+    return;
+  }
+
+  const payload = await response.json();
+  const metadata = payload.metadata ?? {};
+  const keys = factors.length ? factors : Object.keys(metadata);
+  const rows = keys.map((factor) => {
+    const item = metadata[factor] ?? {};
+    return {
+      field_name: item.field_name ?? factor,
+      display_name: item.display_name ?? item.display_label ?? item.label ?? factorLabelMap.get(factor) ?? factor,
+      formula: item.formula ?? "-",
+    };
+  });
+
+  renderCandidateMetadataTable(rows.filter((row) => row.field_name));
+}
+
 async function loadHorizonOptions(factor) {
   const response = await fetch(`/api/factors/${encodeURIComponent(factor)}/horizons`);
   if (!response.ok) return;
@@ -694,6 +751,7 @@ document.querySelector("#query-form").addEventListener("submit", (event) => {
 
 async function bootDashboard() {
   const factors = await loadFactorOptions();
+  await loadCandidateMetadata(factors);
   const initialFactor = factors[0] ?? "";
   const factorInput = document.querySelector("#factor-input");
   factorInput.value = initialFactor;
