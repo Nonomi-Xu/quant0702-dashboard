@@ -434,6 +434,11 @@ body[data-view="detail"] #candidate-factor-library {
   max-width: 150px;
 }
 
+.comparison-table.candidate-factor-table th:not(:first-child):not(:nth-child(2)),
+.comparison-table.candidate-factor-table td:not(:first-child):not(:nth-child(2)) {
+  min-width: 104px;
+}
+
 .candidate-metadata-scroll {
   max-height: 620px;
 }
