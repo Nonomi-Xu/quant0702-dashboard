@@ -235,19 +235,11 @@ body[data-view="detail"] #candidate-factor-library {
   margin-bottom: 24px;
 }
 
-.candidate-layout {
-  display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.5fr);
-  gap: 18px;
-  align-items: start;
-}
-
-.candidate-library-aside,
 .candidate-main {
   min-width: 0;
 }
 
-.candidate-library-aside {
+.candidate-library-inline {
   display: grid;
   gap: 14px;
   padding: 18px;
@@ -826,7 +818,6 @@ dd {
     border-radius: 28px;
   }
 
-  .candidate-layout,
   .hero,
   .ic-chart-row,
   .secondary-grid,

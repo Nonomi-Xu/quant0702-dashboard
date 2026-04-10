@@ -19,11 +19,34 @@
         <div class="panel-heading candidate-heading">
           <div>
             <h2>候选因子看板</h2>
-            <span>左侧查看候选因子库，右侧按调仓周期查看已完成评测的所有因子</span>
+            <span>在顶部选择栏查看候选因子库，并按调仓周期查看已完成评测的所有因子</span>
           </div>
         </div>
-        <div class="candidate-layout">
-          <aside class="candidate-library-aside">
+        <div class="candidate-main">
+          <div class="candidate-toolbar">
+            <span>调仓周期筛选</span>
+            <label class="horizon-chip">
+              <input type="checkbox" id="candidate-horizon-all" checked />
+              全选
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="candidate-horizon" value="1" checked />
+              1天
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="candidate-horizon" value="5" checked />
+              5天
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="candidate-horizon" value="10" checked />
+              10天
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="candidate-horizon" value="20" checked />
+              20天
+            </label>
+          </div>
+          <section class="candidate-library-inline">
             <div class="candidate-aside-heading">
               <h3>候选因子库</h3>
               <span>按字段名字母排序展示字段名、中文名与数学公式</span>
@@ -31,34 +54,9 @@
             <div class="table-scroll candidate-metadata-scroll">
               <table class="comparison-table candidate-metadata-table" id="candidate-factor-metadata-table"></table>
             </div>
-          </aside>
-          <div class="candidate-main">
-            <div class="candidate-toolbar">
-              <span>调仓周期筛选</span>
-              <label class="horizon-chip">
-                <input type="checkbox" id="candidate-horizon-all" checked />
-                全选
-              </label>
-              <label class="horizon-chip">
-                <input type="checkbox" class="candidate-horizon" value="1" checked />
-                1天
-              </label>
-              <label class="horizon-chip">
-                <input type="checkbox" class="candidate-horizon" value="5" checked />
-                5天
-              </label>
-              <label class="horizon-chip">
-                <input type="checkbox" class="candidate-horizon" value="10" checked />
-                10天
-              </label>
-              <label class="horizon-chip">
-                <input type="checkbox" class="candidate-horizon" value="20" checked />
-                20天
-              </label>
-            </div>
-            <div class="table-scroll candidate-table-scroll">
-              <table class="comparison-table candidate-factor-table" id="candidate-factor-table"></table>
-            </div>
+          </section>
+          <div class="table-scroll candidate-table-scroll">
+            <table class="comparison-table candidate-factor-table" id="candidate-factor-table"></table>
           </div>
         </div>
       </section>
