@@ -619,19 +619,11 @@ async function loadDashboard(factor, horizon) {
 }
 
 async function loadSummaryComparisons(factor, horizon) {
-  const [factorResponse, horizonResponse] = await Promise.all([
-    fetch(`/api/comparisons/factor/${encodeURIComponent(factor)}/summary`),
-    fetch(`/api/comparisons/horizon/${encodeURIComponent(horizon)}/summary`),
-  ]);
+  const factorResponse = await fetch(`/api/comparisons/factor/${encodeURIComponent(factor)}/summary`);
 
   if (factorResponse.ok) {
     const payload = await factorResponse.json();
     renderSummaryTable("#factor-horizon-table", payload.rows ?? []);
-  }
-
-  if (horizonResponse.ok) {
-    const payload = await horizonResponse.json();
-    renderSummaryTable("#horizon-factor-table", payload.rows ?? []);
   }
 }
 

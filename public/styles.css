@@ -406,6 +406,20 @@ body[data-view="detail"] #candidate-factor-library {
   max-height: 520px;
 }
 
+.comparison-table.candidate-factor-table th:first-child,
+.comparison-table.candidate-factor-table td:first-child {
+  width: 92px;
+  min-width: 92px;
+  max-width: 92px;
+}
+
+.comparison-table.candidate-factor-table th:nth-child(2),
+.comparison-table.candidate-factor-table td:nth-child(2) {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+}
+
 .candidate-metadata-scroll {
   max-height: 620px;
 }
