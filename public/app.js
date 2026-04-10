@@ -288,6 +288,16 @@ function renderCandidateLibraryTable(rows = candidateLibraryRows) {
   renderSummaryTable("#candidate-factor-table", candidateLibraryRows);
 }
 
+function sortCandidateLibraryRows(rows) {
+  return [...rows].sort((left, right) => (
+    String(left.factor_key ?? left.factor ?? "").localeCompare(
+      String(right.factor_key ?? right.factor ?? ""),
+      "en",
+      { sensitivity: "base" }
+    )
+  ));
+}
+
 function sortCandidateMetadataRows(rows) {
   return [...rows].sort((left, right) => (
     String(left.field_name ?? "").localeCompare(String(right.field_name ?? ""), "en", { sensitivity: "base" })
@@ -314,7 +324,11 @@ function renderCandidateMetadataTable(rows = candidateMetadataRows) {
       ${candidateMetadataRows.map((row) => `
         <tr>
           <td>${escapeHtml(row.field_name ?? "-")}</td>
-          <td>${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}</td>
+          <td>
+            <button class="factor-link" type="button" data-factor="${escapeHtml(row.field_name ?? "")}" data-horizon="5">
+              ${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}
+            </button>
+          </td>
           <td class="formula-cell">${escapeHtml(row.formula ?? "-")}</td>
         </tr>
       `).join("")}
@@ -648,7 +662,7 @@ async function loadCandidateLibrary() {
       .filter((response) => response.ok)
       .map((response) => response.json())
   );
-  const rows = payloads.flatMap((payload) => payload.rows ?? []);
+  const rows = sortCandidateLibraryRows(payloads.flatMap((payload) => payload.rows ?? []));
   renderCandidateLibraryTable(rows);
 }
 
