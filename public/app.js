@@ -147,6 +147,27 @@ function showFactorFilterRules() {
   document.querySelector("#factor-filter-rules").classList.remove("hidden");
 }
 
+function navigateTopView(targetView) {
+  if (targetView === "candidate-factor-library") {
+    setActiveTopNav("#candidate-factor-library");
+    setActiveCandidateSubnav(targetView);
+    showCandidateLibrary();
+    return;
+  }
+
+  if (targetView === "candidate-factor-dashboard") {
+    setActiveTopNav("#candidate-factor-library");
+    setActiveCandidateSubnav(targetView);
+    showCandidateDashboard();
+    return;
+  }
+
+  if (targetView === "factor-filter-rules") {
+    setActiveTopNav("#factor-filter-rules");
+    showFactorFilterRules();
+  }
+}
+
 function setActiveTopNav(targetHref) {
   document.querySelectorAll(".top-nav-item").forEach((navItem) => navItem.classList.remove("active"));
   document.querySelectorAll(".top-nav-group").forEach((group) => group.classList.remove("active"));
@@ -701,15 +722,9 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
 });
 
 document.querySelectorAll(".top-subnav-item").forEach((item) => {
-  item.addEventListener("click", () => {
-    const targetView = item.dataset.viewTarget;
-    setActiveTopNav("#candidate-factor-library");
-    setActiveCandidateSubnav(targetView);
-    if (targetView === "candidate-factor-library") {
-      showCandidateLibrary();
-    } else if (targetView === "candidate-factor-dashboard") {
-      showCandidateDashboard();
-    }
+  item.addEventListener("click", (event) => {
+    event.preventDefault();
+    navigateTopView(item.dataset.viewTarget);
   });
 });
 
@@ -717,9 +732,8 @@ document.querySelectorAll('.top-nav-item[href]').forEach((item) => {
   item.addEventListener("click", (event) => {
     event.preventDefault();
     const href = item.getAttribute("href");
-    setActiveTopNav(href);
     if (href === "#factor-filter-rules") {
-      showFactorFilterRules();
+      navigateTopView("factor-filter-rules");
     }
   });
 });

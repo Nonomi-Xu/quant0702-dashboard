@@ -111,6 +111,7 @@ body {
 }
 
 .top-subnav-item {
+  display: block;
   width: 100%;
   padding: 11px 14px;
   border: 1px solid rgba(22, 76, 55, 0.12);
@@ -120,6 +121,7 @@ body {
   font-size: 14px;
   font-weight: 800;
   text-align: center;
+  text-decoration: none;
 }
 
 .top-subnav-item:hover,
