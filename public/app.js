@@ -87,6 +87,7 @@ const factorLabelMap = new Map();
 const tableSortState = {};
 let candidateLibraryRows = [];
 let candidateMetadataRows = [];
+let patternMetadataRows = [];
 const tableThreeDigitKeys = new Set([
   "ic_mean",
   "ic_ir",
@@ -154,6 +155,13 @@ function showFactorFilterRules() {
   document.querySelector("#factor-filter-rules").classList.remove("hidden");
 }
 
+function showPatternFactorLibrary() {
+  document.body.dataset.view = "pattern-library";
+  document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelector("#pattern-factor-library").classList.remove("hidden");
+}
+
 function navigateTopView(targetView) {
   if (targetView === "candidate-factor-library") {
     setActiveTopNav("#candidate-factor-library");
@@ -172,6 +180,12 @@ function navigateTopView(targetView) {
   if (targetView === "factor-filter-rules") {
     setActiveTopNav("#factor-filter-rules");
     showFactorFilterRules();
+    return;
+  }
+
+  if (targetView === "pattern-factor-library") {
+    setActiveTopNav("#pattern-factor-library");
+    showPatternFactorLibrary();
   }
 }
 
@@ -352,6 +366,34 @@ function renderCandidateMetadataTable(rows = candidateMetadataRows) {
               ${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}
             </button>
           </td>
+          <td class="formula-cell">${escapeHtml(row.formula ?? "-")}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+}
+
+function renderPatternMetadataTable(rows = patternMetadataRows) {
+  patternMetadataRows = sortCandidateMetadataRows(rows);
+  const table = document.querySelector("#pattern-factor-metadata-table");
+  if (!patternMetadataRows.length) {
+    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无K线形态因子元信息</td></tr></tbody>`;
+    return;
+  }
+
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>字段名</th>
+        <th>中文名</th>
+        <th>数学公式</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${patternMetadataRows.map((row) => `
+        <tr>
+          <td>${escapeHtml(row.field_name ?? "-")}</td>
+          <td>${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}</td>
           <td class="formula-cell">${escapeHtml(row.formula ?? "-")}</td>
         </tr>
       `).join("")}
@@ -778,6 +820,10 @@ document.querySelectorAll('.top-nav-item[href]').forEach((item) => {
     const href = item.getAttribute("href");
     if (href === "#factor-filter-rules") {
       navigateTopView("factor-filter-rules");
+      return;
+    }
+    if (href === "#pattern-factor-library") {
+      navigateTopView("pattern-factor-library");
     }
   });
 });
@@ -823,6 +869,27 @@ async function loadCandidateMetadata(factors = []) {
   renderCandidateMetadataTable(rows.filter((row) => row.field_name));
 }
 
+async function loadPatternFactorMetadata() {
+  const response = await fetch("/api/pattern-factor-metadata");
+  if (!response.ok) {
+    renderPatternMetadataTable([]);
+    return;
+  }
+
+  const payload = await response.json();
+  const metadata = payload.metadata ?? {};
+  const rows = Object.keys(metadata).map((factor) => {
+    const item = metadata[factor] ?? {};
+    return {
+      field_name: item.field_name ?? factor,
+      display_name: item.display_name ?? item.display_label ?? item.label ?? factor,
+      formula: item.formula ?? "-",
+    };
+  });
+
+  renderPatternMetadataTable(rows.filter((row) => row.field_name));
+}
+
 async function loadHorizonOptions(factor) {
   const response = await fetch(`/api/factors/${encodeURIComponent(factor)}/horizons`);
   if (!response.ok) return;
@@ -853,6 +920,7 @@ document.querySelector("#query-form").addEventListener("submit", (event) => {
 async function bootDashboard() {
   const factors = await loadFactorOptions();
   await loadCandidateMetadata(factors);
+  await loadPatternFactorMetadata();
   const initialFactor = factors[0] ?? "";
   const factorInput = document.querySelector("#factor-input");
   factorInput.value = initialFactor;

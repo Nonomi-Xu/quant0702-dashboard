@@ -189,6 +189,29 @@
     "analysis_path": "factor/analysis/arron_up_25",
     "source": "quant/src/domain/factor_catalog/registry.py"
   },
+  "arron_oscillator_25": {
+    "field_name": "arron_oscillator_25",
+    "display_name": "Aroon振荡器",
+    "display_label": "Aroon振荡器_25",
+    "parameters": {
+      "N": 25
+    },
+    "parameter_text": "N=25",
+    "formula": "AroonOscillator(i,t) = AroonUp(i,t) - AroonDown(i,t)",
+    "category": "arron_indicator",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq"
+    ],
+    "output_columns": [
+      "arron_oscillator_25"
+    ],
+    "module": "src.domain.factor_formulas.arron_indicator.arron_oscillator_25",
+    "function": "compute_arron_oscillator_25",
+    "factor_path": "factor/factors/arron_indicator/arron_oscillator_25",
+    "analysis_path": "factor/analysis/arron_oscillator_25",
+    "source": "quant/src/domain/factor_catalog/registry.py"
+  },
   "average_directional_index_14_6": {
     "field_name": "average_directional_index_14_6",
     "display_name": "DMI趋向平均指标ADX",
@@ -237,6 +260,74 @@
     "function": "compute_average_directional_index_rating_14_6",
     "factor_path": "factor/factors/directional_movement_index/average_directional_index_rating_14_6",
     "analysis_path": "factor/analysis/average_directional_index_rating_14_6",
+    "source": "quant/src/domain/factor_catalog/registry.py"
+  },
+  "average_price_hlc": {
+    "field_name": "average_price_hlc",
+    "display_name": "平均价格HLC",
+    "display_label": "平均价格HLC",
+    "parameters": {},
+    "parameter_text": "",
+    "formula": "AveragePriceHLC(i,t) = (H(i,t) + L(i,t) + C(i,t)) / 3",
+    "category": "average_price",
+    "required_fields": [
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "average_price_hlc"
+    ],
+    "module": "src.domain.factor_formulas.average_price.average_price_hlc",
+    "function": "compute_average_price_hlc",
+    "factor_path": "factor/factors/average_price/average_price_hlc",
+    "analysis_path": "factor/analysis/average_price_hlc",
+    "source": "quant/src/domain/factor_catalog/registry.py"
+  },
+  "average_price_ohlc": {
+    "field_name": "average_price_ohlc",
+    "display_name": "平均价格OHLC",
+    "display_label": "平均价格OHLC",
+    "parameters": {},
+    "parameter_text": "",
+    "formula": "AveragePriceOHLC(i,t) = (O(i,t) + H(i,t) + L(i,t) + C(i,t)) / 4",
+    "category": "average_price",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "average_price_ohlc"
+    ],
+    "module": "src.domain.factor_formulas.average_price.average_price_ohlc",
+    "function": "compute_average_price_ohlc",
+    "factor_path": "factor/factors/average_price/average_price_ohlc",
+    "analysis_path": "factor/analysis/average_price_ohlc",
+    "source": "quant/src/domain/factor_catalog/registry.py"
+  },
+  "balance_of_power": {
+    "field_name": "balance_of_power",
+    "display_name": "多空力量指标BOP",
+    "display_label": "多空力量指标BOP",
+    "parameters": {},
+    "parameter_text": "",
+    "formula": "BOP(i,t) = (C(i,t) - O(i,t)) / (H(i,t) - L(i,t))",
+    "category": "balance_of_power",
+    "required_fields": [
+      "open_hfq",
+      "high_hfq",
+      "low_hfq",
+      "close_hfq"
+    ],
+    "output_columns": [
+      "balance_of_power"
+    ],
+    "module": "src.domain.factor_formulas.balance_of_power.balance_of_power",
+    "function": "compute_balance_of_power",
+    "factor_path": "factor/factors/balance_of_power/balance_of_power",
+    "analysis_path": "factor/analysis/balance_of_power",
     "source": "quant/src/domain/factor_catalog/registry.py"
   },
   "average_true_range_14": {

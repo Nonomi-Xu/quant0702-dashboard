@@ -11,11 +11,17 @@ class AnalysisStore:
         self.data_dir = data_dir
         self.sample_file = data_dir / "sample-factor-analysis.json"
         self.metadata_file = data_dir / "factor-metadata.json"
+        self.pattern_metadata_file = data_dir / "pattern-factor-metadata.json"
 
     def read_factor_metadata(self) -> dict[str, dict[str, Any]]:
         if not self.metadata_file.exists():
             return {}
         return json.loads(self.metadata_file.read_text(encoding="utf-8"))
+
+    def read_pattern_factor_metadata(self) -> dict[str, dict[str, Any]]:
+        if not self.pattern_metadata_file.exists():
+            return {}
+        return json.loads(self.pattern_metadata_file.read_text(encoding="utf-8"))
 
     def _has_analysis_result(self, factor_dir: Path) -> bool:
         return any(
@@ -48,6 +54,22 @@ class AnalysisStore:
             or factor_metadata.get("label")
             or factor
         )
+
+    def pattern_factor_display_label(self, factor: str) -> str:
+        metadata = self.read_pattern_factor_metadata()
+        factor_metadata = metadata.get(factor, {})
+        return (
+            factor_metadata.get("display_label")
+            or factor_metadata.get("display_name")
+            or factor_metadata.get("label")
+            or factor
+        )
+
+    def list_pattern_factors(self) -> list[str]:
+        return sorted(self.read_pattern_factor_metadata().keys())
+
+    def pattern_factor_options(self, factors: list[str]) -> list[dict[str, str]]:
+        return [{"value": factor, "label": self.pattern_factor_display_label(factor)} for factor in factors]
 
     def summary_with_display_factor(self, summary: dict[str, Any], factor: str) -> dict[str, Any]:
         row = dict(summary)

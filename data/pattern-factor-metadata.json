@@ -1,0 +1,10 @@
+{
+  "cdl2crows": {
+    "field_name": "cdl2crows",
+    "display_name": "两只乌鸦Two Crows",
+    "display_label": "两只乌鸦Two Crows",
+    "formula": "Pattern(i,t) = -1 if Three-candle Two Crows bearish reversal is detected on day t, else 0",
+    "category": "two_crows",
+    "source": "quant/src/domain/pattern_factor_catalog/registry.py"
+  }
+}

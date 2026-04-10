@@ -37,6 +37,22 @@ def list_factor_metadata() -> dict[str, object]:
     }
 
 
+@app.get("/api/pattern-factors")
+def list_pattern_factors() -> dict[str, object]:
+    factors = store.list_pattern_factors()
+    return {
+        "factors": factors,
+        "factor_options": store.pattern_factor_options(factors),
+    }
+
+
+@app.get("/api/pattern-factor-metadata")
+def list_pattern_factor_metadata() -> dict[str, object]:
+    return {
+        "metadata": store.read_pattern_factor_metadata(),
+    }
+
+
 @app.get("/api/factors/{factor}/horizons")
 def list_horizons(factor: str) -> dict[str, object]:
     return {
