@@ -12,6 +12,8 @@ class AnalysisStore:
         self.sample_file = data_dir / "sample-factor-analysis.json"
         self.metadata_file = data_dir / "factor-metadata.json"
         self.pattern_metadata_file = data_dir / "pattern-factor-metadata.json"
+        self.factor_results_dir = data_dir / "factors"
+        self.pattern_results_dir = data_dir / "pattern_factors"
 
     def read_factor_metadata(self) -> dict[str, dict[str, Any]]:
         if not self.metadata_file.exists():
@@ -32,12 +34,11 @@ class AnalysisStore:
         )
 
     def list_factors(self) -> list[str]:
-        factors_dir = self.data_dir / "factors"
-        if not factors_dir.exists():
+        if not self.factor_results_dir.exists():
             return []
         factors = [
             path.name
-            for path in factors_dir.iterdir()
+            for path in self.factor_results_dir.iterdir()
             if path.is_dir() and self._has_analysis_result(path)
         ]
         return sorted(factors)
@@ -66,6 +67,14 @@ class AnalysisStore:
         )
 
     def list_pattern_factors(self) -> list[str]:
+        if self.pattern_results_dir.exists():
+            factors = [
+                path.name
+                for path in self.pattern_results_dir.iterdir()
+                if path.is_dir() and self._has_analysis_result(path)
+            ]
+            if factors:
+                return sorted(factors)
         return sorted(self.read_pattern_factor_metadata().keys())
 
     def pattern_factor_options(self, factors: list[str]) -> list[dict[str, str]]:
@@ -77,8 +86,19 @@ class AnalysisStore:
         row["factor"] = self.factor_display_label(factor)
         return row
 
+    def pattern_summary_with_display_factor(self, summary: dict[str, Any], factor: str) -> dict[str, Any]:
+        row = dict(summary)
+        row["factor_key"] = factor
+        row["factor"] = self.pattern_factor_display_label(factor)
+        return row
+
     def list_horizons(self, factor: str) -> list[int]:
-        factor_dir = self.data_dir / "factors" / factor
+        return self._list_horizons_in_dir(self.factor_results_dir / factor)
+
+    def list_pattern_horizons(self, factor: str) -> list[int]:
+        return self._list_horizons_in_dir(self.pattern_results_dir / factor)
+
+    def _list_horizons_in_dir(self, factor_dir: Path) -> list[int]:
         if not factor_dir.exists():
             return []
 
@@ -92,7 +112,10 @@ class AnalysisStore:
         return sorted(horizons)
 
     def _analysis_file(self, factor: str, horizon: str | int) -> Path:
-        return self.data_dir / "factors" / factor / f"horizon_{horizon}" / "analysis.json"
+        return self.factor_results_dir / factor / f"horizon_{horizon}" / "analysis.json"
+
+    def _pattern_analysis_file(self, factor: str, horizon: str | int) -> Path:
+        return self.pattern_results_dir / factor / f"horizon_{horizon}" / "analysis.json"
 
     def _read_real_analysis(self, factor: str, horizon: str | int) -> dict[str, Any] | None:
         target_file = self._analysis_file(factor, horizon)
@@ -123,6 +146,35 @@ class AnalysisStore:
                 continue
             rows.append(self.summary_with_display_factor(payload.get("summary", {}), factor))
 
+        return rows
+
+    def read_pattern_analysis(self, factor: str, horizon: str | int) -> dict[str, Any] | None:
+        target_file = self._pattern_analysis_file(factor, horizon)
+        if not target_file.exists():
+            return None
+
+        payload = json.loads(target_file.read_text(encoding="utf-8"))
+        payload.setdefault("factor", factor)
+        payload.setdefault("horizon", int(horizon))
+        payload.setdefault("updated_at", datetime.fromtimestamp(target_file.stat().st_mtime).date().isoformat())
+        return payload
+
+    def compare_pattern_factor_horizons(self, factor: str) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        for horizon in self.list_pattern_horizons(factor):
+            payload = self.read_pattern_analysis(factor, horizon)
+            if payload is None:
+                continue
+            rows.append(self.pattern_summary_with_display_factor(payload.get("summary", {}), factor))
+        return rows
+
+    def compare_pattern_horizon_factors(self, horizon: str | int) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        for factor in self.list_pattern_factors():
+            payload = self.read_pattern_analysis(factor, horizon)
+            if payload is None:
+                continue
+            rows.append(self.pattern_summary_with_display_factor(payload.get("summary", {}), factor))
         return rows
 
     def read_analysis(self, factor: str, horizon: str | int) -> dict[str, Any]:

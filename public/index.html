@@ -16,7 +16,13 @@
             <a class="top-subnav-item" href="#candidate-factor-dashboard" data-view-target="candidate-factor-dashboard">因子看板</a>
           </div>
         </div>
-        <a class="top-nav-item" href="#pattern-factor-library">K线形态因子</a>
+        <div class="top-nav-group" data-nav-group="pattern-factor">
+          <button class="top-nav-item top-nav-trigger" type="button">K线因子</button>
+          <div class="top-subnav" aria-label="K线因子子导航">
+            <a class="top-subnav-item active" href="#pattern-factor-library" data-view-target="pattern-factor-library">因子库</a>
+            <a class="top-subnav-item" href="#pattern-factor-dashboard" data-view-target="pattern-factor-dashboard">因子看板</a>
+          </div>
+        </div>
         <a class="top-nav-item" href="#alpha-factor-library">Alpha因子库</a>
         <a class="top-nav-item" href="#factor-portfolio-test">因子组合测试</a>
         <a class="top-nav-item" href="#factor-filter-rules">因子筛选规则</a>
@@ -74,7 +80,7 @@
       <section class="panel candidate-library-panel top-page hidden" id="pattern-factor-library">
         <div class="panel-heading candidate-heading">
           <div>
-            <h2>K线形态因子库</h2>
+            <h2>K线因子库</h2>
           </div>
         </div>
         <section class="candidate-library-inline">
@@ -82,6 +88,42 @@
             <table class="comparison-table candidate-metadata-table" id="pattern-factor-metadata-table"></table>
           </div>
         </section>
+      </section>
+
+      <section class="panel candidate-library-panel top-page hidden" id="pattern-factor-dashboard">
+        <div class="panel-heading candidate-heading">
+          <div>
+            <h2>K线因子看板</h2>
+          </div>
+        </div>
+        <div class="candidate-main">
+          <div class="candidate-toolbar">
+            <span>调仓周期筛选</span>
+            <label class="horizon-chip">
+              <input type="checkbox" id="pattern-horizon-all" checked />
+              全选
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="pattern-horizon" value="1" checked />
+              1天
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="pattern-horizon" value="5" checked />
+              5天
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="pattern-horizon" value="10" checked />
+              10天
+            </label>
+            <label class="horizon-chip">
+              <input type="checkbox" class="pattern-horizon" value="20" checked />
+              20天
+            </label>
+          </div>
+          <div class="table-scroll candidate-table-scroll">
+            <table class="comparison-table pattern-factor-table" id="pattern-factor-table"></table>
+          </div>
+        </div>
       </section>
 
       <section class="panel rules-panel top-page hidden" id="factor-filter-rules">

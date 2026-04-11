@@ -407,27 +407,33 @@ body[data-view="detail"] #candidate-factor-library {
 }
 
 .comparison-table.candidate-factor-table th:first-child,
-.comparison-table.candidate-factor-table td:first-child {
+.comparison-table.candidate-factor-table td:first-child,
+.comparison-table.pattern-factor-table th:first-child,
+.comparison-table.pattern-factor-table td:first-child {
   width: 92px;
   min-width: 92px;
   max-width: 92px;
 }
 
 .comparison-table.candidate-factor-table th:nth-child(2),
-.comparison-table.candidate-factor-table td:nth-child(2) {
+.comparison-table.candidate-factor-table td:nth-child(2),
+.comparison-table.pattern-factor-table th:nth-child(2),
+.comparison-table.pattern-factor-table td:nth-child(2) {
   width: 150px;
   min-width: 150px;
   max-width: 150px;
 }
 
-.comparison-table.candidate-factor-table .summary-col-horizon {
+.comparison-table.candidate-factor-table .summary-col-horizon,
+.comparison-table.pattern-factor-table .summary-col-horizon {
   left: 0;
   width: 92px;
   min-width: 92px;
   max-width: 92px;
 }
 
-.comparison-table.candidate-factor-table .summary-col-factor {
+.comparison-table.candidate-factor-table .summary-col-factor,
+.comparison-table.pattern-factor-table .summary-col-factor {
   left: 92px;
   width: 150px;
   min-width: 150px;
@@ -435,23 +441,28 @@ body[data-view="detail"] #candidate-factor-library {
 }
 
 .comparison-table.candidate-factor-table th:not(:first-child):not(:nth-child(2)),
-.comparison-table.candidate-factor-table td:not(:first-child):not(:nth-child(2)) {
+.comparison-table.candidate-factor-table td:not(:first-child):not(:nth-child(2)),
+.comparison-table.pattern-factor-table th:not(:first-child):not(:nth-child(2)),
+.comparison-table.pattern-factor-table td:not(:first-child):not(:nth-child(2)) {
   min-width: 88px;
 }
 
-.comparison-table.candidate-factor-table th:not(.summary-col-horizon):not(.summary-col-factor) {
+.comparison-table.candidate-factor-table th:not(.summary-col-horizon):not(.summary-col-factor),
+.comparison-table.pattern-factor-table th:not(.summary-col-horizon):not(.summary-col-factor) {
   white-space: normal;
   line-height: 1.2;
 }
 
-.comparison-table.candidate-factor-table .sort-button {
+.comparison-table.candidate-factor-table .sort-button,
+.comparison-table.pattern-factor-table .sort-button {
   display: inline-grid;
   justify-items: start;
   white-space: normal;
   line-height: 1.2;
 }
 
-.comparison-table.candidate-factor-table .header-sub {
+.comparison-table.candidate-factor-table .header-sub,
+.comparison-table.pattern-factor-table .header-sub {
   color: var(--muted);
   font-size: 11px;
   font-weight: 800;

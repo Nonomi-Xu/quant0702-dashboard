@@ -53,6 +53,14 @@ def list_pattern_factor_metadata() -> dict[str, object]:
     }
 
 
+@app.get("/api/pattern-factors/{factor}/horizons")
+def list_pattern_horizons(factor: str) -> dict[str, object]:
+    return {
+        "factor": factor,
+        "horizons": store.list_pattern_horizons(factor),
+    }
+
+
 @app.get("/api/factors/{factor}/horizons")
 def list_horizons(factor: str) -> dict[str, object]:
     return {
@@ -82,6 +90,22 @@ def compare_horizon_factors(horizon: int) -> dict[str, object]:
     return {
         "horizon": horizon,
         "rows": store.compare_horizon_factors(horizon),
+    }
+
+
+@app.get("/api/pattern-comparisons/factor/{factor}/summary")
+def compare_pattern_factor_horizons(factor: str) -> dict[str, object]:
+    return {
+        "factor": factor,
+        "rows": store.compare_pattern_factor_horizons(factor),
+    }
+
+
+@app.get("/api/pattern-comparisons/horizon/{horizon}/summary")
+def compare_pattern_horizon_factors(horizon: int) -> dict[str, object]:
+    return {
+        "horizon": horizon,
+        "rows": store.compare_pattern_horizon_factors(horizon),
     }
 
 

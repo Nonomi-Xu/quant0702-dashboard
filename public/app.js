@@ -29,6 +29,11 @@ const summaryLabels = {
   horizon: "调仓周期（天）",
   ic_mean: "IC均值",
   ic_ir: "ICIR",
+  event_count: "事件数",
+  bullish_event_count: "看涨事件数",
+  bearish_event_count: "看跌事件数",
+  avg_forward_return: "平均未来收益",
+  median_forward_return: "中位未来收益",
   ic_abs_gt_002_ratio: "|IC|>0.02比例",
   ic_positive_ratio: "IC为正比例",
   long_short_gross_mean: "多空平均收益（扣费前）",
@@ -48,6 +53,8 @@ const summaryLabels = {
 };
 
 const percentKeys = new Set([
+  "avg_forward_return",
+  "median_forward_return",
   "ic_abs_gt_002_ratio",
   "ic_positive_ratio",
   "long_short_gross_mean",
@@ -84,11 +91,15 @@ const summaryKeyOrder = [
 
 const hiddenKpiKeys = new Set(["factor", "updated_at", "horizon"]);
 const factorLabelMap = new Map();
+const patternFactorLabelMap = new Map();
 const tableSortState = {};
 let candidateLibraryRows = [];
 let candidateMetadataRows = [];
 let patternMetadataRows = [];
+let patternLibraryRows = [];
 const tableThreeDigitKeys = new Set([
+  "avg_forward_return",
+  "median_forward_return",
   "ic_mean",
   "ic_ir",
   "long_short_mean",
@@ -162,6 +173,13 @@ function showPatternFactorLibrary() {
   document.querySelector("#pattern-factor-library").classList.remove("hidden");
 }
 
+function showPatternFactorDashboard() {
+  document.body.dataset.view = "pattern-dashboard";
+  document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelector("#pattern-factor-dashboard").classList.remove("hidden");
+}
+
 function navigateTopView(targetView) {
   if (targetView === "candidate-factor-library") {
     setActiveTopNav("#candidate-factor-library");
@@ -185,7 +203,15 @@ function navigateTopView(targetView) {
 
   if (targetView === "pattern-factor-library") {
     setActiveTopNav("#pattern-factor-library");
+    setActivePatternSubnav(targetView);
     showPatternFactorLibrary();
+    return;
+  }
+
+  if (targetView === "pattern-factor-dashboard") {
+    setActiveTopNav("#pattern-factor-library");
+    setActivePatternSubnav(targetView);
+    showPatternFactorDashboard();
   }
 }
 
@@ -203,13 +229,29 @@ function setActiveTopNav(targetHref) {
   const candidateGroup = document.querySelector('[data-nav-group="candidate-factor"]');
   const candidateTrigger = candidateGroup?.querySelector(".top-nav-trigger");
   if (candidateGroup && candidateTrigger) {
-    candidateGroup.classList.add("active");
-    candidateTrigger.classList.add("active");
+    if (targetHref === "#candidate-factor-library") {
+      candidateGroup.classList.add("active");
+      candidateTrigger.classList.add("active");
+      return;
+    }
+  }
+
+  const patternGroup = document.querySelector('[data-nav-group="pattern-factor"]');
+  const patternTrigger = patternGroup?.querySelector(".top-nav-trigger");
+  if (patternGroup && patternTrigger && targetHref === "#pattern-factor-library") {
+    patternGroup.classList.add("active");
+    patternTrigger.classList.add("active");
   }
 }
 
 function setActiveCandidateSubnav(targetView) {
-  document.querySelectorAll(".top-subnav-item").forEach((item) => {
+  document.querySelectorAll('[data-nav-group="candidate-factor"] .top-subnav-item').forEach((item) => {
+    item.classList.toggle("active", item.dataset.viewTarget === targetView);
+  });
+}
+
+function setActivePatternSubnav(targetView) {
+  document.querySelectorAll('[data-nav-group="pattern-factor"] .top-subnav-item').forEach((item) => {
     item.classList.toggle("active", item.dataset.viewTarget === targetView);
   });
 }
@@ -335,6 +377,11 @@ function sortCandidateLibraryRows(rows) {
   ));
 }
 
+function renderPatternLibraryTable(rows = patternLibraryRows) {
+  patternLibraryRows = rows;
+  renderSummaryTable("#pattern-factor-table", patternLibraryRows);
+}
+
 function sortCandidateMetadataRows(rows) {
   return [...rows].sort((left, right) => (
     String(left.field_name ?? "").localeCompare(String(right.field_name ?? ""), "en", { sensitivity: "base" })
@@ -377,7 +424,7 @@ function renderPatternMetadataTable(rows = patternMetadataRows) {
   patternMetadataRows = sortCandidateMetadataRows(rows);
   const table = document.querySelector("#pattern-factor-metadata-table");
   if (!patternMetadataRows.length) {
-    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无K线形态因子元信息</td></tr></tbody>`;
+    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无K线因子元信息</td></tr></tbody>`;
     return;
   }
 
@@ -417,9 +464,10 @@ function renderSummaryTable(target, rows) {
   const sortState = tableSortState[target];
   if (sortState?.key) {
     sortedRows.sort((left, right) => compareSummaryRows(left, right, sortState.key, sortState.direction));
-  } else if (target === "#candidate-factor-table") {
+  } else if (target === "#candidate-factor-table" || target === "#pattern-factor-table") {
     sortedRows.sort((left, right) => (
-      String(left.factor_key ?? left.factor ?? "").localeCompare(
+      Number(left.horizon ?? 0) - Number(right.horizon ?? 0)
+      || String(left.factor_key ?? left.factor ?? "").localeCompare(
         String(right.factor_key ?? right.factor ?? ""),
         "en",
         { sensitivity: "base" }
@@ -773,6 +821,10 @@ document.addEventListener("click", (event) => {
       renderCandidateLibraryTable();
       return;
     }
+    if (target === "#pattern-factor-table") {
+      renderPatternLibraryTable();
+      return;
+    }
     loadSummaryComparisons(
       document.querySelector("#factor-input").value,
       document.querySelector("#horizon-input").value
@@ -803,6 +855,26 @@ document.querySelectorAll(".candidate-horizon").forEach((input) => {
     document.querySelector("#candidate-horizon-all").checked = checkedCount === horizonInputs.length;
     loadCandidateLibrary().catch((error) => {
       document.querySelector("#candidate-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
+    });
+  });
+});
+
+document.querySelector("#pattern-horizon-all").addEventListener("change", (event) => {
+  document.querySelectorAll(".pattern-horizon").forEach((input) => {
+    input.checked = event.target.checked;
+  });
+  loadPatternLibrary().catch((error) => {
+    document.querySelector("#pattern-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
+  });
+});
+
+document.querySelectorAll(".pattern-horizon").forEach((input) => {
+  input.addEventListener("change", () => {
+    const horizonInputs = [...document.querySelectorAll(".pattern-horizon")];
+    const checkedCount = horizonInputs.filter((item) => item.checked).length;
+    document.querySelector("#pattern-horizon-all").checked = checkedCount === horizonInputs.length;
+    loadPatternLibrary().catch((error) => {
+      document.querySelector("#pattern-factor-table").innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
     });
   });
 });
@@ -847,6 +919,18 @@ async function loadFactorOptions() {
   return factors;
 }
 
+async function loadPatternFactorOptions() {
+  const response = await fetch("/api/pattern-factors");
+  if (!response.ok) return [];
+  const data = await response.json();
+  const factors = data.factors ?? [];
+  patternFactorLabelMap.clear();
+  (data.factor_options ?? []).forEach((option) => {
+    patternFactorLabelMap.set(option.value, option.label);
+  });
+  return factors;
+}
+
 async function loadCandidateMetadata(factors = []) {
   const response = await fetch("/api/factor-metadata");
   if (!response.ok) {
@@ -870,6 +954,7 @@ async function loadCandidateMetadata(factors = []) {
 }
 
 async function loadPatternFactorMetadata() {
+  const factors = await loadPatternFactorOptions();
   const response = await fetch("/api/pattern-factor-metadata");
   if (!response.ok) {
     renderPatternMetadataTable([]);
@@ -878,16 +963,42 @@ async function loadPatternFactorMetadata() {
 
   const payload = await response.json();
   const metadata = payload.metadata ?? {};
-  const rows = Object.keys(metadata).map((factor) => {
+  const keys = factors.length ? factors : Object.keys(metadata);
+  const rows = keys.map((factor) => {
     const item = metadata[factor] ?? {};
     return {
       field_name: item.field_name ?? factor,
-      display_name: item.display_name ?? item.display_label ?? item.label ?? factor,
+      display_name: item.display_name ?? item.display_label ?? item.label ?? patternFactorLabelMap.get(factor) ?? factor,
       formula: item.formula ?? "-",
     };
   });
 
   renderPatternMetadataTable(rows.filter((row) => row.field_name));
+}
+
+function selectedPatternHorizons() {
+  return [...document.querySelectorAll(".pattern-horizon")]
+    .filter((input) => input.checked)
+    .map((input) => input.value);
+}
+
+async function loadPatternLibrary() {
+  const horizons = selectedPatternHorizons();
+  if (!horizons.length) {
+    renderPatternLibraryTable([]);
+    return;
+  }
+
+  const responses = await Promise.all(
+    horizons.map((horizon) => fetch(`/api/pattern-comparisons/horizon/${encodeURIComponent(horizon)}/summary`))
+  );
+  const payloads = await Promise.all(
+    responses
+      .filter((response) => response.ok)
+      .map((response) => response.json())
+  );
+  const rows = sortCandidateLibraryRows(payloads.flatMap((payload) => payload.rows ?? []));
+  renderPatternLibraryTable(rows);
 }
 
 async function loadHorizonOptions(factor) {
@@ -930,8 +1041,10 @@ async function bootDashboard() {
   }
   await loadHorizonOptions(initialFactor);
   await loadCandidateLibrary();
+  await loadPatternLibrary();
   setActiveTopNav("#candidate-factor-library");
   setActiveCandidateSubnav("candidate-factor-library");
+  setActivePatternSubnav("pattern-factor-library");
   showCandidateLibrary();
 }
 

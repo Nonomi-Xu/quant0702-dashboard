@@ -19,6 +19,10 @@ FACTOR_PREFIX = os.environ.get(
     "FACTOR_DASHBOARD_COS_FACTOR_PREFIX",
     COS_PREFIX.removesuffix("/analysis") + "/factors",
 ).strip("/")
+PATTERN_COS_PREFIX = os.environ.get(
+    "FACTOR_DASHBOARD_COS_PATTERN_ANALYSIS_PREFIX",
+    "a-stock/factor/pattern_analysis",
+).strip("/")
 IC_LOOKBACK_DAYS = int(os.environ.get("FACTOR_DASHBOARD_IC_LOOKBACK_DAYS", "90"))
 FACTOR_LOOKBACK_YEARS = int(os.environ.get("FACTOR_DASHBOARD_FACTOR_LOOKBACK_YEARS", "10"))
 
@@ -54,10 +58,10 @@ def list_cos_keys(client: CosS3Client, bucket: str, prefix: str) -> list[str]:
         return keys
 
 
-def discover_completed_results(keys: list[str]) -> dict[tuple[str, int, str], set[str]]:
+def discover_completed_results(keys: list[str], prefix: str) -> dict[tuple[str, int, str], set[str]]:
     results: dict[tuple[str, int, str], set[str]] = {}
     for key in keys:
-        relative = key.removeprefix(f"{COS_PREFIX}/")
+        relative = key.removeprefix(f"{prefix}/")
         parts = relative.split("/")
         if len(parts) != 4:
             continue
@@ -195,6 +199,13 @@ def read_metadata() -> dict[str, dict[str, Any]]:
     return json.loads(metadata_file.read_text(encoding="utf-8"))
 
 
+def read_pattern_metadata() -> dict[str, dict[str, Any]]:
+    metadata_file = DATA_DIR / "pattern-factor-metadata.json"
+    if not metadata_file.exists():
+        return {}
+    return json.loads(metadata_file.read_text(encoding="utf-8"))
+
+
 def factor_path_prefixes(factor_name: str, factor_metadata: dict[str, Any]) -> list[str]:
     prefixes: list[str] = []
     factor_path = str(factor_metadata.get("factor_path") or "").strip("/")
@@ -320,16 +331,60 @@ def sync_one_result(
     return True
 
 
+def sync_one_pattern_result(
+    client: CosS3Client,
+    bucket: str,
+    factor_name: str,
+    horizon: int,
+    base_key: str,
+    filenames: set[str],
+    metadata: dict[str, dict[str, Any]],
+    cache_dir: Path,
+) -> bool:
+    required = {"summary.parquet", "monitor.parquet"}
+    if not required.issubset(filenames):
+        return False
+
+    summary = download_parquet(client, bucket, f"{base_key}/summary.parquet", cache_dir)
+    monitor = download_parquet(client, bucket, f"{base_key}/monitor.parquet", cache_dir)
+    summary_payload = summary_row(summary, factor_name, horizon)
+    factor_metadata = metadata.get(factor_name, {})
+
+    payload = {
+        "factor": factor_name,
+        "horizon": horizon,
+        "updated_at": date.today().isoformat(),
+        "metadata": {
+            "field_name": factor_name,
+            "formula": "-",
+            "source": base_key,
+            **factor_metadata,
+        },
+        "summary": summary_payload,
+        "monitor_latest": latest_row(monitor),
+    }
+
+    output_path = DATA_DIR / "pattern_factors" / factor_name / f"horizon_{horizon}" / "analysis.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return True
+
+
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     client, bucket = build_cos_client()
-    keys = list_cos_keys(client, bucket, COS_PREFIX)
-    discovered = discover_completed_results(keys)
+    factor_keys = list_cos_keys(client, bucket, COS_PREFIX)
+    pattern_keys = list_cos_keys(client, bucket, PATTERN_COS_PREFIX)
+    discovered = discover_completed_results(factor_keys, COS_PREFIX)
+    discovered_pattern = discover_completed_results(pattern_keys, PATTERN_COS_PREFIX)
     metadata = read_metadata()
+    pattern_metadata = read_pattern_metadata()
     strong_signal_cache: dict[str, dict[str, Any]] = {}
 
     synced = 0
     incomplete = 0
+    pattern_synced = 0
+    pattern_incomplete = 0
     with tempfile.TemporaryDirectory(prefix="factor-dashboard-cos-") as tmpdir:
         cache_dir = Path(tmpdir)
         for (factor_name, horizon, base_key), filenames in sorted(discovered.items()):
@@ -348,11 +403,32 @@ def main() -> None:
             else:
                 incomplete += 1
 
+        for (factor_name, horizon, base_key), filenames in sorted(discovered_pattern.items()):
+            if sync_one_pattern_result(
+                client,
+                bucket,
+                factor_name,
+                horizon,
+                base_key,
+                filenames,
+                pattern_metadata,
+                cache_dir,
+            ):
+                pattern_synced += 1
+            else:
+                pattern_incomplete += 1
+
     print(f"synced {synced} factor horizon result(s) into {DATA_DIR / 'factors'}")
     if synced == 0:
         print(
             "no completed result set found under "
             f"{COS_PREFIX} (discovered {len(discovered)} horizon path(s), incomplete {incomplete})"
+        )
+    print(f"synced {pattern_synced} pattern factor horizon result(s) into {DATA_DIR / 'pattern_factors'}")
+    if pattern_synced == 0:
+        print(
+            "no completed pattern result set found under "
+            f"{PATTERN_COS_PREFIX} (discovered {len(discovered_pattern)} horizon path(s), incomplete {pattern_incomplete})"
         )
 
 
