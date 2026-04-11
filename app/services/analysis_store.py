@@ -149,21 +149,32 @@ class AnalysisStore:
         return rows
 
     def read_pattern_analysis(self, factor: str, horizon: str | int) -> dict[str, Any] | None:
-        target_file = self._pattern_analysis_file(factor, horizon)
+        horizon_value = str(horizon)
+        target_file = self._pattern_analysis_file(factor, horizon_value)
         if not target_file.exists():
-            return None
+            raise FileNotFoundError(f"未找到K线因子分析结果: {factor} / horizon_{horizon_value}")
 
         payload = json.loads(target_file.read_text(encoding="utf-8"))
         payload.setdefault("factor", factor)
-        payload.setdefault("horizon", int(horizon))
+        payload.setdefault("horizon", int(horizon_value))
         payload.setdefault("updated_at", datetime.fromtimestamp(target_file.stat().st_mtime).date().isoformat())
+        registry_metadata = self.read_pattern_factor_metadata().get(payload["factor"], {})
+        payload_metadata = payload.get("metadata", {})
+        payload["metadata"] = {
+            "field_name": payload["factor"],
+            "formula": "-",
+            "source": str(target_file.relative_to(self.data_dir)),
+            **payload_metadata,
+            **registry_metadata,
+        }
         return payload
 
     def compare_pattern_factor_horizons(self, factor: str) -> list[dict[str, Any]]:
         rows: list[dict[str, Any]] = []
         for horizon in self.list_pattern_horizons(factor):
-            payload = self.read_pattern_analysis(factor, horizon)
-            if payload is None:
+            try:
+                payload = self.read_pattern_analysis(factor, horizon)
+            except FileNotFoundError:
                 continue
             rows.append(self.pattern_summary_with_display_factor(payload.get("summary", {}), factor))
         return rows
@@ -171,8 +182,9 @@ class AnalysisStore:
     def compare_pattern_horizon_factors(self, horizon: str | int) -> list[dict[str, Any]]:
         rows: list[dict[str, Any]] = []
         for factor in self.list_pattern_factors():
-            payload = self.read_pattern_analysis(factor, horizon)
-            if payload is None:
+            try:
+                payload = self.read_pattern_analysis(factor, horizon)
+            except FileNotFoundError:
                 continue
             rows.append(self.pattern_summary_with_display_factor(payload.get("summary", {}), factor))
         return rows

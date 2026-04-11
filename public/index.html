@@ -126,6 +126,79 @@
         </div>
       </section>
 
+      <section class="hero pattern-detail-section hidden" id="pattern-factor-detail">
+        <div>
+          <p class="eyebrow">A-Stock Pattern Lab</p>
+          <h1 id="pattern-hero-title">K线因子事件看板</h1>
+          <p class="subtitle" id="pattern-hero-subtitle">等待加载K线因子字段名</p>
+        </div>
+        <form class="control-card" id="pattern-query-form">
+          <label>
+            因子名
+            <select id="pattern-factor-input" name="pattern-factor"></select>
+          </label>
+          <label>
+            观察周期
+            <select id="pattern-horizon-input" name="pattern-horizon">
+              <option value="1">1</option>
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+          </label>
+          <button type="submit">刷新看板</button>
+        </form>
+      </section>
+
+      <section class="status-bar pattern-detail-section hidden">
+        <span id="pattern-dataset-label">等待加载</span>
+        <span id="pattern-updated-label">更新时间: -</span>
+      </section>
+
+      <section class="factor-formula-row pattern-detail-section hidden">
+        <article class="info-card formula-card">
+          <span>形态定义</span>
+          <strong id="pattern-factor-formula">-</strong>
+        </article>
+      </section>
+
+      <section class="panel summary-panel pattern-detail-section hidden">
+        <div class="panel-heading">
+          <h2>K线事件 Summary</h2>
+          <span>事件触发次数、未来收益与胜率</span>
+        </div>
+        <section class="grid kpis" id="pattern-kpi-grid"></section>
+      </section>
+
+      <section class="secondary-grid pattern-detail-section hidden pattern-secondary-grid">
+        <article class="panel compact-panel">
+          <div class="panel-heading">
+            <h2>事件监控</h2>
+            <span>最新交易日触发与覆盖情况</span>
+          </div>
+          <dl class="metrics-list" id="pattern-monitor-list"></dl>
+        </article>
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>按日事件收益</h2>
+            <span>该周期下每日事件的收益统计</span>
+          </div>
+          <div class="table-scroll compact-table-scroll">
+            <table class="comparison-table" id="pattern-event-returns-table"></table>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel comparison-panel pattern-detail-section hidden">
+        <div class="panel-heading">
+          <h2>同因子观察周期对比</h2>
+          <span>同一个K线因子在已完成 horizon 下的事件统计对比</span>
+        </div>
+        <div class="table-scroll">
+          <table class="comparison-table" id="pattern-factor-horizon-table"></table>
+        </div>
+      </section>
+
       <section class="panel rules-panel top-page hidden" id="factor-filter-rules">
         <div class="panel-heading">
           <h2>因子筛选规则</h2>

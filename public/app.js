@@ -143,6 +143,7 @@ function showCandidateLibrary() {
   document.body.dataset.view = "candidate-library";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".pattern-detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#candidate-factor-library").classList.remove("hidden");
 }
 
@@ -150,6 +151,7 @@ function showCandidateDashboard() {
   document.body.dataset.view = "candidate-dashboard";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".pattern-detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#candidate-factor-dashboard").classList.remove("hidden");
 }
 
@@ -157,12 +159,14 @@ function showFactorDetail() {
   document.body.dataset.view = "detail";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.remove("hidden"));
+  document.querySelectorAll(".pattern-detail-section").forEach((section) => section.classList.add("hidden"));
 }
 
 function showFactorFilterRules() {
   document.body.dataset.view = "rules";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".pattern-detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#factor-filter-rules").classList.remove("hidden");
 }
 
@@ -170,6 +174,7 @@ function showPatternFactorLibrary() {
   document.body.dataset.view = "pattern-library";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".pattern-detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#pattern-factor-library").classList.remove("hidden");
 }
 
@@ -177,7 +182,15 @@ function showPatternFactorDashboard() {
   document.body.dataset.view = "pattern-dashboard";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
   document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".pattern-detail-section").forEach((section) => section.classList.add("hidden"));
   document.querySelector("#pattern-factor-dashboard").classList.remove("hidden");
+}
+
+function showPatternFactorDetail() {
+  document.body.dataset.view = "pattern-detail";
+  document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".detail-section").forEach((section) => section.classList.add("hidden"));
+  document.querySelectorAll(".pattern-detail-section").forEach((section) => section.classList.remove("hidden"));
 }
 
 function navigateTopView(targetView) {
@@ -256,8 +269,8 @@ function setActivePatternSubnav(targetView) {
   });
 }
 
-function formatSummaryValue(key, value, digits = 4) {
-  if (key === "factor") return factorLabelMap.get(value) ?? value ?? "-";
+function formatSummaryValue(key, value, digits = 4, labelMap = factorLabelMap) {
+  if (key === "factor") return labelMap.get(value) ?? value ?? "-";
   if (key === "horizon") return formatNumber(value, 1);
   if (percentKeys.has(key)) return formatPercent(value, digits);
   if (typeof value === "number") return formatNumber(value, digits);
@@ -349,16 +362,22 @@ function renderSummaryCell(target, key, row) {
 
   if (key === "factor" && row.factor_key) {
     const horizon = row.horizon ?? document.querySelector("#horizon-input").value;
+    const isPatternTarget = target === "#pattern-factor-table" || target === "#pattern-factor-horizon-table";
+    const linkClass = isPatternTarget ? "pattern-factor-link" : "factor-link";
+    const labelMap = isPatternTarget ? patternFactorLabelMap : factorLabelMap;
     return `
       <td class="${cellClass}">
-        <button class="factor-link" type="button" data-factor="${escapeHtml(row.factor_key)}" data-horizon="${escapeHtml(horizon)}">
-          ${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}
+        <button class="${linkClass}" type="button" data-factor="${escapeHtml(row.factor_key)}" data-horizon="${escapeHtml(horizon)}">
+          ${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1, labelMap))}
         </button>
       </td>
     `;
   }
 
-  return `<td class="${cellClass}">${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1))}</td>`;
+  const labelMap = target === "#pattern-factor-table" || target === "#pattern-factor-horizon-table"
+    ? patternFactorLabelMap
+    : factorLabelMap;
+  return `<td class="${cellClass}">${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1, labelMap))}</td>`;
 }
 
 function renderCandidateLibraryTable(rows = candidateLibraryRows) {
@@ -440,7 +459,11 @@ function renderPatternMetadataTable(rows = patternMetadataRows) {
       ${patternMetadataRows.map((row) => `
         <tr>
           <td>${escapeHtml(row.field_name ?? "-")}</td>
-          <td>${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}</td>
+          <td>
+            <button class="pattern-factor-link" type="button" data-factor="${escapeHtml(row.field_name ?? "")}" data-horizon="5">
+              ${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}
+            </button>
+          </td>
           <td class="formula-cell">${escapeHtml(row.formula ?? "-")}</td>
         </tr>
       `).join("")}
@@ -539,6 +562,20 @@ function renderFactorInfo(data) {
   document.querySelector("#factor-parameters").textContent = metadata.parameter_text || "-";
   document.querySelector("#factor-formula").textContent = metadata.formula ?? "-";
   document.querySelector("#rebalance-period").textContent = `${data.horizon ?? "-"} 个交易日`;
+}
+
+function renderPatternFactorInfo(data) {
+  const metadata = data.metadata ?? {};
+  const fieldName = metadata.field_name ?? data.factor ?? "-";
+  const displayLabel = metadata.display_label
+    ?? patternFactorLabelMap.get(data.factor)
+    ?? metadata.display_name
+    ?? metadata.label
+    ?? data.factor
+    ?? "-";
+  document.querySelector("#pattern-hero-title").textContent = displayLabel;
+  document.querySelector("#pattern-hero-subtitle").textContent = fieldName;
+  document.querySelector("#pattern-factor-formula").textContent = metadata.formula ?? "-";
 }
 
 function drawLineChart(canvas, rows) {
@@ -729,6 +766,56 @@ function renderStrongSignals(payload) {
   renderSignalTable("#bottom-signals-table", bottomRows);
 }
 
+function renderPatternMonitor(payload = {}) {
+  const entries = [
+    ["日期", payload.trade_date],
+    ["样本数", payload.sample_count],
+    ["空值数", payload.null_count],
+    ["事件数", payload.event_count],
+    ["看涨事件数", payload.bullish_event_count],
+    ["看空事件数", payload.bearish_event_count],
+    ["覆盖率", formatPercent(payload.coverage_ratio)],
+  ];
+  document.querySelector("#pattern-monitor-list").innerHTML = entries
+    .map(([label, value]) => `<div><dt>${label}</dt><dd>${value ?? "-"}</dd></div>`)
+    .join("");
+}
+
+function renderPatternEventReturns(rows = []) {
+  const table = document.querySelector("#pattern-event-returns-table");
+  if (!rows.length) {
+    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无事件收益数据</td></tr></tbody>`;
+    return;
+  }
+
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>交易日</th>
+        <th>事件数</th>
+        <th>看涨事件数</th>
+        <th>看空事件数</th>
+        <th>平均未来收益</th>
+        <th>中位未来收益</th>
+        <th>胜率</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map((row) => `
+        <tr>
+          <td>${escapeHtml(row.trade_date ?? "-")}</td>
+          <td>${escapeHtml(formatNumber(row.event_count, 0))}</td>
+          <td>${escapeHtml(formatNumber(row.bullish_event_count, 0))}</td>
+          <td>${escapeHtml(formatNumber(row.bearish_event_count, 0))}</td>
+          <td>${escapeHtml(formatPercent(row.avg_forward_return, 3))}</td>
+          <td>${escapeHtml(formatPercent(row.median_forward_return, 3))}</td>
+          <td>${escapeHtml(formatPercent(row.win_rate, 2))}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+}
+
 async function loadDashboard(factor, horizon) {
   if (!factor || !horizon) {
     document.querySelector("#dataset-label").textContent = "暂无已完成的因子评测结果";
@@ -753,12 +840,41 @@ async function loadDashboard(factor, horizon) {
   await loadSummaryComparisons(factor, horizon);
 }
 
+async function loadPatternDashboard(factor, horizon) {
+  if (!factor || !horizon) {
+    document.querySelector("#pattern-dataset-label").textContent = "暂无已完成的K线因子评测结果";
+    return;
+  }
+
+  const response = await fetch(`/api/pattern-analysis?factor=${encodeURIComponent(factor)}&horizon=${encodeURIComponent(horizon)}`);
+  if (!response.ok) throw new Error(`请求失败: ${response.status}`);
+  const data = await response.json();
+
+  const factorLabel = patternFactorLabelMap.get(data.factor) ?? data.factor;
+  document.querySelector("#pattern-dataset-label").textContent = `${factorLabel} / horizon_${data.horizon}`;
+  document.querySelector("#pattern-updated-label").textContent = `更新时间: ${formatDateTimeMinute(data.updated_at)}`;
+
+  renderPatternFactorInfo(data);
+  renderKpis(data.summary ?? {});
+  renderPatternMonitor(data.monitor_latest ?? {});
+  renderPatternEventReturns(data.event_returns ?? []);
+  await loadPatternSummaryComparisons(factor, horizon);
+}
+
 async function loadSummaryComparisons(factor, horizon) {
   const factorResponse = await fetch(`/api/comparisons/factor/${encodeURIComponent(factor)}/summary`);
 
   if (factorResponse.ok) {
     const payload = await factorResponse.json();
     renderSummaryTable("#factor-horizon-table", payload.rows ?? []);
+  }
+}
+
+async function loadPatternSummaryComparisons(factor, horizon) {
+  const factorResponse = await fetch(`/api/pattern-comparisons/factor/${encodeURIComponent(factor)}/summary`);
+  if (factorResponse.ok) {
+    const payload = await factorResponse.json();
+    renderSummaryTable("#pattern-factor-horizon-table", payload.rows ?? []);
   }
 }
 
@@ -807,6 +923,28 @@ function activateFactorFromTable(factor, horizon) {
     });
 }
 
+function activatePatternFactorFromTable(factor, horizon) {
+  showPatternFactorDetail();
+  setActiveTopNav("#pattern-factor-library");
+  setActivePatternSubnav("pattern-factor-dashboard");
+  const factorInput = document.querySelector("#pattern-factor-input");
+  factorInput.value = factor;
+  loadPatternHorizonOptions(factor)
+    .then(() => {
+      const horizonInput = document.querySelector("#pattern-horizon-input");
+      if ([...horizonInput.options].some((option) => option.value === String(horizon))) {
+        horizonInput.value = String(horizon);
+      }
+      return loadPatternDashboard(factor, horizonInput.value);
+    })
+    .then(() => {
+      document.querySelector("#pattern-factor-detail").scrollIntoView({ behavior: "smooth", block: "start" });
+    })
+    .catch((error) => {
+      document.querySelector("#pattern-dataset-label").textContent = error.message;
+    });
+}
+
 document.addEventListener("click", (event) => {
   const sortButton = event.target.closest(".sort-button");
   if (sortButton) {
@@ -835,6 +973,12 @@ document.addEventListener("click", (event) => {
   const factorLink = event.target.closest(".factor-link");
   if (factorLink) {
     activateFactorFromTable(factorLink.dataset.factor, factorLink.dataset.horizon);
+    return;
+  }
+
+  const patternFactorLink = event.target.closest(".pattern-factor-link");
+  if (patternFactorLink) {
+    activatePatternFactorFromTable(patternFactorLink.dataset.factor, patternFactorLink.dataset.horizon);
     return;
   }
 });
@@ -928,6 +1072,13 @@ async function loadPatternFactorOptions() {
   (data.factor_options ?? []).forEach((option) => {
     patternFactorLabelMap.set(option.value, option.label);
   });
+  const select = document.querySelector("#pattern-factor-input");
+  const factorOptions = data.factor_options?.length
+    ? data.factor_options
+    : factors.map((factor) => ({ value: factor, label: factor }));
+  select.innerHTML = factorOptions
+    .map((option) => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`)
+    .join("");
   return factors;
 }
 
@@ -1001,6 +1152,21 @@ async function loadPatternLibrary() {
   renderPatternLibraryTable(rows);
 }
 
+async function loadPatternHorizonOptions(factor) {
+  const response = await fetch(`/api/pattern-factors/${encodeURIComponent(factor)}/horizons`);
+  if (!response.ok) return;
+  const data = await response.json();
+  const select = document.querySelector("#pattern-horizon-input");
+  const currentValue = select.value;
+  const horizons = data.horizons ?? [];
+  select.innerHTML = horizons
+    .map((horizon) => `<option value="${horizon}">${horizon} 个交易日</option>`)
+    .join("");
+  select.value = [...select.options].some((option) => option.value === currentValue)
+    ? currentValue
+    : select.options[0]?.value ?? "";
+}
+
 async function loadHorizonOptions(factor) {
   const response = await fetch(`/api/factors/${encodeURIComponent(factor)}/horizons`);
   if (!response.ok) return;
@@ -1028,8 +1194,21 @@ document.querySelector("#query-form").addEventListener("submit", (event) => {
   });
 });
 
+document.querySelector("#pattern-query-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const factor = document.querySelector("#pattern-factor-input").value.trim();
+  showPatternFactorDetail();
+  loadPatternHorizonOptions(factor).then(() => loadPatternDashboard(
+    factor,
+    document.querySelector("#pattern-horizon-input").value
+  )).catch((error) => {
+    document.querySelector("#pattern-dataset-label").textContent = error.message;
+  });
+});
+
 async function bootDashboard() {
   const factors = await loadFactorOptions();
+  const patternFactors = await loadPatternFactorOptions();
   await loadCandidateMetadata(factors);
   await loadPatternFactorMetadata();
   const initialFactor = factors[0] ?? "";
@@ -1042,6 +1221,11 @@ async function bootDashboard() {
   await loadHorizonOptions(initialFactor);
   await loadCandidateLibrary();
   await loadPatternLibrary();
+  const initialPatternFactor = patternFactors[0] ?? "";
+  if (initialPatternFactor) {
+    document.querySelector("#pattern-factor-input").value = initialPatternFactor;
+    await loadPatternHorizonOptions(initialPatternFactor);
+  }
   setActiveTopNav("#candidate-factor-library");
   setActiveCandidateSubnav("candidate-factor-library");
   setActivePatternSubnav("pattern-factor-library");
@@ -1064,6 +1248,25 @@ document.querySelector("#horizon-input").addEventListener("change", () => {
   loadDashboard(factor, document.querySelector("#horizon-input").value)
     .catch((error) => {
       document.querySelector("#dataset-label").textContent = error.message;
+    });
+});
+
+document.querySelector("#pattern-factor-input").addEventListener("change", (event) => {
+  const factor = event.target.value;
+  showPatternFactorDetail();
+  loadPatternHorizonOptions(factor)
+    .then(() => loadPatternDashboard(factor, document.querySelector("#pattern-horizon-input").value))
+    .catch((error) => {
+      document.querySelector("#pattern-dataset-label").textContent = error.message;
+    });
+});
+
+document.querySelector("#pattern-horizon-input").addEventListener("change", () => {
+  const factor = document.querySelector("#pattern-factor-input").value;
+  showPatternFactorDetail();
+  loadPatternDashboard(factor, document.querySelector("#pattern-horizon-input").value)
+    .catch((error) => {
+      document.querySelector("#pattern-dataset-label").textContent = error.message;
     });
 });
 

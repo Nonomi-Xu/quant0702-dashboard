@@ -341,12 +341,13 @@ def sync_one_pattern_result(
     metadata: dict[str, dict[str, Any]],
     cache_dir: Path,
 ) -> bool:
-    required = {"summary.parquet", "monitor.parquet"}
+    required = {"summary.parquet", "monitor.parquet", "event_returns.parquet"}
     if not required.issubset(filenames):
         return False
 
     summary = download_parquet(client, bucket, f"{base_key}/summary.parquet", cache_dir)
     monitor = download_parquet(client, bucket, f"{base_key}/monitor.parquet", cache_dir)
+    event_returns = download_parquet(client, bucket, f"{base_key}/event_returns.parquet", cache_dir)
     summary_payload = summary_row(summary, factor_name, horizon)
     factor_metadata = metadata.get(factor_name, {})
 
@@ -362,6 +363,7 @@ def sync_one_pattern_result(
         },
         "summary": summary_payload,
         "monitor_latest": latest_row(monitor),
+        "event_returns": [row_to_dict(row) for row in event_returns.sort("trade_date").to_dicts()] if not event_returns.is_empty() else [],
     }
 
     output_path = DATA_DIR / "pattern_factors" / factor_name / f"horizon_{horizon}" / "analysis.json"
@@ -375,8 +377,8 @@ def main() -> None:
     client, bucket = build_cos_client()
     factor_keys = list_cos_keys(client, bucket, COS_PREFIX)
     pattern_keys = list_cos_keys(client, bucket, PATTERN_COS_PREFIX)
-    discovered = discover_completed_results(factor_keys, COS_PREFIX)
-    discovered_pattern = discover_completed_results(pattern_keys, PATTERN_COS_PREFIX)
+    discovered = discover_completed_results(factor_keys)
+    discovered_pattern = discover_completed_results(pattern_keys)
     metadata = read_metadata()
     pattern_metadata = read_pattern_metadata()
     strong_signal_cache: dict[str, dict[str, Any]] = {}

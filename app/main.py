@@ -77,6 +77,14 @@ def get_analysis(factor: str = "relative_strength_index_6", horizon: int = 5) ->
         raise HTTPException(status_code=404, detail=str(error)) from error
 
 
+@app.get("/api/pattern-analysis")
+def get_pattern_analysis(factor: str = "cdl2crows", horizon: int = 5) -> dict[str, object]:
+    try:
+        return store.read_pattern_analysis(factor=factor, horizon=horizon)
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
 @app.get("/api/comparisons/factor/{factor}/summary")
 def compare_factor_horizons(factor: str) -> dict[str, object]:
     return {
