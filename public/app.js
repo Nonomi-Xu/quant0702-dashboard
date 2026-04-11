@@ -30,10 +30,29 @@ const summaryLabels = {
   ic_mean: "IC均值",
   ic_ir: "ICIR",
   event_count: "事件数",
+  event_coverage_ratio: "事件覆盖率",
+  avg_daily_event_count: "日均事件数",
+  max_daily_event_count: "单日最大事件数",
   bullish_event_count: "看涨事件数",
   bearish_event_count: "看跌事件数",
-  avg_forward_return: "平均未来收益",
-  median_forward_return: "中位未来收益",
+  bullish_avg_signal_return: "看涨平均信号收益",
+  bullish_win_rate: "看涨胜率",
+  bearish_avg_signal_return: "看跌平均信号收益",
+  bearish_win_rate: "看跌胜率",
+  avg_excess_signal_return: "平均超额信号收益",
+  avg_signal_return: "平均信号收益",
+  median_signal_return: "中位信号收益",
+  positive_mean_signal_return: "正收益均值",
+  negative_mean_signal_return: "负收益均值",
+  profit_loss_ratio: "盈亏比",
+  max_loss_signal_return: "最大信号亏损",
+  q05_signal_return: "5%分位信号收益",
+  q95_signal_return: "95%分位信号收益",
+  t_stat: "t统计量",
+  p_value: "p值",
+  active_years: "有效年份数",
+  yearly_avg_signal_return_std: "年度平均信号收益波动",
+  yearly_win_rate_std: "年度胜率波动",
   ic_abs_gt_002_ratio: "|IC|>0.02比例",
   ic_positive_ratio: "IC为正比例",
   long_short_gross_mean: "多空平均收益（扣费前）",
@@ -53,8 +72,19 @@ const summaryLabels = {
 };
 
 const percentKeys = new Set([
-  "avg_forward_return",
-  "median_forward_return",
+  "event_coverage_ratio",
+  "bullish_avg_signal_return",
+  "bullish_win_rate",
+  "bearish_avg_signal_return",
+  "bearish_win_rate",
+  "avg_excess_signal_return",
+  "avg_signal_return",
+  "median_signal_return",
+  "positive_mean_signal_return",
+  "negative_mean_signal_return",
+  "max_loss_signal_return",
+  "q05_signal_return",
+  "q95_signal_return",
   "ic_abs_gt_002_ratio",
   "ic_positive_ratio",
   "long_short_gross_mean",
@@ -70,6 +100,30 @@ const percentKeys = new Set([
 const summaryKeyOrder = [
   "horizon",
   "factor",
+  "event_count",
+  "event_coverage_ratio",
+  "avg_daily_event_count",
+  "max_daily_event_count",
+  "bullish_event_count",
+  "bearish_event_count",
+  "bullish_avg_signal_return",
+  "bullish_win_rate",
+  "bearish_avg_signal_return",
+  "bearish_win_rate",
+  "avg_excess_signal_return",
+  "avg_signal_return",
+  "median_signal_return",
+  "positive_mean_signal_return",
+  "negative_mean_signal_return",
+  "profit_loss_ratio",
+  "max_loss_signal_return",
+  "q05_signal_return",
+  "q95_signal_return",
+  "t_stat",
+  "p_value",
+  "active_years",
+  "yearly_avg_signal_return_std",
+  "yearly_win_rate_std",
   "ic_mean",
   "ic_ir",
   "ic_abs_gt_002_ratio",
@@ -98,8 +152,21 @@ let candidateMetadataRows = [];
 let patternMetadataRows = [];
 let patternLibraryRows = [];
 const tableThreeDigitKeys = new Set([
-  "avg_forward_return",
-  "median_forward_return",
+  "bullish_avg_signal_return",
+  "bearish_avg_signal_return",
+  "avg_excess_signal_return",
+  "avg_signal_return",
+  "median_signal_return",
+  "positive_mean_signal_return",
+  "negative_mean_signal_return",
+  "profit_loss_ratio",
+  "max_loss_signal_return",
+  "q05_signal_return",
+  "q95_signal_return",
+  "t_stat",
+  "p_value",
+  "yearly_avg_signal_return_std",
+  "yearly_win_rate_std",
   "ic_mean",
   "ic_ir",
   "long_short_mean",
@@ -111,6 +178,30 @@ const primaryKpiKeys = new Set(["ic_mean", "ic_ir", "long_short_mean", "long_sho
 const costKpiKeys = new Set(["long_short_gross_mean", "transaction_cost_mean"]);
 const sampleKpiKeys = new Set(["avg_daily_sample_count", "min_daily_sample_count", "max_daily_sample_count"]);
 const kpiKeyOrder = [
+  "event_count",
+  "event_coverage_ratio",
+  "avg_daily_event_count",
+  "max_daily_event_count",
+  "bullish_event_count",
+  "bearish_event_count",
+  "bullish_avg_signal_return",
+  "bullish_win_rate",
+  "bearish_avg_signal_return",
+  "bearish_win_rate",
+  "avg_excess_signal_return",
+  "avg_signal_return",
+  "median_signal_return",
+  "positive_mean_signal_return",
+  "negative_mean_signal_return",
+  "profit_loss_ratio",
+  "max_loss_signal_return",
+  "q05_signal_return",
+  "q95_signal_return",
+  "t_stat",
+  "p_value",
+  "active_years",
+  "yearly_avg_signal_return_std",
+  "yearly_win_rate_std",
   "ic_mean",
   "ic_ir",
   "long_short_mean",
@@ -407,6 +498,14 @@ function sortCandidateMetadataRows(rows) {
   ));
 }
 
+function patternChineseName(value) {
+  return String(value ?? "-")
+    .replace(/[A-Za-z][A-Za-z\s\-_/&']*/g, "")
+    .replace(/\(\s*\)/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim() || "-";
+}
+
 function renderCandidateMetadataTable(rows = candidateMetadataRows) {
   candidateMetadataRows = sortCandidateMetadataRows(rows);
   const table = document.querySelector("#candidate-factor-metadata-table");
@@ -461,7 +560,7 @@ function renderPatternMetadataTable(rows = patternMetadataRows) {
           <td>${escapeHtml(row.field_name ?? "-")}</td>
           <td>
             <button class="pattern-factor-link" type="button" data-factor="${escapeHtml(row.field_name ?? "")}" data-horizon="5">
-              ${escapeHtml(row.display_name ?? row.display_label ?? row.label ?? "-")}
+              ${escapeHtml(patternChineseName(row.display_name ?? row.display_label ?? row.label ?? "-"))}
             </button>
           </td>
           <td class="formula-cell">${escapeHtml(row.formula ?? "-")}</td>
@@ -781,41 +880,6 @@ function renderPatternMonitor(payload = {}) {
     .join("");
 }
 
-function renderPatternEventReturns(rows = []) {
-  const table = document.querySelector("#pattern-event-returns-table");
-  if (!rows.length) {
-    table.innerHTML = `<tbody><tr><td class="empty-cell">暂无事件收益数据</td></tr></tbody>`;
-    return;
-  }
-
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>交易日</th>
-        <th>事件数</th>
-        <th>看涨事件数</th>
-        <th>看空事件数</th>
-        <th>平均未来收益</th>
-        <th>中位未来收益</th>
-        <th>胜率</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${rows.map((row) => `
-        <tr>
-          <td>${escapeHtml(row.trade_date ?? "-")}</td>
-          <td>${escapeHtml(formatNumber(row.event_count, 0))}</td>
-          <td>${escapeHtml(formatNumber(row.bullish_event_count, 0))}</td>
-          <td>${escapeHtml(formatNumber(row.bearish_event_count, 0))}</td>
-          <td>${escapeHtml(formatPercent(row.avg_forward_return, 3))}</td>
-          <td>${escapeHtml(formatPercent(row.median_forward_return, 3))}</td>
-          <td>${escapeHtml(formatPercent(row.win_rate, 2))}</td>
-        </tr>
-      `).join("")}
-    </tbody>
-  `;
-}
-
 async function loadDashboard(factor, horizon) {
   if (!factor || !horizon) {
     document.querySelector("#dataset-label").textContent = "暂无已完成的因子评测结果";
@@ -857,7 +921,6 @@ async function loadPatternDashboard(factor, horizon) {
   renderPatternFactorInfo(data);
   renderKpis(data.summary ?? {});
   renderPatternMonitor(data.monitor_latest ?? {});
-  renderPatternEventReturns(data.event_returns ?? []);
   await loadPatternSummaryComparisons(factor, horizon);
 }
 
