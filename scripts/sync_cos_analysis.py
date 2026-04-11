@@ -54,15 +54,17 @@ def list_cos_keys(client: CosS3Client, bucket: str, prefix: str) -> list[str]:
         return keys
 
 
-def discover_completed_results(keys: list[str]) -> dict[tuple[str, int], set[str]]:
-    results: dict[tuple[str, int], set[str]] = {}
+def discover_completed_results(keys: list[str]) -> dict[tuple[str, int, str], set[str]]:
+    results: dict[tuple[str, int, str], set[str]] = {}
     for key in keys:
         relative = key.removeprefix(f"{COS_PREFIX}/")
         parts = relative.split("/")
-        if len(parts) != 3:
+        if len(parts) != 4:
             continue
 
-        factor_name, horizon_name, filename = parts
+        category, factor_name, horizon_name, filename = parts
+        if not category:
+            continue
         if not horizon_name.startswith("horizon_") or not filename.endswith(".parquet"):
             continue
 
@@ -71,7 +73,8 @@ def discover_completed_results(keys: list[str]) -> dict[tuple[str, int], set[str
         except ValueError:
             continue
 
-        results.setdefault((factor_name, horizon), set()).add(filename)
+        base_key = key[: -(len(filename) + 1)]
+        results.setdefault((factor_name, horizon, base_key), set()).add(filename)
     return results
 
 
@@ -268,6 +271,7 @@ def sync_one_result(
     bucket: str,
     factor_name: str,
     horizon: int,
+    base_key: str,
     filenames: set[str],
     metadata: dict[str, dict[str, Any]],
     strong_signal_cache: dict[str, dict[str, Any]],
@@ -277,7 +281,6 @@ def sync_one_result(
     if not required.issubset(filenames):
         return False
 
-    base_key = f"{COS_PREFIX}/{factor_name}/horizon_{horizon}"
     summary = download_parquet(client, bucket, f"{base_key}/summary.parquet", cache_dir)
     ic = download_parquet(client, bucket, f"{base_key}/ic.parquet", cache_dir)
     group_returns = download_parquet(client, bucket, f"{base_key}/group_returns.parquet", cache_dir)
@@ -299,7 +302,7 @@ def sync_one_result(
         "metadata": {
             "field_name": factor_name,
             "formula": "-",
-            "source": f"{COS_PREFIX}/{factor_name}/horizon_{horizon}",
+            "source": base_key,
             **factor_metadata,
         },
         "summary": summary_payload,
@@ -326,13 +329,31 @@ def main() -> None:
     strong_signal_cache: dict[str, dict[str, Any]] = {}
 
     synced = 0
+    incomplete = 0
     with tempfile.TemporaryDirectory(prefix="factor-dashboard-cos-") as tmpdir:
         cache_dir = Path(tmpdir)
-        for (factor_name, horizon), filenames in sorted(discovered.items()):
-            if sync_one_result(client, bucket, factor_name, horizon, filenames, metadata, strong_signal_cache, cache_dir):
+        for (factor_name, horizon, base_key), filenames in sorted(discovered.items()):
+            if sync_one_result(
+                client,
+                bucket,
+                factor_name,
+                horizon,
+                base_key,
+                filenames,
+                metadata,
+                strong_signal_cache,
+                cache_dir,
+            ):
                 synced += 1
+            else:
+                incomplete += 1
 
     print(f"synced {synced} factor horizon result(s) into {DATA_DIR / 'factors'}")
+    if synced == 0:
+        print(
+            "no completed result set found under "
+            f"{COS_PREFIX} (discovered {len(discovered)} horizon path(s), incomplete {incomplete})"
+        )
 
 
 if __name__ == "__main__":
