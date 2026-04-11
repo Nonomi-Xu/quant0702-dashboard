@@ -377,8 +377,8 @@ def main() -> None:
     client, bucket = build_cos_client()
     factor_keys = list_cos_keys(client, bucket, COS_PREFIX)
     pattern_keys = list_cos_keys(client, bucket, PATTERN_COS_PREFIX)
-    discovered = discover_completed_results(factor_keys)
-    discovered_pattern = discover_completed_results(pattern_keys)
+    discovered = discover_completed_results(factor_keys, COS_PREFIX)
+    discovered_pattern = discover_completed_results(pattern_keys, PATTERN_COS_PREFIX)
     metadata = read_metadata()
     pattern_metadata = read_pattern_metadata()
     strong_signal_cache: dict[str, dict[str, Any]] = {}
