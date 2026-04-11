@@ -455,14 +455,20 @@ function renderSummaryCell(target, key, row) {
     const horizon = row.horizon ?? document.querySelector("#horizon-input").value;
     const isPatternTarget = target === "#pattern-factor-table" || target === "#pattern-factor-horizon-table";
     const linkClass = isPatternTarget ? "pattern-factor-link" : "factor-link";
-    const labelMap = isPatternTarget ? patternFactorLabelMap : factorLabelMap;
+    const displayText = isPatternTarget
+      ? patternDisplayName(row.factor_key)
+      : formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1, factorLabelMap);
     return `
       <td class="${cellClass}">
         <button class="${linkClass}" type="button" data-factor="${escapeHtml(row.factor_key)}" data-horizon="${escapeHtml(horizon)}">
-          ${escapeHtml(formatSummaryValue(key, row[key], tableThreeDigitKeys.has(key) ? 3 : 1, labelMap))}
+          ${escapeHtml(displayText)}
         </button>
       </td>
     `;
+  }
+
+  if (key === "factor" && (target === "#pattern-factor-table" || target === "#pattern-factor-horizon-table")) {
+    return `<td class="${cellClass}">${escapeHtml(patternDisplayName(row.factor_key ?? row[key]))}</td>`;
   }
 
   const labelMap = target === "#pattern-factor-table" || target === "#pattern-factor-horizon-table"
@@ -504,6 +510,10 @@ function patternChineseName(value) {
     .replace(/\(\s*\)/g, "")
     .replace(/\s{2,}/g, " ")
     .trim() || "-";
+}
+
+function patternDisplayName(value) {
+  return patternChineseName(patternFactorLabelMap.get(value) ?? value ?? "-");
 }
 
 function renderCandidateMetadataTable(rows = candidateMetadataRows) {

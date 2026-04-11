@@ -490,6 +490,13 @@ body[data-view="detail"] #candidate-factor-library {
   max-width: 96px;
 }
 
+.comparison-table#pattern-factor-metadata-table th:nth-child(2),
+.comparison-table#pattern-factor-metadata-table td:nth-child(2) {
+  width: 132px;
+  min-width: 132px;
+  max-width: 132px;
+}
+
 .comparison-table.candidate-metadata-table th:nth-child(3),
 .comparison-table.candidate-metadata-table td:nth-child(3) {
   min-width: 360px;
