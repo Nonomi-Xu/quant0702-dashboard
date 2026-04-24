@@ -507,6 +507,9 @@ function sortCandidateMetadataRows(rows) {
 function patternChineseName(value) {
   return String(value ?? "-")
     .replace(/[A-Za-z][A-Za-z\s\-_/&']*/g, "")
+    .replace(/[_-]?\d+[_-]?/g, "")
+    .replace(/kline_pattern/gi, "")
+    .replace(/[_-]+/g, " ")
     .replace(/\(\s*\)/g, "")
     .replace(/\s{2,}/g, " ")
     .trim() || "-";
@@ -621,8 +624,8 @@ function renderSummaryTable(target, rows) {
   `;
 }
 
-function renderKpis(summary) {
-  const grid = document.querySelector("#kpi-grid");
+function renderKpis(summary, target = "#kpi-grid") {
+  const grid = document.querySelector(target);
   const presentKeys = new Set(Object.keys(summary));
   const orderedKeys = [
     ...kpiKeyOrder.filter((key) => presentKeys.has(key)),
@@ -929,7 +932,7 @@ async function loadPatternDashboard(factor, horizon) {
   document.querySelector("#pattern-updated-label").textContent = `更新时间: ${formatDateTimeMinute(data.updated_at)}`;
 
   renderPatternFactorInfo(data);
-  renderKpis(data.summary ?? {});
+  renderKpis(data.summary ?? {}, "#pattern-kpi-grid");
   renderPatternMonitor(data.monitor_latest ?? {});
   await loadPatternSummaryComparisons(factor, horizon);
 }
@@ -1103,6 +1106,18 @@ document.querySelectorAll(".top-subnav-item").forEach((item) => {
   });
 });
 
+document.querySelectorAll(".top-nav-trigger").forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    const group = trigger.closest(".top-nav-group")?.dataset.navGroup;
+    if (group === "candidate-factor") {
+      navigateTopView("candidate-factor-library");
+    }
+    if (group === "pattern-factor") {
+      navigateTopView("pattern-factor-library");
+    }
+  });
+});
+
 document.querySelectorAll('.top-nav-item[href]').forEach((item) => {
   item.addEventListener("click", (event) => {
     event.preventDefault();
@@ -1188,11 +1203,16 @@ async function loadPatternFactorMetadata() {
   const payload = await response.json();
   const metadata = payload.metadata ?? {};
   const keys = factors.length ? factors : Object.keys(metadata);
+  keys.forEach((factor) => {
+    const item = metadata[factor] ?? {};
+    const cleanLabel = patternChineseName(item.display_name ?? item.display_label ?? item.label ?? factor);
+    patternFactorLabelMap.set(factor, cleanLabel);
+  });
   const rows = keys.map((factor) => {
     const item = metadata[factor] ?? {};
     return {
       field_name: item.field_name ?? factor,
-      display_name: item.display_name ?? item.display_label ?? item.label ?? patternFactorLabelMap.get(factor) ?? factor,
+      display_name: patternFactorLabelMap.get(factor) ?? factor,
       formula: item.formula ?? "-",
     };
   });
