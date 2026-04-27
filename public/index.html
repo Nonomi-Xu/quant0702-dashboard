@@ -4,11 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>A股因子评测看板</title>
-    <link rel="stylesheet" href="/assets/styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="shell">
       <nav class="top-nav" aria-label="因子功能导航">
+        <div class="sidebar-brand">
+          <div class="sidebar-title">A股因子评测</div>
+          <div class="sidebar-subtitle">Factor Dashboard</div>
+        </div>
         <div class="top-nav-group active" data-nav-group="candidate-factor">
           <button class="top-nav-item top-nav-trigger active" type="button">候选横截面因子</button>
           <div class="top-subnav" aria-label="候选横截面因子子导航">
@@ -51,11 +55,11 @@
           <div class="candidate-toolbar">
             <span>调仓周期筛选</span>
             <label class="horizon-chip">
-              <input type="checkbox" id="candidate-horizon-all" checked />
+              <input type="checkbox" id="candidate-horizon-all" />
               全选
             </label>
             <label class="horizon-chip">
-              <input type="checkbox" class="candidate-horizon" value="1" checked />
+              <input type="checkbox" class="candidate-horizon" value="1" />
               1天
             </label>
             <label class="horizon-chip">
@@ -63,11 +67,11 @@
               5天
             </label>
             <label class="horizon-chip">
-              <input type="checkbox" class="candidate-horizon" value="10" checked />
+              <input type="checkbox" class="candidate-horizon" value="10" />
               10天
             </label>
             <label class="horizon-chip">
-              <input type="checkbox" class="candidate-horizon" value="20" checked />
+              <input type="checkbox" class="candidate-horizon" value="20" />
               20天
             </label>
           </div>
@@ -100,11 +104,11 @@
           <div class="candidate-toolbar">
             <span>调仓周期筛选</span>
             <label class="horizon-chip">
-              <input type="checkbox" id="pattern-horizon-all" checked />
+              <input type="checkbox" id="pattern-horizon-all" />
               全选
             </label>
             <label class="horizon-chip">
-              <input type="checkbox" class="pattern-horizon" value="1" checked />
+              <input type="checkbox" class="pattern-horizon" value="1" />
               1天
             </label>
             <label class="horizon-chip">
@@ -112,11 +116,11 @@
               5天
             </label>
             <label class="horizon-chip">
-              <input type="checkbox" class="pattern-horizon" value="10" checked />
+              <input type="checkbox" class="pattern-horizon" value="10" />
               10天
             </label>
             <label class="horizon-chip">
-              <input type="checkbox" class="pattern-horizon" value="20" checked />
+              <input type="checkbox" class="pattern-horizon" value="20" />
               20天
             </label>
           </div>
@@ -326,6 +330,6 @@
         </div>
       </section>
     </main>
-    <script type="module" src="/assets/app.js"></script>
+    <script type="module" src="./app.js"></script>
   </body>
 </html>

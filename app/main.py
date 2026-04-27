@@ -123,3 +123,13 @@ app.mount("/assets", StaticFiles(directory=PUBLIC_DIR), name="assets")
 @app.get("/")
 def index() -> FileResponse:
     return FileResponse(PUBLIC_DIR / "index.html")
+
+
+@app.get("/styles.css")
+def styles() -> FileResponse:
+    return FileResponse(PUBLIC_DIR / "styles.css")
+
+
+@app.get("/app.js")
+def app_script() -> FileResponse:
+    return FileResponse(PUBLIC_DIR / "app.js")

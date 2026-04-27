@@ -147,10 +147,33 @@ const hiddenKpiKeys = new Set(["factor", "updated_at", "horizon"]);
 const factorLabelMap = new Map();
 const patternFactorLabelMap = new Map();
 const tableSortState = {};
+const requestCache = new Map();
+const loadedViews = new Set();
 let candidateLibraryRows = [];
 let candidateMetadataRows = [];
 let patternMetadataRows = [];
 let patternLibraryRows = [];
+let availableFactors = [];
+let availablePatternFactors = [];
+
+const API_BASE_URL = window.location.protocol === "file:" ? "http://127.0.0.1:8080" : "";
+
+function apiUrl(path) {
+  return `${API_BASE_URL}${path}`;
+}
+
+async function fetchJson(path, { cache = true } = {}) {
+  const targetUrl = apiUrl(path);
+  if (cache && requestCache.has(targetUrl)) return requestCache.get(targetUrl);
+
+  const request = fetch(targetUrl).then((response) => {
+    if (!response.ok) throw new Error(`请求失败: ${response.status}`);
+    return response.json();
+  });
+
+  if (cache) requestCache.set(targetUrl, request);
+  return request;
+}
 const tableThreeDigitKeys = new Set([
   "bullish_avg_signal_return",
   "bearish_avg_signal_return",
@@ -230,6 +253,26 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+function renderLoadingTable(target, message = "加载中...") {
+  const table = document.querySelector(target);
+  if (!table || table.dataset.loading === "true") return;
+  table.dataset.loading = "true";
+  table.innerHTML = `
+    <tbody>
+      <tr>
+        <td class="empty-cell loading-cell">
+          <span class="loading-dot"></span>${escapeHtml(message)}
+        </td>
+      </tr>
+    </tbody>
+  `;
+}
+
+function clearLoadingState(target) {
+  const table = document.querySelector(target);
+  if (table) delete table.dataset.loading;
+}
+
 function showCandidateLibrary() {
   document.body.dataset.view = "candidate-library";
   document.querySelectorAll(".top-page").forEach((section) => section.classList.add("hidden"));
@@ -289,6 +332,7 @@ function navigateTopView(targetView) {
     setActiveTopNav("#candidate-factor-library");
     setActiveCandidateSubnav(targetView);
     showCandidateLibrary();
+    loadViewData(targetView);
     return;
   }
 
@@ -296,12 +340,14 @@ function navigateTopView(targetView) {
     setActiveTopNav("#candidate-factor-library");
     setActiveCandidateSubnav(targetView);
     showCandidateDashboard();
+    loadViewData(targetView);
     return;
   }
 
   if (targetView === "factor-filter-rules") {
     setActiveTopNav("#factor-filter-rules");
     showFactorFilterRules();
+    loadViewData(targetView);
     return;
   }
 
@@ -309,6 +355,7 @@ function navigateTopView(targetView) {
     setActiveTopNav("#pattern-factor-library");
     setActivePatternSubnav(targetView);
     showPatternFactorLibrary();
+    loadViewData(targetView);
     return;
   }
 
@@ -316,7 +363,55 @@ function navigateTopView(targetView) {
     setActiveTopNav("#pattern-factor-library");
     setActivePatternSubnav(targetView);
     showPatternFactorDashboard();
+    loadViewData(targetView);
   }
+}
+
+function loadViewData(targetView, { force = false } = {}) {
+  if (!force && loadedViews.has(targetView)) return Promise.resolve();
+
+  const markLoaded = () => loadedViews.add(targetView);
+  const showTableError = (target, error) => {
+    const table = document.querySelector(target);
+    if (table) {
+      table.innerHTML = `<tbody><tr><td class="empty-cell">${escapeHtml(error.message)}</td></tr></tbody>`;
+    }
+  };
+
+  if (targetView === "candidate-factor-library") {
+    renderLoadingTable("#candidate-factor-metadata-table", "正在加载因子库");
+    return ensureFactorOptions()
+      .then((factors) => loadCandidateMetadata(factors))
+      .then(markLoaded)
+      .catch((error) => showTableError("#candidate-factor-metadata-table", error));
+  }
+
+  if (targetView === "candidate-factor-dashboard") {
+    renderLoadingTable("#candidate-factor-table", "正在加载候选因子看板");
+    return ensureFactorOptions()
+      .then(() => loadCandidateLibrary())
+      .then(markLoaded)
+      .catch((error) => showTableError("#candidate-factor-table", error));
+  }
+
+  if (targetView === "pattern-factor-library") {
+    renderLoadingTable("#pattern-factor-metadata-table", "正在加载K线因子库");
+    return ensurePatternFactorOptions()
+      .then((factors) => loadPatternFactorMetadata(factors))
+      .then(markLoaded)
+      .catch((error) => showTableError("#pattern-factor-metadata-table", error));
+  }
+
+  if (targetView === "pattern-factor-dashboard") {
+    renderLoadingTable("#pattern-factor-table", "正在加载K线因子看板");
+    return ensurePatternFactorOptions()
+      .then(() => loadPatternLibrary())
+      .then(markLoaded)
+      .catch((error) => showTableError("#pattern-factor-table", error));
+  }
+
+  loadedViews.add(targetView);
+  return Promise.resolve();
 }
 
 function setActiveTopNav(targetHref) {
@@ -478,6 +573,7 @@ function renderSummaryCell(target, key, row) {
 }
 
 function renderCandidateLibraryTable(rows = candidateLibraryRows) {
+  clearLoadingState("#candidate-factor-table");
   candidateLibraryRows = rows;
   renderSummaryTable("#candidate-factor-table", candidateLibraryRows);
 }
@@ -494,6 +590,7 @@ function sortCandidateLibraryRows(rows) {
 }
 
 function renderPatternLibraryTable(rows = patternLibraryRows) {
+  clearLoadingState("#pattern-factor-table");
   patternLibraryRows = rows;
   renderSummaryTable("#pattern-factor-table", patternLibraryRows);
 }
@@ -520,6 +617,7 @@ function patternDisplayName(value) {
 }
 
 function renderCandidateMetadataTable(rows = candidateMetadataRows) {
+  clearLoadingState("#candidate-factor-metadata-table");
   candidateMetadataRows = sortCandidateMetadataRows(rows);
   const table = document.querySelector("#candidate-factor-metadata-table");
   if (!candidateMetadataRows.length) {
@@ -552,6 +650,7 @@ function renderCandidateMetadataTable(rows = candidateMetadataRows) {
 }
 
 function renderPatternMetadataTable(rows = patternMetadataRows) {
+  clearLoadingState("#pattern-factor-metadata-table");
   patternMetadataRows = sortCandidateMetadataRows(rows);
   const table = document.querySelector("#pattern-factor-metadata-table");
   if (!patternMetadataRows.length) {
@@ -899,9 +998,7 @@ async function loadDashboard(factor, horizon) {
     return;
   }
 
-  const response = await fetch(`/api/analysis?factor=${encodeURIComponent(factor)}&horizon=${encodeURIComponent(horizon)}`);
-  if (!response.ok) throw new Error(`请求失败: ${response.status}`);
-  const data = await response.json();
+  const data = await fetchJson(`/api/analysis?factor=${encodeURIComponent(factor)}&horizon=${encodeURIComponent(horizon)}`, { cache: false });
 
   const factorLabel = factorLabelMap.get(data.factor) ?? data.factor;
   document.querySelector("#dataset-label").textContent = `${factorLabel} / horizon_${data.horizon}`;
@@ -923,9 +1020,7 @@ async function loadPatternDashboard(factor, horizon) {
     return;
   }
 
-  const response = await fetch(`/api/pattern-analysis?factor=${encodeURIComponent(factor)}&horizon=${encodeURIComponent(horizon)}`);
-  if (!response.ok) throw new Error(`请求失败: ${response.status}`);
-  const data = await response.json();
+  const data = await fetchJson(`/api/pattern-analysis?factor=${encodeURIComponent(factor)}&horizon=${encodeURIComponent(horizon)}`, { cache: false });
 
   const factorLabel = patternFactorLabelMap.get(data.factor) ?? data.factor;
   document.querySelector("#pattern-dataset-label").textContent = `${factorLabel} / horizon_${data.horizon}`;
@@ -938,20 +1033,13 @@ async function loadPatternDashboard(factor, horizon) {
 }
 
 async function loadSummaryComparisons(factor, horizon) {
-  const factorResponse = await fetch(`/api/comparisons/factor/${encodeURIComponent(factor)}/summary`);
-
-  if (factorResponse.ok) {
-    const payload = await factorResponse.json();
-    renderSummaryTable("#factor-horizon-table", payload.rows ?? []);
-  }
+  const payload = await fetchJson(`/api/comparisons/factor/${encodeURIComponent(factor)}/summary`);
+  renderSummaryTable("#factor-horizon-table", payload.rows ?? []);
 }
 
 async function loadPatternSummaryComparisons(factor, horizon) {
-  const factorResponse = await fetch(`/api/pattern-comparisons/factor/${encodeURIComponent(factor)}/summary`);
-  if (factorResponse.ok) {
-    const payload = await factorResponse.json();
-    renderSummaryTable("#pattern-factor-horizon-table", payload.rows ?? []);
-  }
+  const payload = await fetchJson(`/api/pattern-comparisons/factor/${encodeURIComponent(factor)}/summary`);
+  renderSummaryTable("#pattern-factor-horizon-table", payload.rows ?? []);
 }
 
 function selectedCandidateHorizons() {
@@ -968,13 +1056,9 @@ async function loadCandidateLibrary() {
   }
 
   const responses = await Promise.all(
-    horizons.map((horizon) => fetch(`/api/comparisons/horizon/${encodeURIComponent(horizon)}/summary`))
+    horizons.map((horizon) => fetchJson(`/api/comparisons/horizon/${encodeURIComponent(horizon)}/summary`))
   );
-  const payloads = await Promise.all(
-    responses
-      .filter((response) => response.ok)
-      .map((response) => response.json())
-  );
+  const payloads = await Promise.all(responses);
   const rows = sortCandidateLibraryRows(payloads.flatMap((payload) => payload.rows ?? []));
   renderCandidateLibraryTable(rows);
 }
@@ -1037,6 +1121,13 @@ document.addEventListener("click", (event) => {
     }
     if (target === "#pattern-factor-table") {
       renderPatternLibraryTable();
+      return;
+    }
+    if (target === "#pattern-factor-horizon-table") {
+      loadPatternSummaryComparisons(
+        document.querySelector("#pattern-factor-input").value,
+        document.querySelector("#pattern-horizon-input").value
+      );
       return;
     }
     loadSummaryComparisons(
@@ -1133,10 +1224,9 @@ document.querySelectorAll('.top-nav-item[href]').forEach((item) => {
 });
 
 async function loadFactorOptions() {
-  const response = await fetch("/api/factors");
-  if (!response.ok) return [];
-  const data = await response.json();
+  const data = await fetchJson("/api/factors");
   const factors = data.factors ?? [];
+  availableFactors = factors;
   factorLabelMap.clear();
   (data.factor_options ?? []).forEach((option) => {
     factorLabelMap.set(option.value, option.label);
@@ -1152,10 +1242,9 @@ async function loadFactorOptions() {
 }
 
 async function loadPatternFactorOptions() {
-  const response = await fetch("/api/pattern-factors");
-  if (!response.ok) return [];
-  const data = await response.json();
+  const data = await fetchJson("/api/pattern-factors");
   const factors = data.factors ?? [];
+  availablePatternFactors = factors;
   patternFactorLabelMap.clear();
   (data.factor_options ?? []).forEach((option) => {
     patternFactorLabelMap.set(option.value, option.label);
@@ -1170,14 +1259,16 @@ async function loadPatternFactorOptions() {
   return factors;
 }
 
-async function loadCandidateMetadata(factors = []) {
-  const response = await fetch("/api/factor-metadata");
-  if (!response.ok) {
-    renderCandidateMetadataTable([]);
-    return;
-  }
+function ensureFactorOptions() {
+  return availableFactors.length ? Promise.resolve(availableFactors) : loadFactorOptions();
+}
 
-  const payload = await response.json();
+function ensurePatternFactorOptions() {
+  return availablePatternFactors.length ? Promise.resolve(availablePatternFactors) : loadPatternFactorOptions();
+}
+
+async function loadCandidateMetadata(factors = []) {
+  const payload = await fetchJson("/api/factor-metadata");
   const metadata = payload.metadata ?? {};
   const keys = factors.length ? factors : Object.keys(metadata);
   const rows = keys.map((factor) => {
@@ -1192,15 +1283,8 @@ async function loadCandidateMetadata(factors = []) {
   renderCandidateMetadataTable(rows.filter((row) => row.field_name));
 }
 
-async function loadPatternFactorMetadata() {
-  const factors = await loadPatternFactorOptions();
-  const response = await fetch("/api/pattern-factor-metadata");
-  if (!response.ok) {
-    renderPatternMetadataTable([]);
-    return;
-  }
-
-  const payload = await response.json();
+async function loadPatternFactorMetadata(factors = availablePatternFactors) {
+  const payload = await fetchJson("/api/pattern-factor-metadata");
   const metadata = payload.metadata ?? {};
   const keys = factors.length ? factors : Object.keys(metadata);
   keys.forEach((factor) => {
@@ -1234,21 +1318,15 @@ async function loadPatternLibrary() {
   }
 
   const responses = await Promise.all(
-    horizons.map((horizon) => fetch(`/api/pattern-comparisons/horizon/${encodeURIComponent(horizon)}/summary`))
+    horizons.map((horizon) => fetchJson(`/api/pattern-comparisons/horizon/${encodeURIComponent(horizon)}/summary`))
   );
-  const payloads = await Promise.all(
-    responses
-      .filter((response) => response.ok)
-      .map((response) => response.json())
-  );
+  const payloads = await Promise.all(responses);
   const rows = sortCandidateLibraryRows(payloads.flatMap((payload) => payload.rows ?? []));
   renderPatternLibraryTable(rows);
 }
 
 async function loadPatternHorizonOptions(factor) {
-  const response = await fetch(`/api/pattern-factors/${encodeURIComponent(factor)}/horizons`);
-  if (!response.ok) return;
-  const data = await response.json();
+  const data = await fetchJson(`/api/pattern-factors/${encodeURIComponent(factor)}/horizons`);
   const select = document.querySelector("#pattern-horizon-input");
   const currentValue = select.value;
   const horizons = data.horizons ?? [];
@@ -1261,9 +1339,7 @@ async function loadPatternHorizonOptions(factor) {
 }
 
 async function loadHorizonOptions(factor) {
-  const response = await fetch(`/api/factors/${encodeURIComponent(factor)}/horizons`);
-  if (!response.ok) return;
-  const data = await response.json();
+  const data = await fetchJson(`/api/factors/${encodeURIComponent(factor)}/horizons`);
   const select = document.querySelector("#horizon-input");
   const currentValue = select.value;
   const horizons = data.horizons ?? [];
@@ -1301,28 +1377,18 @@ document.querySelector("#pattern-query-form").addEventListener("submit", (event)
 
 async function bootDashboard() {
   const factors = await loadFactorOptions();
-  const patternFactors = await loadPatternFactorOptions();
-  await loadCandidateMetadata(factors);
-  await loadPatternFactorMetadata();
   const initialFactor = factors[0] ?? "";
   const factorInput = document.querySelector("#factor-input");
   factorInput.value = initialFactor;
-  if (!initialFactor) {
-    document.querySelector("#dataset-label").textContent = "暂无已完成的因子评测结果";
-    return;
-  }
-  await loadHorizonOptions(initialFactor);
-  await loadCandidateLibrary();
-  await loadPatternLibrary();
-  const initialPatternFactor = patternFactors[0] ?? "";
-  if (initialPatternFactor) {
-    document.querySelector("#pattern-factor-input").value = initialPatternFactor;
-    await loadPatternHorizonOptions(initialPatternFactor);
-  }
   setActiveTopNav("#candidate-factor-library");
   setActiveCandidateSubnav("candidate-factor-library");
   setActivePatternSubnav("pattern-factor-library");
   showCandidateLibrary();
+  await loadViewData("candidate-factor-library");
+
+  if (!initialFactor) {
+    document.querySelector("#dataset-label").textContent = "暂无已完成的因子评测结果";
+  }
 }
 
 document.querySelector("#factor-input").addEventListener("change", (event) => {

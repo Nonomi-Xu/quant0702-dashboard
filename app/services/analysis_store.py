@@ -14,16 +14,26 @@ class AnalysisStore:
         self.pattern_metadata_file = data_dir / "pattern-factor-metadata.json"
         self.factor_results_dir = data_dir / "factors"
         self.pattern_results_dir = data_dir / "pattern_factors"
+        self._json_cache: dict[Path, tuple[float, dict[str, Any]]] = {}
+
+    def _read_json_object(self, target_file: Path) -> dict[str, Any]:
+        if not target_file.exists():
+            return {}
+
+        mtime = target_file.stat().st_mtime
+        cached = self._json_cache.get(target_file)
+        if cached and cached[0] == mtime:
+            return cached[1]
+
+        payload = json.loads(target_file.read_text(encoding="utf-8"))
+        self._json_cache[target_file] = (mtime, payload)
+        return payload
 
     def read_factor_metadata(self) -> dict[str, dict[str, Any]]:
-        if not self.metadata_file.exists():
-            return {}
-        return json.loads(self.metadata_file.read_text(encoding="utf-8"))
+        return self._read_json_object(self.metadata_file)
 
     def read_pattern_factor_metadata(self) -> dict[str, dict[str, Any]]:
-        if not self.pattern_metadata_file.exists():
-            return {}
-        return json.loads(self.pattern_metadata_file.read_text(encoding="utf-8"))
+        return self._read_json_object(self.pattern_metadata_file)
 
     def _has_analysis_result(self, factor_dir: Path) -> bool:
         return any(
@@ -44,10 +54,11 @@ class AnalysisStore:
         return sorted(factors)
 
     def factor_options(self, factors: list[str]) -> list[dict[str, str]]:
-        return [{"value": factor, "label": self.factor_display_label(factor)} for factor in factors]
-
-    def factor_display_label(self, factor: str) -> str:
         metadata = self.read_factor_metadata()
+        return [{"value": factor, "label": self.factor_display_label(factor, metadata)} for factor in factors]
+
+    def factor_display_label(self, factor: str, metadata: dict[str, dict[str, Any]] | None = None) -> str:
+        metadata = metadata if metadata is not None else self.read_factor_metadata()
         factor_metadata = metadata.get(factor, {})
         return (
             factor_metadata.get("display_label")
@@ -56,8 +67,8 @@ class AnalysisStore:
             or factor
         )
 
-    def pattern_factor_display_label(self, factor: str) -> str:
-        metadata = self.read_pattern_factor_metadata()
+    def pattern_factor_display_label(self, factor: str, metadata: dict[str, dict[str, Any]] | None = None) -> str:
+        metadata = metadata if metadata is not None else self.read_pattern_factor_metadata()
         factor_metadata = metadata.get(factor, {})
         return (
             factor_metadata.get("display_label")
@@ -78,7 +89,8 @@ class AnalysisStore:
         return sorted(self.read_pattern_factor_metadata().keys())
 
     def pattern_factor_options(self, factors: list[str]) -> list[dict[str, str]]:
-        return [{"value": factor, "label": self.pattern_factor_display_label(factor)} for factor in factors]
+        metadata = self.read_pattern_factor_metadata()
+        return [{"value": factor, "label": self.pattern_factor_display_label(factor, metadata)} for factor in factors]
 
     def summary_with_display_factor(self, summary: dict[str, Any], factor: str) -> dict[str, Any]:
         row = dict(summary)
