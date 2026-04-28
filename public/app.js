@@ -426,30 +426,26 @@ function setActiveTopNav(targetHref) {
   }
 
   const candidateGroup = document.querySelector('[data-nav-group="candidate-factor"]');
-  const candidateTrigger = candidateGroup?.querySelector(".top-nav-trigger");
-  if (candidateGroup && candidateTrigger) {
-    if (targetHref === "#candidate-factor-library") {
-      candidateGroup.classList.add("active");
-      candidateTrigger.classList.add("active");
-      return;
-    }
+  if (candidateGroup && targetHref === "#candidate-factor-library") {
+    candidateGroup.classList.add("active");
+    return;
   }
 
   const patternGroup = document.querySelector('[data-nav-group="pattern-factor"]');
-  const patternTrigger = patternGroup?.querySelector(".top-nav-trigger");
-  if (patternGroup && patternTrigger && targetHref === "#pattern-factor-library") {
+  if (patternGroup && targetHref === "#pattern-factor-library") {
     patternGroup.classList.add("active");
-    patternTrigger.classList.add("active");
   }
 }
 
 function setActiveCandidateSubnav(targetView) {
+  document.querySelectorAll(".top-subnav-item").forEach((item) => item.classList.remove("active"));
   document.querySelectorAll('[data-nav-group="candidate-factor"] .top-subnav-item').forEach((item) => {
     item.classList.toggle("active", item.dataset.viewTarget === targetView);
   });
 }
 
 function setActivePatternSubnav(targetView) {
+  document.querySelectorAll(".top-subnav-item").forEach((item) => item.classList.remove("active"));
   document.querySelectorAll('[data-nav-group="pattern-factor"] .top-subnav-item').forEach((item) => {
     item.classList.toggle("active", item.dataset.viewTarget === targetView);
   });
@@ -1382,7 +1378,6 @@ async function bootDashboard() {
   factorInput.value = initialFactor;
   setActiveTopNav("#candidate-factor-library");
   setActiveCandidateSubnav("candidate-factor-library");
-  setActivePatternSubnav("pattern-factor-library");
   showCandidateLibrary();
   await loadViewData("candidate-factor-library");
 
