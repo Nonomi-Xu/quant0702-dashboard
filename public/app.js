@@ -328,40 +328,32 @@ function showPatternFactorDetail() {
 }
 
 function navigateTopView(targetView) {
+  setActiveNavigation(targetView);
   if (targetView === "candidate-factor-library") {
-    setActiveTopNav("#candidate-factor-library");
-    setActiveCandidateSubnav(targetView);
     showCandidateLibrary();
     loadViewData(targetView);
     return;
   }
 
   if (targetView === "candidate-factor-dashboard") {
-    setActiveTopNav("#candidate-factor-library");
-    setActiveCandidateSubnav(targetView);
     showCandidateDashboard();
     loadViewData(targetView);
     return;
   }
 
   if (targetView === "factor-filter-rules") {
-    setActiveTopNav("#factor-filter-rules");
     showFactorFilterRules();
     loadViewData(targetView);
     return;
   }
 
   if (targetView === "pattern-factor-library") {
-    setActiveTopNav("#pattern-factor-library");
-    setActivePatternSubnav(targetView);
     showPatternFactorLibrary();
     loadViewData(targetView);
     return;
   }
 
   if (targetView === "pattern-factor-dashboard") {
-    setActiveTopNav("#pattern-factor-library");
-    setActivePatternSubnav(targetView);
     showPatternFactorDashboard();
     loadViewData(targetView);
   }
@@ -414,9 +406,37 @@ function loadViewData(targetView, { force = false } = {}) {
   return Promise.resolve();
 }
 
-function setActiveTopNav(targetHref) {
+function clearActiveNavigation() {
   document.querySelectorAll(".top-nav-item").forEach((navItem) => navItem.classList.remove("active"));
   document.querySelectorAll(".top-nav-group").forEach((group) => group.classList.remove("active"));
+  document.querySelectorAll(".top-subnav-item").forEach((item) => item.classList.remove("active"));
+}
+
+function blurActiveNavigationItem() {
+  const activeElement = document.activeElement;
+  if (activeElement?.matches?.(".top-nav-item, .top-subnav-item")) {
+    activeElement.blur();
+  }
+}
+
+function setActiveNavigation(targetView) {
+  clearActiveNavigation();
+
+  const exactSubnav = document.querySelector(`.top-subnav-item[data-view-target="${targetView}"]`);
+  if (exactSubnav) {
+    exactSubnav.classList.add("active");
+    blurActiveNavigationItem();
+    return;
+  }
+
+  if (targetView === "factor-filter-rules") {
+    setActiveTopNav("#factor-filter-rules");
+  }
+
+  blurActiveNavigationItem();
+}
+
+function setActiveTopNav(targetHref) {
   if (!targetHref) return;
 
   const directItem = document.querySelector(`.top-nav-item[href="${targetHref}"]`);
@@ -438,14 +458,14 @@ function setActiveTopNav(targetHref) {
 }
 
 function setActiveCandidateSubnav(targetView) {
-  document.querySelectorAll(".top-subnav-item").forEach((item) => item.classList.remove("active"));
+  clearActiveNavigation();
   document.querySelectorAll('[data-nav-group="candidate-factor"] .top-subnav-item').forEach((item) => {
     item.classList.toggle("active", item.dataset.viewTarget === targetView);
   });
 }
 
 function setActivePatternSubnav(targetView) {
-  document.querySelectorAll(".top-subnav-item").forEach((item) => item.classList.remove("active"));
+  clearActiveNavigation();
   document.querySelectorAll('[data-nav-group="pattern-factor"] .top-subnav-item').forEach((item) => {
     item.classList.toggle("active", item.dataset.viewTarget === targetView);
   });
@@ -1081,8 +1101,7 @@ function activateFactorFromTable(factor, horizon) {
 
 function activatePatternFactorFromTable(factor, horizon) {
   showPatternFactorDetail();
-  setActiveTopNav("#pattern-factor-library");
-  setActivePatternSubnav("pattern-factor-dashboard");
+  setActiveNavigation("pattern-factor-dashboard");
   const factorInput = document.querySelector("#pattern-factor-input");
   factorInput.value = factor;
   loadPatternHorizonOptions(factor)
@@ -1376,8 +1395,7 @@ async function bootDashboard() {
   const initialFactor = factors[0] ?? "";
   const factorInput = document.querySelector("#factor-input");
   factorInput.value = initialFactor;
-  setActiveTopNav("#candidate-factor-library");
-  setActiveCandidateSubnav("candidate-factor-library");
+  setActiveNavigation("candidate-factor-library");
   showCandidateLibrary();
   await loadViewData("candidate-factor-library");
 
